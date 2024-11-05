@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1"
+  },
+  "name": "cs261-frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT"
+}
