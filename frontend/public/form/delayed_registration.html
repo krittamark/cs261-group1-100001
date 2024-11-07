@@ -157,7 +157,9 @@
                 <th>รหัสวิชา</th>
                 <th>ชื่อวิชา</th>
                 <th>Section</th>
-                <th>วัน/เวลา</th>
+                <th>วัน</th>
+                <th>เวลาเรียน</th>
+                <th>ถึงเวลา</th>
                 <th>หน่วยกิต</th>
               </tr>
             </thead>
@@ -186,12 +188,35 @@
                   />
                 </td>
                 <td>
-                  <input
-                    type="datetime-local"
-                    name="course[1][datetime]"
-                    class="table-input"
-                  />
+                  <select id="course[1][day]" class="table-input">
+                    <option selected>วันที่เรียน</option>
+                    <!-- TODO: =เพิ่ม options -->
+                    <option>จันทร์</option>
+                    <option>อังคาร</option>
+                    <option>พุธ</option>
+                    <option>พฤหัสบดี</option>
+                    <option>ศุกร์</option>
+                    <option>เสาร์</option>
+                    <option>อาทิตย์</option>
+                  </select>
                 </td>
+                <td>
+                  <div>
+                    <input
+                      type="time"
+                      name="course[1][timeStart]"
+                      class="table-input time-input"
+                      placeholder="Start Time"
+                    />
+                </td>
+                <td>
+                  <input
+                    type="time"
+                    name="course[1][timeEnd]"
+                    class="table-input time-input"
+                    placeholder="End Time"
+                  />
+                
                 <td>
                   <input
                     type="text"
@@ -224,12 +249,35 @@
                   />
                 </td>
                 <td>
-                  <input
-                    type="datetime-local"
-                    name="course[2][datetime]"
-                    class="table-input"
-                  />
+                  <select id="course[2][day]" class="table-input">
+                    <option selected>วันที่เรียน</option>
+                    <!-- TODO: =เพิ่ม options -->
+                    <option>จันทร์</option>
+                    <option>อังคาร</option>
+                    <option>พุธ</option>
+                    <option>พฤหัสบดี</option>
+                    <option>ศุกร์</option>
+                    <option>เสาร์</option>
+                    <option>อาทิตย์</option>
+                  </select>
                 </td>
+                <td>
+                  <div>
+                    <input
+                      type="time"
+                      name="course[2][timeStart]"
+                      class="table-input time-input"
+                      placeholder="Start Time"
+                    />
+                </td>
+                <td>
+                  <input
+                    type="time"
+                    name="course[2][timeEnd]"
+                    class="table-input time-input"
+                    placeholder="End Time"
+                  />
+                
                 <td>
                   <input
                     type="text"
@@ -262,12 +310,35 @@
                   />
                 </td>
                 <td>
-                  <input
-                    type="datetime-local"
-                    name="course[3][datetime]"
-                    class="table-input"
-                  />
+                  <select id="course[3][day]" class="table-input">
+                    <option selected>วันที่เรียน</option>
+                    <!-- TODO: =เพิ่ม options -->
+                    <option>จันทร์</option>
+                    <option>อังคาร</option>
+                    <option>พุธ</option>
+                    <option>พฤหัสบดี</option>
+                    <option>ศุกร์</option>
+                    <option>เสาร์</option>
+                    <option>อาทิตย์</option>
+                  </select>
                 </td>
+                <td>
+                  <div>
+                    <input
+                      type="time"
+                      name="course[3][timeStart]"
+                      class="table-input time-input"
+                      placeholder="Start Time"
+                    />
+                </td>
+                <td>
+                  <input
+                    type="time"
+                    name="course[3][timeEnd]"
+                    class="table-input time-input"
+                    placeholder="End Time"
+                  />
+                
                 <td>
                   <input
                     type="text"
