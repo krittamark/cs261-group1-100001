@@ -19,28 +19,17 @@ body {
   color: #757575;
   display: flex;
   align-items: center;
-  margin-top: 0; /* กำหนดให้ชิดด้านบน */
+  margin-top: 0;
 }
-.back-link:hover {
-  color: #c30e2f; /* เปลี่ยนสีข้อความเมื่อโฮเวอร์ */
-}
-
-.arrow-icon path {
-  fill: #515151; /* สีปกติของลูกศร */
-  transition: fill 0.3s;
-}
-
-.back-link:hover .arrow-icon path {
-  fill: #c30e2f; /* เปลี่ยนเป็นสีแดงเมื่อโฮเวอร์ */
-}
-
 .sidebar h2 {
   color: #7c0017;
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 10px;
 }
-
+.back-link:hover svg path {
+  fill: #b71c1c; /* สีที่จะเปลี่ยนเมื่อเอาเมาส์ไปวาง */
+}
 .sidebar ul {
   list-style-type: none;
   padding: 0;
