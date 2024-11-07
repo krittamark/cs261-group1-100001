@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>คำร้องลาออก</title>
+    <link rel="stylesheet" href="../styles/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="topic">คำร้องลาออก</h1>
+
+      <div class="divider"></div>
+
+      <form class="main-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="date" class="form-label"
+              >วันที่ <span class="required">*</span></label
+            >
+            <input
+              type="date"
+              id="date"
+              name="date"
+              class="form-input"
+              placeholder="DD/MM/YYYY"
+            />
+          </div>
+          <div class="form-group">
+            <label for="full-name" class="form-label"
+              >ชื่อ-นามสกุล (ใส่คำนำหน้า) <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="full-name"
+              name="full_name"
+              class="form-input"
+              placeholder="ชื่อ-นามสกุล"
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="registration-number" class="form-label"
+              >เลขทะเบียน <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="registration-number"
+              name="registration_number"
+              class="form-input"
+              placeholder="เลขทะเบียน"
+            />
+          </div>
+          <div class="form-group">
+            <label for="year" class="form-label"
+              >ชั้นปี <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="year"
+              name="year"
+              class="form-input"
+              placeholder="ชั้นปี"
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="faculty" class="form-label"
+              >คณะ <span class="required">*</span></label
+            >
+            <select id="faculty" name="faculty" class="form-input">
+              <option selected>เลือกคณะของคุณ</option>
+              <!-- Add faculty options here -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="department" class="form-label"
+              >สาขาวิชา <span class="required">*</span></label
+            >
+            <select id="department" name="department" class="form-input">
+              <option selected>เลือกสาขาของคุณ</option>
+              <!-- Add department options here -->
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="mobile-phone" class="form-label"
+              >โทรศัพท์มือถือ <span class="required">*</span></label
+            >
+            <input
+              type="tel"
+              id="mobile-phone"
+              name="mobile_phone"
+              class="form-input"
+              placeholder="โทรศัพท์มือถือ"
+            />
+          </div>
+          <div class="form-group">
+            <label for="email" class="form-label"
+              >Email <span class="required">*</span></label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-input"
+              placeholder="email@example.com"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-address" class="form-label"
+            >ที่อยู่ที่สามารถติดต่อได้ <span class="required">*</span></label
+          >
+          <input
+            type="text"
+            id="contact-address"
+            name="contact_address"
+            class="form-input"
+            placeholder="ที่อยู่"
+          />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="academic-year" class="form-label"
+              >ขอลาออกตั้งแต่ปีการศึกษา <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="academic-year"
+              name="academic_year"
+              class="form-input"
+              placeholder="ปีการศึกษา"
+            />
+          </div>
+          <div class="form-group">
+            <label for="semester" class="form-label"
+              >ภาคการศึกษา <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="semester"
+              name="semester"
+              class="form-input"
+              placeholder="ภาคการศึกษา"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="debt" class="form-label"
+            >มีหนี้ค้างหรือไม่ โปรดระบุ
+            <span class="required">(ถ้าไม่มีไม่ต้องใส่)</span></label
+          >
+          <input
+            type="text"
+            id="debt"
+            name="debt"
+            class="form-input"
+            placeholder="รายละเอียดหนี้ (ถ้ามี)"
+          />
+        </div>
+
+        <div class="form-row radio-group">
+          <label class="form-label"
+            >ต้องการเกรดในภาคเรียนที่ยื่นคำร้องลาออกหรือไม่</label
+          >
+          <div>
+            <input
+              type="radio"
+              id="want-grade"
+              name="grade_request"
+              value="want"
+              class="radio-input"
+            />
+            <label for="want-grade" class="radio-label">ต้องการ</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="dont-want-grade"
+              name="grade_request"
+              value="dont-want"
+              class="radio-input"
+            />
+            <label for="dont-want-grade" class="radio-label">ไม่ต้องการ</label>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="button" class="draft-button">บันทึกแบบร่าง</button>
+          <button type="submit" class="submit-button">ส่งคำร้อง</button>
+        </div>
+      </form>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

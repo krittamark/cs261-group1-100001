@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>คำร้องขอจดทะเบียนรายวิชาข้ามหลักสูตร</title>
+    <link rel="stylesheet" href="../styles/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="topic">คำร้องขอจดทะเบียนรายวิชาข้ามหลักสูตร</h1>
+
+      <div class="divider"></div>
+
+      <form class="main-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="date" class="form-label"
+              >วันที่ <span class="required">*</span></label
+            >
+            <input
+              type="date"
+              id="date"
+              class="form-input"
+              placeholder="DD/MM/YYYY"
+            />
+          </div>
+          <div class="form-group">
+            <label for="subject" class="form-label"
+              >เรื่อง <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="subject"
+              class="form-input"
+              placeholder="เรื่อง"
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="full-name" class="form-label"
+              >ชื่อ-นามสกุล (ใส่คำนำหน้า) <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="full-name"
+              class="form-input"
+              placeholder="ชื่อ-นามสกุล"
+            />
+          </div>
+          <div class="form-group">
+            <label for="registration-number" class="form-label"
+              >เลขทะเบียน <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="registration-number"
+              class="form-input"
+              placeholder="เลขทะเบียน"
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="year" class="form-label"
+              >ชั้นปี <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="year"
+              class="form-input"
+              placeholder="ชั้นปี"
+            />
+          </div>
+          <div class="form-group">
+            <label for="faculty" class="form-label"
+              >คณะ <span class="required">*</span></label
+            >
+
+            <select id="faculty" class="form-input">
+              <option selected>เลือกคณะของคุณ</option>
+              <!-- TODO: =เพิ่ม options -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="department" class="form-label"
+              >สาขาวิชา <span class="required">*</span></label
+            >
+            <select id="department" class="form-input">
+              <option selected>เลือกสาขาของคุณ</option>
+              <!-- TODO: =เพิ่ม options -->
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="contact-address" class="form-label"
+              >ที่อยู่ที่สามารถติดต่อได้ <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="contact-address"
+              class="form-input"
+              placeholder="ที่อยู่"
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="mobile-phone" class="form-label"
+              >โทรศัพท์มือถือ <span class="required">*</span></label
+            >
+            <input
+              type="tel"
+              id="mobile-phone"
+              class="form-input"
+              placeholder="โทรศัพท์มือถือ"
+            />
+          </div>
+          <div class="form-group">
+            <label for="email" class="form-label"
+              >Email <span class="required">*</span></label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-input"
+              placeholder="email@example.com"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="advisor" class="form-label"
+            >อาจารย์ที่ปรึกษา <span class="required">*</span></label
+          >
+          <input
+            type="text"
+            id="advisor"
+            class="form-input"
+            placeholder="อาจารย์ที่ปรึกษา"
+          />
+        </div>
+
+        <div class="form-group">
+          <p class="table-label">มีความประสงค์ขอจดทะเบียนล่าช้าในรายวิชา</p>
+          <table class="course-table">
+            <thead>
+              <tr>
+                <th>ลำดับ</th>
+                <th>รหัสวิชา</th>
+                <th>ชื่อวิชา</th>
+                <th>Section</th>
+                <th>วัน/เวลา</th>
+                <th>หน่วยกิต</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>
+                  <input
+                    type="text"
+                    name="course[1][code]"
+                    class="table-input"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="course[1][name]"
+                    class="table-input"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="course[1][section]"
+                    class="table-input"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="datetime-local"
+                    name="course[1][datetime]"
+                    class="table-input"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="course[1][credits]"
+                    class="table-input"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>
+                  <input
+                    type="text"
+                    name="course[2][code]"
+                    class="table-input"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="course[2][name]"
+                    class="table-input"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="course[2][section]"
+                    class="table-input"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="datetime-local"
+                    name="course[2][datetime]"
+                    class="table-input"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="course[2][credits]"
+                    class="table-input"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>
+                  <input
+                    type="text"
+                    name="course[3][code]"
+                    class="table-input"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="course[3][name]"
+                    class="table-input"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="course[3][section]"
+                    class="table-input"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="datetime-local"
+                    name="course[3][datetime]"
+                    class="table-input"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="course[3][credits]"
+                    class="table-input"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="form-group">
+          <label for="additional-explanation" class="form-label"
+            >ชี้แจงเหตุผลเพิ่มเติม <span class="required">*</span></label
+          >
+          <textarea
+            id="additional-explanation"
+            class="form-input explanation-box"
+          ></textarea>
+        </div>
+
+        <div class="button-group">
+          <button type="button" class="draft-button">บันทึกแบบร่าง</button>
+          <button type="submit" class="submit-button">ส่งคำร้อง</button>
+        </div>
+      </form>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
