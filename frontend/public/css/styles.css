@@ -1,10 +1,11 @@
-*{
+* {
   font-family: "Noto Sans Thai", sans-serif !important;
 }
+
 body {
   margin: 0;
-  font-family: "Noto Sans Thai", sans-serif !important;
   background-color: white;
+  font-weight: bold; /* ทำให้ฟอนต์ทุกตัวใน body เป็น bold */
 }
 
 .wrapper {
@@ -12,40 +13,45 @@ body {
 }
 
 .sidebar {
-  width: 250px;
+  width: 350px; /* ขยายความกว้างของ sidebar ให้ใหญ่ขึ้น */
   background-color: #f0f0f0;
-  padding: 0px ;
+  padding: 25px; /* เพิ่ม padding ให้กับ sidebar */
 }
+
 .back-link {
   text-decoration: none;
-  font-size: 18px;
+  font-size: 24px;
   color: #757575;
   display: flex;
   align-items: center;
   margin-top: 0;
 }
+
 .sidebar h2 {
   color: #7c0017;
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 10px;
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
+
 .back-link:hover svg path {
-  fill: #b71c1c; /* สีที่จะเปลี่ยนเมื่อเอาเมาส์ไปวาง */
+  fill: #b71c1c;
 }
+
 .sidebar ul {
   list-style-type: none;
   padding: 0;
 }
 
 .sidebar ul li {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .sidebar ul li a {
   color: #757575;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 22px;
+  font-weight: bold;
 }
 
 .sidebar ul li a:hover {
@@ -54,24 +60,24 @@ body {
 
 .container {
   flex: 1;
-  max-width: 800px;
-  padding: 20px;
+  max-width: 750px;
+  padding: 25px;
   margin: 0 auto;
 }
 
 .topic {
   color: #7c0017;
-  font-size: 32px;
-  font-weight: 600;
+  font-size: 44px;
+  font-weight: bold;
   text-align: left;
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .divider {
   width: 100%;
   height: 3px;
   background: #fbd13f;
-  margin: 20px 0;
+  margin: 25px 0;
 }
 
 .main-form {
@@ -81,98 +87,104 @@ body {
 
 .form-row {
   display: flex;
-  gap: 10px;
+  gap: 20px;
   flex-wrap: wrap;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   flex: 1;
 }
 
 .form-label {
   color: black;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: bold;
 }
 
 .required {
   color: #c30e2f;
+  font-weight: bold;
 }
 
 .form-input {
   width: 100%;
-  padding: 10px;
-  font-size: 16px;
+  padding: 16px;
+  font-size: 22px;
   border: 1px solid #b4b4b4;
-  border-radius: 5px;
+  border-radius: 10px;
   box-sizing: border-box;
+  font-weight: normal; /* ตั้งค่าฟอนต์ใน input เป็น normal */
 }
 
 .explanation-box {
-  height: 100px;
+  height: 160px;
+  font-weight: normal; /* ตั้งค่าฟอนต์ใน textarea เป็น normal */
 }
 
 .button-group {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .submit-button {
-  width: 180px;
-  height: 50px;
+  width: 220px;
+  height: 65px;
   background: #c30e2f;
   color: white;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: bold;
   border: none;
   border-radius: 5px;
 }
 
 .draft-button {
-  width: 180px;
-  height: 50px;
+  width: 220px;
+  height: 65px;
   background: #e8e8e8;
   color: black;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: bold;
   border: none;
   border-radius: 5px;
 }
 
 .table-label {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: bold;
   color: black;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .course-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  margin-top: 15px;
   table-layout: fixed;
 }
 
 .course-table th,
 .course-table td {
   border: 1px solid #b4b4b4;
-  padding: 8px;
+  padding: 14px;
   text-align: center;
-  font-size: 14px;
+  font-size: 20px;
+  font-weight: normal; /* ตั้งค่าฟอนต์ในเซลล์ของตารางเป็น normal */
 }
 
 .course-table th {
   background-color: #f0f0f0;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .table-input {
   width: 100%;
-  padding: 5px;
+  padding: 12px;
   border: none;
   text-align: left;
   box-sizing: border-box;
-  font-size: 14px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: normal; /* ตั้งค่าฟอนต์ในช่องกรอกข้อมูลของตารางเป็น normal */
 }
