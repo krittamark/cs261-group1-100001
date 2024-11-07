@@ -1,6 +1,9 @@
+*{
+  font-family: "Noto Sans Thai", sans-serif !important;
+}
 body {
   margin: 0;
-  font-family: Roboto, sans-serif;
+  font-family: "Noto Sans Thai", sans-serif !important;
   background-color: white;
 }
 
