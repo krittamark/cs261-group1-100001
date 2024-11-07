@@ -12,17 +12,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Collect all inputs in the form
       form.querySelectorAll('input, select, textarea').forEach((input) => {
+        let fieldName = input.id || input.name; // Use id or fallback to name
+
         if (input.type === 'radio') {
           // Check if the radio is checked
           if (input.checked) {
-            formData[input.name] = input.value;
+            formData[fieldName] = input.value;
           }
         } else if (input.type === 'checkbox') {
           // Handle checkboxes
-          formData[input.name] = input.checked;
+          formData[fieldName] = input.checked;
         } else {
           // Handle other input types
-          formData[input.id] = input.value;
+          formData[fieldName] = input.value;
         }
       });
 
