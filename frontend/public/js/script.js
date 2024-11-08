@@ -68,6 +68,7 @@ function showSuccessPopup(title, message) {
   popup.style.flexDirection = 'column'; // Stack elements vertically
   popup.style.alignItems = 'center'; // Center items horizontally
   popup.style.justifyContent = 'center'; // Center items vertically
+  popup.style.gap = '20px'; // Add space between the elements
 
   // Add green circle with white checkmark inside
   popup.innerHTML = `
