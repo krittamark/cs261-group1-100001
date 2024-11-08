@@ -132,8 +132,10 @@ body {
 
 .button-group {
   display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
+  justify-content:right;
+  gap: 50px;
+  margin-bottom: 30px;
+  
 }
 
 .submit-button {
@@ -144,7 +146,7 @@ body {
   font-size: 22px;
   font-weight: bold;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .submit-button:hover {
@@ -160,7 +162,7 @@ body {
   font-size: 22px;
   font-weight: bold;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .draft-button:hover {
