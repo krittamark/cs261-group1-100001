@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (Object.keys(studentData).length > 0) {
     autofillForm(studentData);
   }
-  
+
   function autofillForm(data) {
     // Get the topic text
     const topicElement = document.querySelector('h1.topic');
@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Function to display a success popup
   function showSuccessPopup(title, message) {
     const overlay = document.createElement('div');
     overlay.id = 'popup-overlay';
@@ -61,24 +60,38 @@ document.addEventListener('DOMContentLoaded', function () {
     popup.style.justifyContent = 'center';
     popup.style.gap = '20px';
 
+    // Set popup HTML content
     popup.innerHTML = `
-    <div style="width: 80px; height: 80px; background-color: #3BAD3E; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
-      <span style="font-size: 40px; color: white; font-weight: bold;">&#10004;</span>
-    </div>
-    <h2 style="font-size: 35px; color: #333; margin: 0 0 10px;">${title}</h2>
-    <p style="font-size: 20px; color: #666; margin: 0 0 20px;">${message}</p>
-    <button onclick="goToHomePage()" style="padding: 10px 20px; font-size: 16px; color: white; background-color: #d9534f; border: none; border-radius: 5px; cursor: pointer; display: block; margin: 0 auto;">
-      กลับสู่หน้าหลัก
-    </button>
-  `;
+      <div style="width: 80px; height: 80px; background-color: #3BAD3E; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+        <span style="font-size: 40px; color: white; font-weight: bold;">&#10004;</span>
+      </div>
+      <h2 style="font-size: 35px; color: #333; margin: 0 0 10px;">${title}</h2>
+      <p style="font-size: 20px; color: #666; margin: 0 0 20px;">${message}</p>
+    `;
+
+    // Create button element with inline arrow function to redirect
+    const button = document.createElement('button');
+    button.innerText = 'กลับสู่หน้าหลัก';
+    button.style.padding = '10px 20px';
+    button.style.fontSize = '16px';
+    button.style.color = 'white';
+    button.style.backgroundColor = '#d9534f';
+    button.style.border = 'none';
+    button.style.borderRadius = '5px';
+    button.style.cursor = 'pointer';
+    button.style.display = 'block';
+    button.style.margin = '0 auto';
+
+    // Inline function to redirect
+    button.onclick = () => {
+      window.location.href = 'index.html';
+    };
+
+    // Append button to popup
+    popup.appendChild(button);
 
     overlay.appendChild(popup);
     document.body.appendChild(overlay);
-  }
-
-  // Function to close the popup and redirect to index.html
-  function goToHomePage() {
-    window.location.href = 'index.html';
   }
 
   // Form validation logic
