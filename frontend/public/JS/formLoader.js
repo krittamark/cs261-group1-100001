@@ -29,7 +29,7 @@ const forms = {
             <div class="form-row">
                 <div>
                     <label for="student-year" class="required-label">ชั้นปี</label>
-                    <input type="number" id="student-year" name="student-year" placeholder="1" required>
+                    <input type="number" id="student-year" name="student-year" value="1" required>
                 </div>
 
                 <div>
@@ -74,7 +74,7 @@ const forms = {
             <div class="form-row">
                 <div>
                     <label for="semester" class="required-label">ภาคการศึกษา</label>
-                    <input type="number" id="semester" name="semester" placeholder="1" required>
+                    <input type="number" id="semester" name="semester" value="1" required>
                 </div>
 
                 <div>
@@ -113,7 +113,7 @@ const forms = {
 
             <div class="button-row">
                 <div class="draft-btn">
-                    <input type="submit" value="บันทึกแบบร่าง">
+                    <input type="submit" value="บันทึกแบบร่าง" onclick="saveDraft(event)">
                 </div>
                 <div class="send-btn">
                     <input type="submit" value="ส่งคำร้อง">
@@ -152,7 +152,7 @@ const forms = {
             <div class="form-row">
                 <div>
                     <label for="student-year" class="required-label">ชั้นปี</label>
-                    <input type="number" id="student-year" name="student-year" placeholder="1" required>
+                    <input type="number" id="student-year" name="student-year" value="1" required>
                 </div>
 
                 <div>
@@ -197,7 +197,7 @@ const forms = {
             <div class="form-row">
                 <div>
                     <label for="semester" class="required-label">ภาคการศึกษา</label>
-                    <input type="number" id="semester" name="semester" placeholder="1" required>
+                    <input type="number" id="semester" name="semester" value="1" required>
                 </div>
 
                 <div>
@@ -235,7 +235,7 @@ const forms = {
 
             <div class="button-row">
                 <div class="draft-btn">
-                    <input type="submit" value="บันทึกแบบร่าง">
+                    <input type="submit" value="บันทึกแบบร่าง" onclick="saveDraft(event)">
                 </div>
                 <div class="send-btn">
                     <input type="submit" value="ส่งคำร้อง">
@@ -274,7 +274,7 @@ const forms = {
             <div class="form-row">
                 <div>
                     <label for="student-year">ชั้นปี</label>
-                    <input type="number" id="student-year" name="student-year" placeholder="1" required>
+                    <input type="number" id="student-year" name="student-year" value="1" required>
                 </div>
 
                 <div>
@@ -319,7 +319,7 @@ const forms = {
             <div class="form-row">
                 <div>
                     <label for="semester">ภาคการศึกษา</label>
-                    <input type="number" id="semester" name="semester" placeholder="1" required>
+                    <input type="number" id="semester" name="semester" value="1" required>
                 </div>
 
                 <div>
@@ -357,7 +357,7 @@ const forms = {
 
             <div class="button-row">
                 <div class="draft-btn">
-                    <input type="submit" value="บันทึกแบบร่าง">
+                    <input type="submit" value="บันทึกแบบร่าง" onclick="saveDraft(event)">
                 </div>
                 <div class="send-btn">
                     <input type="submit" value="ส่งคำร้อง">
@@ -392,7 +392,7 @@ const forms = {
             <div class="form-row">
                 <div>
                     <label for="student-year">ชั้นปี</label>
-                    <input type="number" id="student-year" name="student-year" placeholder="1" required>
+                    <input type="number" id="student-year" name="student-year" value="1" required>
                 </div>
 
                 <div>
@@ -437,7 +437,7 @@ const forms = {
             <div class="form-row">
                 <div>
                     <label for="semester">ภาคการศึกษา</label>
-                    <input type="number" id="semester" name="semester" placeholder="1" required>
+                    <input type="number" id="semester" name="semester" value="1" required>
                 </div>
 
                 <div>
@@ -455,7 +455,7 @@ const forms = {
 
             <div class="button-row">
                 <div class="draft-btn">
-                    <input type="submit" value="บันทึกแบบร่าง">
+                    <input type="submit" value="บันทึกแบบร่าง" onclick="saveDraft(event)">
                 </div>
                 <div class="send-btn">
                     <input type="submit" value="ส่งคำร้อง">
@@ -466,17 +466,10 @@ const forms = {
 };
 
 function loadForm(formType) {
-    const container = document.getElementById("form-container");
-    container.innerHTML = forms[formType]; // Load the selected form
-
-    // Get all form elements
-    const formElements = container.querySelectorAll('form input, form select, form textarea');
-
-    // Add event listeners to each form element
-    formElements.forEach((element) => {
-        element.addEventListener('input', function(event) {
-            console.log(`Input changed in ${formType} form:`, event.target.value);
-            // Here you can handle the form input (e.g., store data, validation, etc.)
-        });
-    });
+    const container = document.getElementById('form-container'); // Ensure this container exists
+    if (forms[formType]) {
+        container.innerHTML = forms[formType]; // Dynamically inject the form HTML
+    } else {
+        container.innerHTML = `<p>Error: Form type "${formType}" not found.</p>`;
+    }
 }

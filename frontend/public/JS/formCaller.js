@@ -1,21 +1,24 @@
-// // Function to get the form type from the API
-// function getFormType(id) {
-//     // Make an API request to get the form data
-//     fetch(`/api/application?id=${id}`)
-//         .then(response => response.json())
+// // Fetch form type from API and dynamically load the form
+// function getFormType(applicationId) {
+//     fetch(`/api/application?id=${applicationId}`)
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error(`HTTP error! Status: ${response.status}`);
+//             }
+//             return response.json();
+//         })
 //         .then(data => {
-//             const formType = data.type; // Assuming the API returns a field `type`
-//             loadForm(formType); // Load the form based on the type
+//             const formType = data.type; // Ensure `data.type` exists and is valid
+//             loadForm(formType);         // Call the loader function to display the form
 //         })
 //         .catch(error => {
 //             console.error('Error fetching form type:', error);
 //         });
 // }
 
-// // Example: Get the form type for a specific application ID
-// const applicationId = 123; // This could be dynamically set
+// // Example usage
+// const applicationId = 123; // Example ID
 // getFormType(applicationId);
 
-
-//* for testing container.innerHTML in fromLoader.js
-loadForm("resign")
+//* for testing
+loadForm("withdraw_course");
