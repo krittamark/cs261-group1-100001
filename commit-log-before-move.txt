@@ -1,0 +1,75 @@
+commit f3e5e7e37b12ef324b1820ce910dda4c751b7b7c
+Author: Jame-AS <aphinut.sue@dome.tu.ac.th>
+Date:   Fri Nov 8 14:53:05 2024 +0700
+
+    feat: Integrated with the initial project structure
+
+commit 86f42d8227b276396d7ffd3d23d43ecb710205ec
+Author: Jame-AS <aphinut.sue@dome.tu.ac.th>
+Date:   Fri Nov 8 14:28:24 2024 +0700
+
+    fix(form): Change form type's name
+    
+    - late_register -> delay_registration
+    - drop_W -> withdraw_course
+    - skip_course -> reg_request
+    - leave -> resign
+
+commit 7978a6d8e56af4c490eb17bae374a663e4e7e4f9
+Author: Jame-AS <aphinut.sue@dome.tu.ac.th>
+Date:   Fri Nov 8 14:19:51 2024 +0700
+
+    fix: fix sidebar navigation style
+
+commit 68a3b56edf63bea49c8264b3c763e8debeb956ad
+Author: Jame-AS <aphinut.sue@dome.tu.ac.th>
+Date:   Fri Nov 8 10:40:10 2024 +0700
+
+    fix: Changed font-family
+
+commit 7cc725f018c19885c2efa56d3ea8bcc186f4fdd4
+Author: Jame-AS <aphinut.sue@dome.tu.ac.th>
+Date:   Fri Nov 8 10:23:30 2024 +0700
+
+    fix(form): Changed a gap between qustion in the same row and added red star for requried qusetion
+    fix(style): Changed form size to fix the screen
+    feat: Added navigation bar##
+
+commit 6a8e6871333776786c38a12aadcbc947e01f8069
+Author: Jame-AS <aphinut.sue@dome.tu.ac.th>
+Date:   Fri Nov 8 09:03:40 2024 +0700
+
+    fix(style): fixing button style
+    
+    - Change button color for draft button and save button
+    - Change button layout to middle of the row with 3rem gap
+    - Make buttons' text bold#
+
+commit 2d33760c357ac755df4901a54624d3fd36feb47d
+Author: Jame-AS <aphinut.sue@dome.tu.ac.th>
+Date:   Thu Nov 7 23:38:45 2024 +0700
+
+    fix(form): changing some question in a form
+    
+    - Phone number -> Student phone number
+    - House tel. number -> Parent phone number
+    
+    fix(style): fixing layout for some question and adding placeholder
+    
+    - Fixed layout for student yr., faculty, department are in the same line
+    - Switched row between adviser and phone number
+    - Reduced the unnecessary column and fix row from 3 rows to 1 row
+    - Added placeholder in student yr., address, student and parent phone number, advisor's name, academic year, and semester
+    - Removed input type ="radio" in form type is "leave" (is not in document)
+
+commit c173999c2f69aa9d7fcadebe918dceaf3eba5810
+Author: Jame-AS <aphinut.sue@dome.tu.ac.th>
+Date:   Thu Nov 7 19:28:23 2024 +0700
+
+    fix(style): change layout in form
+
+commit bd08a231af32cd9c69fefff0bdf5dc4112686d83
+Author: Jame-AS <aphinut.sue@dome.tu.ac.th>
+Date:   Thu Nov 7 18:39:00 2024 +0700
+
+    feat: add initial code with form layout for U7

@@ -1,0 +1,54 @@
+/* naviStyle.css */
+
+/* Styling for the static navigation */
+.side-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 350px; /* Increased width of the navigation bar */
+    background-color: #f0f0f0;
+    color: #555;
+    padding: 25px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.side-nav h2 {
+    font-size: 26px;
+    color: #7c0017;
+    font-weight: bold;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column; /* Stack arrow and text vertically */
+    align-items: flex-start; /* Align items to the left */
+    margin-top: 20px; /* Move both arrow and text down */
+}
+
+/* Hover effect for back link icon in the side-nav */
+.side-nav h2 a:hover svg path {
+    fill: #b71c1c; /* Change arrow color on hover */
+}
+
+
+.side-nav h2 span {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 75px; /* Indent text for alignment */
+    margin-top: -70px; /* Move text up closer to the arrow */
+}
+
+.back-link {
+    text-decoration: none;
+    font-size: 24px;
+    color: #757575;
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+}
+
+.back-link:hover svg path {
+    fill: #b71c1c;
+}
+
+  

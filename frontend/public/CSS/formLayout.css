@@ -1,0 +1,148 @@
+/* Centering the form container */
+.form {
+    width: 100%;
+    max-width: 100%; /* Make the form take the full width */
+    height: 100%; /* Make the form take up the full height of the screen */
+    padding: 2rem 7rem; /* Padding: 20px top/bottom, 30px left/right */
+    border-radius: 8px;
+    margin: 0; /* Remove margin to make it fill the screen */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Form header styling */
+h1 {
+    text-align: left;
+    font-size: 40px;
+    color: #7b0017;
+    margin-bottom: 20px; /* Margin to ensure it is not too close to the form fields */
+}
+
+hr {
+    border: 1px solid #fbd13f;
+    margin-bottom: 20px;
+}
+
+/* Style each form row */
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 5rem;
+    margin-bottom: 1rem;
+}
+
+.form-row div {
+    display: flex;
+    flex-direction: column; /* Stack label above input */
+    flex: 1; /* Each input group takes equal space */
+}
+
+.radio-type .radio-inline {
+    padding: 10px;
+    margin-right: 3rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.radio-type .radio-inline input {
+    margin-right: 10px;
+}
+
+.form-row label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.3rem;
+}
+
+/* Styling for inputs, selects, and textareas */
+.form-row input,
+.form-row select,
+.form-row textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+}
+
+textarea {
+    height: 150px; /* Fixed height for the textarea */
+    resize: none; /* Disable resizing */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%; /* Ensure it takes full width of its container */
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+table th, table td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ccc;
+}
+
+table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Add the red star to required fields */
+.required-label::after {
+    content: " *";  /* Adds the star after the label text */
+    color: red;     /* Sets the color of the star to red */
+    font-weight: bold;  /* Makes the star bold */
+}
+
+
+/* Button Style */
+.button-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.button-row input[type="submit"] {
+    width: 150px;
+    padding: 8px 0;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Apply background colors directly to inputs within their respective containers */
+.draft-btn input[type="submit"] {
+    background-color: #e8e8e8;
+    color: #000;
+    font-weight: bold;
+}
+
+.send-btn input[type="submit"] {
+    background-color: #c30e2f;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Add hover effect for each button */
+.draft-btn input[type="submit"]:hover {
+    background-color: #d6d6d6;
+}
+
+.send-btn input[type="submit"]:hover {
+    background-color: #a30b28;
+}
