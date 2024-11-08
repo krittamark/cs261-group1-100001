@@ -250,46 +250,46 @@ const forms = {
         <form id="reg-request">
             <div class="form-row">
                 <div>
-                    <label for="edit-date">วันที่</label>
+                    <label for="edit-date" class="required-label">วันที่</label>
                     <input type="date" id="edit-date" name="edit-date" required>
                 </div>
                 <div>
-                    <label for="form-title">เรื่อง</label>
+                    <label for="form-title" class="required-label">เรื่อง</label>
                     <input type="text" id="form-title" name="form-title" value="ขอจดทะเบียนรายวิชาข้ามหลักสูตร" readonly>
                 </div>
             </div>
 
             <div class="form-row">
                 <div>
-                    <label for="full-name">ชื่อ-นามสกุล</label>
+                    <label for="full-name" class="required-label">ชื่อ-นามสกุล</label>
                     <input type="text" id="full-name" name="full-name" readonly>
                 </div>
 
                 <div>
-                    <label for="student-id">เลขทะเบียน</label>
+                    <label for="student-id" class="required-label">เลขทะเบียน</label>
                     <input type="number" id="student-id" name="student-id" readonly>
                 </div>
             </div>
 
             <div class="form-row">
                 <div>
-                    <label for="student-year">ชั้นปี</label>
+                    <label for="student-year" class="required-label">ชั้นปี</label>
                     <input type="number" id="student-year" name="student-year" value="1" required>
                 </div>
 
                 <div>
-                    <label for="faculty">คณะ</label>
+                    <label for="faculty" class="required-label">คณะ</label>
                     <input type="text" id="faculty" name="faculty" readonly>
                 </div>
                 <div>
-                    <label for="department">สาขาวิชา</label>
+                    <label for="department" class="required-label">สาขาวิชา</label>
                     <input type="text" id="department" name="department" readonly>
                 </div>
             </div>
 
             <div class="form-row">
                 <div>
-                    <label for="address">ที่อยู่ที่สามารถติดต่อได้</label>
+                    <label for="address" class="required-label">ที่อยู่ที่สามารถติดต่อได้</label>
                     <input type="text" id="address" name="address" 
                     placeholder="บ้านเลขที่ แขวง/ตำบล เขต/อำเภอ จังหวัด" required>
                 </div>
@@ -297,12 +297,12 @@ const forms = {
 
             <div class="form-row">
                 <div>
-                    <label for="student-number">โทรศัพท์ติดต่อนักศึกษา</label>
+                    <label for="student-number" class="required-label">โทรศัพท์ติดต่อนักศึกษา</label>
                     <input type="tel" id="student-number" name="student-number"
                     placeholder="0XXYYYZZZZ" required>
                 </div>
                 <div>
-                    <label for="parent-number">โทรศัพท์ติดต่อผู้ปกครอง</label>
+                    <label for="parent-number" class="required-label">โทรศัพท์ติดต่อผู้ปกครอง</label>
                     <input type="tel" id="parent-number" name="parent-number"
                     placeholder="0XXYYYZZZZ" required>
                 </div>
@@ -310,7 +310,7 @@ const forms = {
 
             <div class="form-row">
                 <div>
-                    <label for="adviser">อาจารย์ที่ปรึกษา</label>
+                    <label for="adviser" class="required-label">อาจารย์ที่ปรึกษา</label>
                     <input type="text" id="adviser" name="adviser"
                     placeholder="ชื่ออาจารย์ที่ปรึกษา" required>
                 </div>
@@ -318,12 +318,12 @@ const forms = {
 
             <div class="form-row">
                 <div>
-                    <label for="semester">ภาคการศึกษา</label>
+                    <label for="semester" class="required-label">ภาคการศึกษา</label>
                     <input type="number" id="semester" name="semester" value="1" required>
                 </div>
 
                 <div>
-                    <label for="academic-year">ปีการศึกษา</label>
+                    <label for="academic-year" class="required-label">ปีการศึกษา</label>
                     <input type="number" id="academic-year" name="academic-year" placeholder="25XX" required>
                 </div>
             </div>
@@ -350,7 +350,7 @@ const forms = {
 
             <div class="form-row">
                 <div>
-                    <label for="reason">ชี้แจงเหตุผลเพิ่มเติม</label>
+                    <label for="reason" class="required-label">ชี้แจงเหตุผลเพิ่มเติม</label>
                     <textarea id="reason" name="reason" required></textarea>
                 </div>
             </div>
@@ -372,42 +372,42 @@ const forms = {
         <form id="resign">
             <div class="form-row">
                 <div>
-                    <label for="edit-date">วันที่</label>
+                    <label for="edit-date" class="required-label">วันที่</label>
                     <input type="date" id="edit-date" name="edit-date" required>
                 </div>
             </div>
 
             <div class="form-row">
                 <div>
-                    <label for="full-name">ชื่อ-นามสกุล</label>
+                    <label for="full-name" class="required-label">ชื่อ-นามสกุล</label>
                     <input type="text" id="full-name" name="full-name" readonly>
                 </div>
 
                 <div>
-                    <label for="student-id">เลขทะเบียน</label>
+                    <label for="student-id" class="required-label">เลขทะเบียน</label>
                     <input type="number" id="student-id" name="student-id" readonly>
                 </div>
             </div>
 
             <div class="form-row">
                 <div>
-                    <label for="student-year">ชั้นปี</label>
+                    <label for="student-year" class="required-label">ชั้นปี</label>
                     <input type="number" id="student-year" name="student-year" value="1" required>
                 </div>
 
                 <div>
-                    <label for="faculty">คณะ</label>
+                    <label for="faculty" class="required-label">คณะ</label>
                     <input type="text" id="faculty" name="faculty" readonly>
                 </div>
                 <div>
-                    <label for="department">สาขาวิชา</label>
+                    <label for="department" class="required-label">สาขาวิชา</label>
                     <input type="text" id="department" name="department" readonly>
                 </div>
             </div>
 
             <div class="form-row">
                 <div>
-                    <label for="address">ที่อยู่ที่สามารถติดต่อได้</label>
+                    <label for="address" class="required-label">ที่อยู่ที่สามารถติดต่อได้</label>
                     <input type="text" id="address" name="address" 
                     placeholder="บ้านเลขที่ แขวง/ตำบล เขต/อำเภอ จังหวัด" required>
                 </div>
@@ -415,12 +415,12 @@ const forms = {
 
             <div class="form-row">
                 <div>
-                    <label for="student-phone">โทรศัพท์ติดต่อนักศึกษา</label>
+                    <label for="student-phone" class="required-label">โทรศัพท์ติดต่อนักศึกษา</label>
                     <input type="tel" id="student-phone" name="student-phone"
                     placeholder="0XXYYYZZZZ" required>
                 </div>
                 <div>
-                    <label for="parent-phone">โทรศัพท์ติดต่อผู้ปกครอง</label>
+                    <label for="parent-phone" class="required-label">โทรศัพท์ติดต่อผู้ปกครอง</label>
                     <input type="tel" id="parent-phone" name="parent-phone"
                     placeholder="0XXYYYZZZZ" required>
                 </div>
@@ -428,7 +428,7 @@ const forms = {
 
             <div class="form-row">
                 <div>
-                    <label for="adviser">อาจารย์ที่ปรึกษา</label>
+                    <label for="adviser" class="required-label">อาจารย์ที่ปรึกษา</label>
                     <input type="text" id="adviser" name="adviser"
                     placeholder="ชื่ออาจารย์ที่ปรึกษา" required>
                 </div>
@@ -436,12 +436,12 @@ const forms = {
 
             <div class="form-row">
                 <div>
-                    <label for="semester">ภาคการศึกษา</label>
+                    <label for="semester" class="required-label">ภาคการศึกษา</label>
                     <input type="number" id="semester" name="semester" value="1" required>
                 </div>
 
                 <div>
-                    <label for="academic-year">ปีการศึกษา</label>
+                    <label for="academic-year" class="required-label">ปีการศึกษา</label>
                     <input type="number" id="academic-year" name="academic-year" placeholder="25XX" required>
                 </div>
             </div>

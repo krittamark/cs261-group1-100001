@@ -21,4 +21,4 @@
 // getFormType(applicationId);
 
 //* for testing
-loadForm("withdraw_course");
+loadForm("reg_request");
