@@ -31,7 +31,7 @@ commit 7cc725f018c19885c2efa56d3ea8bcc186f4fdd4
 Author: Jame-AS <aphinut.sue@dome.tu.ac.th>
 Date:   Fri Nov 8 10:23:30 2024 +0700
 
-    fix(form): Changed a gap between qustion in the same row and added red star for requried qusetion
+    fix(form): Changed a gap between question in the same row and added red star for required question
     fix(style): Changed form size to fix the screen
     feat: Added navigation bar##
 
