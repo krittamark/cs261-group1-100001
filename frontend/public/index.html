@@ -1,11 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HTML Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หน้าแรก</title>
 </head>
 <body>
-  
+    <h1>ยินดีต้อนรับสู่เว็บไซต์</h1>
+    <p>กรุณาล็อกอินก่อนเข้าถึงเนื้อหา</p>
+    
+    <script>
+        // เช็คสถานะการล็อกอินจาก sessionStorage หรือ localStorage
+        if (!sessionStorage.getItem("isLoggedIn")) {
+            // ถ้าไม่ได้ล็อกอิน, ให้เปลี่ยนเส้นทางไปที่หน้า login
+            window.location.href = "login.html";
+        } else {
+            // ถ้าได้ล็อกอิน, แสดงข้อความต้อนรับ
+            document.body.innerHTML += "<p>คุณได้ล็อกอินแล้ว!</p>";
+        }
+    </script>
 </body>
 </html>

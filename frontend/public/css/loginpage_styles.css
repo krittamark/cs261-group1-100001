@@ -1,0 +1,173 @@
+/* styles.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+  
+  body {
+    background-color: #d3d3d3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .login-box {
+    background-color: #ffffff;
+    width: 320px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    z-index: 1;
+  }
+  
+  .logo {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+  }
+  
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  p {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #666666;
+  }
+  
+  label {
+    font-size: 12px;
+    font-weight: bold;
+    display: block;
+    margin-top: 15px;
+    text-align: left;
+  }
+  
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: 1px solid #cccccc;
+    background-color: #f0f0f0;
+    font-size: 14px;
+  }
+  
+  .password-container {
+    position: relative;
+  }
+  
+  .toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #333333;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .login-button:hover {
+    background-color: #555555;
+  }
+
+  .title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-right: 10px; /* เพิ่มระยะห่างระหว่างข้อความกับรูป */
+}
+
+.title-container h1 {
+    margin-right: 10px; /* เพิ่มระยะห่างระหว่างคำว่า LOGIN กับรูป */
+}
+
+.logo {
+    width: 70px; /* ปรับขนาดรูปตามที่ต้องการ */
+    height: auto;
+}
+
+
+  
+
+  /* Overlay พื้นหลังที่คลุมทั้งหน้าจอ */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* สีพื้นหลังโปร่งแสง */
+  z-index: 1;
+}
+
+/* จัดตำแหน่ง Popup ให้อยู่กึ่งกลาง */
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  width: 300px; /* กำหนดความกว้างตามต้องการ */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  z-index: 2; /* ทำให้ popup อยู่เหนือ overlay */
+}
+
+/* ปุ่ม close ที่อยู่มุมขวาบน */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* ทำให้ Status เป็นสีแดง */
+.red-text {
+  display: inline;
+  color: red;
+  margin-right: 5px;
+}
+
+.error-container {
+  display: flex;
+  align-items: baseline;
+  margin-top: 10px;
+}
