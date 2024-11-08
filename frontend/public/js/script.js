@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
           formData[fieldName] = input.value;
         }
       });
-
+      console.log('Form Data Collected:', formData);
       // Validate form before submission
       if (validateForm(form)) {
         // Show success popup if the form is valid
