@@ -139,6 +139,11 @@ body {
   border-radius: 5px;
 }
 
+.submit-button:hover {
+  background-color: #a1001a; 
+  color: #fff;
+}
+
 .draft-button {
   width: 220px;
   height: 65px;
@@ -148,6 +153,11 @@ body {
   font-weight: bold;
   border: none;
   border-radius: 5px;
+}
+
+.draft-button:hover {
+  background-color: #cfcfcf; 
+  color: #000;
 }
 
 .table-label {
