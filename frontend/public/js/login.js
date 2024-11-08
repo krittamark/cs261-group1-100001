@@ -1,17 +1,13 @@
 function togglePassword() {
   const passwordField = document.getElementById('password');
-  if (passwordField.type === 'password') {
-    passwordField.type = 'text';
-  } else {
-    passwordField.type = 'password';
-  }
+  passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
 }
 
 function submitLogin() {
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
-  // First, authenticate the user
+  // Authenticate the user
   fetch('https://restapi.tu.ac.th/api/v1/auth/Ad/verify', {
     method: 'POST',
     headers: {
@@ -23,14 +19,13 @@ function submitLogin() {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log('Login Response Data:', data); // Log login response data
+      console.log('Login Response Data:', data);
 
       if (data.status === true) {
-        // Set session as logged in
         sessionStorage.setItem('isLoggedIn', 'true');
 
-        // After successful login, fetch detailed student data
-        const studentId = username; // assuming username is the student ID, adjust if needed
+        // Fetch detailed student data
+        const studentId = username;
         fetch(
           `https://restapi.tu.ac.th/api/v2/profile/std/info/?id=${studentId}`,
           {
@@ -44,7 +39,7 @@ function submitLogin() {
         )
           .then((response) => response.json())
           .then((detailData) => {
-            console.log('Detailed Student Data:', detailData); // Log detailed student data
+            console.log('Detailed Student Data:', detailData);
 
             if (detailData.status === true && detailData.data) {
               const studentData = detailData.data;
@@ -55,8 +50,6 @@ function submitLogin() {
                 Ms: 'นางสาว',
                 Mrs: 'นาง',
               };
-
-              // Translate prefix to Thai or use the original if no match
               const thaiPrefix =
                 prefixMapping[studentData.prefixname] ||
                 studentData.prefixname ||
@@ -76,58 +69,24 @@ function submitLogin() {
                 'studentData',
                 JSON.stringify(autofillData)
               );
-              console.log('Autofill data stored:', autofillData); // Log stored data for verification
+              console.log('Autofill data stored:', autofillData);
 
               // Display detailed user information
               document.getElementById('message').innerHTML = ` 
-                    <div style="padding: 10px; background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; color: #333; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                        <strong>Name:</strong> ${
-                          autofillData.fullName || 'N/A'
-                        } <br>
-                        <strong>Faculty:</strong> ${
-                          studentData.faculty || 'N/A'
-                        } <br>
-                        <strong>Department:</strong> ${
-                          studentData.department || 'N/A'
-                        } <br>
-                        <strong>Status:</strong> ${
-                          studentData.statusname || 'N/A'
-                        } <br>
-                    </div>
-                  `;
-
-              // Prepare user data to send to the backend API
-              const userData = {
-                username: studentData.userName,
-                displayname_en: studentData.displayname_en,
-                email: studentData.email,
-                faculty: studentData.faculty,
-                department: studentData.department,
-                type: studentData.type,
-              };
-
-              console.log('User Data to be sent to backend:', userData); // Log data being sent to the backend
-
-              // Send the data to your backend API
-              fetch('http://localhost:8080/api/users', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userData),
-              })
-                .then((response) => response.json())
-                .then((result) => {
-                  console.log('Backend Response:', result); // Log backend response
-                  if (result.id) {
-                    console.log('Data saved successfully');
-                    // Redirect to index page after login success
-                    window.location.href = 'index.html';
-                  } else {
-                    console.error('Failed to save data:', result.message);
-                  }
-                })
-                .catch((error) => console.error('Error saving data:', error));
+                  <div style="padding: 10px; background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; color: #333; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                      <strong>Name:</strong> ${
+                        autofillData.fullName || 'N/A'
+                      } <br>
+                      <strong>Faculty:</strong> ${
+                        studentData.faculty || 'N/A'
+                      } <br>
+                      <strong>Department:</strong> ${
+                        studentData.department || 'N/A'
+                      } <br>
+                      <strong>Status:</strong> ${
+                        studentData.statusname || 'N/A'
+                      } <br>
+                  </div>`;
             } else {
               console.error(
                 'Failed to fetch detailed student data:',
@@ -139,7 +98,6 @@ function submitLogin() {
             console.error('Error fetching student data:', error)
           );
       } else {
-        // Ensure `showPopup` is defined, if used
         showPopup('Login failed: ' + data.message);
       }
     })
