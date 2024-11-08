@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // Autofill form fields if student data exists in sessionStorage
+  const studentData = JSON.parse(sessionStorage.getItem('studentData') || '{}');
+  console.log('Retrieved studentData:', studentData);
+  if (Object.keys(studentData).length > 0) {
+    autofillForm(studentData);
+  }
+
   // Get all forms and add event listener for submission
   document.querySelectorAll('form.main-form').forEach((form) => {
     form.addEventListener('submit', function (event) {
@@ -27,10 +34,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
 
+      // Log the collected form data
+      console.log('Collected Form Data:', formData);
+
       // Validate form before submission
       if (validateForm(form)) {
         // Show success popup if the form is valid
-        showSuccessPopup('การยื่นคำร้องสำเร็จ', 'คำร้องของคุณกำลังรอการอนุมัติ');
+        showSuccessPopup(
+          'การยื่นคำร้องสำเร็จ',
+          'คำร้องของคุณกำลังรอการอนุมัติ'
+        );
       } else {
         alert('กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน');
       }
@@ -38,9 +51,33 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+function autofillForm(data) {
+  // Get the topic text
+  const topicElement = document.querySelector('h1.topic');
+  const topicText = topicElement ? topicElement.textContent : '';
+
+  // Map the field IDs to the corresponding data in sessionStorage, including the topic for "subject"
+  const fieldsToFill = {
+    'full-name': data.fullName,
+    'registration-number': data.registrationNumber,
+    faculty: data.faculty,
+    department: data.department,
+    email: data.email,
+    subject: topicText, // Directly include topicText for the "subject" field
+  };
+
+  // Set values for each field
+  for (const [fieldId, value] of Object.entries(fieldsToFill)) {
+    const input = document.getElementById(fieldId);
+    console.log(`Setting field "${fieldId}" to value:`, value); // Log each field and value
+    if (input && value) {
+      input.value = value;
+    }
+  }
+}
+
 // Function to display a success popup
 function showSuccessPopup(title, message) {
-  // Create popup overlay
   const overlay = document.createElement('div');
   overlay.id = 'popup-overlay';
   overlay.style.position = 'fixed';
@@ -54,7 +91,6 @@ function showSuccessPopup(title, message) {
   overlay.style.justifyContent = 'center';
   overlay.style.zIndex = 1000;
 
-  // Create popup content
   const popup = document.createElement('div');
   popup.id = 'success-popup';
   popup.style.backgroundColor = 'white';
@@ -62,63 +98,46 @@ function showSuccessPopup(title, message) {
   popup.style.borderRadius = '10px';
   popup.style.boxShadow = '0px 0px 10px rgba(0, 0, 0, 0.1)';
   popup.style.textAlign = 'center';
-  popup.style.width = '690px'; // Set width to 690px
-  popup.style.height = 'auto'; // Let the height adjust according to content
+  popup.style.width = '690px';
+  popup.style.height = 'auto';
   popup.style.display = 'flex';
-  popup.style.flexDirection = 'column'; // Stack elements vertically
-  popup.style.alignItems = 'center'; // Center items horizontally
-  popup.style.justifyContent = 'center'; // Center items vertically
-  popup.style.gap = '20px'; // Add space between the elements
+  popup.style.flexDirection = 'column';
+  popup.style.alignItems = 'center';
+  popup.style.justifyContent = 'center';
+  popup.style.gap = '20px';
 
-  // Add green circle with white checkmark inside
   popup.innerHTML = `
-    <div style="
-      width: 80px;
-      height: 80px;
-      background-color: #3BAD3E;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-    ">
-      <span style="font-size: 40px; color: white; font-weight: bold;">&#10004;</span> <!-- Use the checkmark symbol (✔) instead of an emoji -->
+    <div style="width: 80px; height: 80px; background-color: #3BAD3E; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+      <span style="font-size: 40px; color: white; font-weight: bold;">&#10004;</span>
     </div>
     <h2 style="font-size: 35px; color: #333; margin: 0 0 10px;">${title}</h2>
     <p style="font-size: 20px; color: #666; margin: 0 0 20px;">${message}</p>
-    <button onclick="goToHomePage()" style="
-      padding: 10px 20px;
-      font-size: 16px;
-      color: white;
-      background-color: #d9534f;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      display: block;
-      margin: 0 auto;
-    ">กลับสู่หน้าหลัก</button>
+    <button onclick="goToHomePage()" style="padding: 10px 20px; font-size: 16px; color: white; background-color: #d9534f; border: none; border-radius: 5px; cursor: pointer; display: block; margin: 0 auto;">
+      กลับสู่หน้าหลัก
+    </button>
   `;
 
-  // Append popup to overlay
   overlay.appendChild(popup);
   document.body.appendChild(overlay);
 }
 
 // Function to close the popup and redirect to index.html
 function goToHomePage() {
-  window.location.href = 'index.html'; // Redirect to index.html
+  window.location.href = 'index.html';
 }
 
 // Form validation logic
 function validateForm(form) {
   let isValid = true;
-  form.querySelectorAll('input[required], select[required], textarea[required]').forEach((input) => {
-    if (!input.value) {
-      input.style.borderColor = 'red';
-      isValid = false;
-    } else {
-      input.style.borderColor = ''; // Reset the border color
-    }
-  });
+  form
+    .querySelectorAll('input[required], select[required], textarea[required]')
+    .forEach((input) => {
+      if (!input.value) {
+        input.style.borderColor = 'red';
+        isValid = false;
+      } else {
+        input.style.borderColor = '';
+      }
+    });
   return isValid;
 }
