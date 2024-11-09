@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Map the field IDs to the corresponding data in sessionStorage, including the topic for "subject"
     const fieldsToFill = {
-      'full-name': data.fullName,
-      'registration-number': data.registrationNumber,
+      full_name: data.fullName,
+      registration_number: data.registrationNumber,
       faculty: data.faculty,
       department: data.department,
       email: data.email,
