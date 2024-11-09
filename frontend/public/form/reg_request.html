@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <title>คำร้องจดทะเบียนล่าช้า</title>
     <title>คำร้องขอจดทะเบียนรายวิชาข้ามหลักสูตร</title>
-    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="/css/form_styles.css" />
   </head>
   <body>
     <div class="wrapper">
@@ -19,7 +19,7 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
                 <path d="M50 27.5001V32.5H20L33.75 46.25L30.2 49.8L10.4 30L30.2 10.2001L33.75 13.7501L20 27.5001H50Z" fill="#515151"/>
                 </svg>
-              <h4>เลือกแบบฟอร์มคำร้องที่ต้องการ</h4>
+                <h4>เลือกแบบฟอร์ม<br>คำร้องที่ต้องการ</h4>
             </a>
           </li>
         </ul>
@@ -65,7 +65,7 @@
             >
             <input
               type="text"
-              id="full-name"
+              id="full_name"
               class="form-input"
               placeholder="ชื่อ-นามสกุล"
               required
@@ -77,7 +77,7 @@
             >
             <input
               type="text"
-              id="registration-number"
+              id="registration_number"
               class="form-input"
               placeholder="เลขทะเบียน"
               required
@@ -124,27 +124,12 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label for="contact-address" class="form-label"
-              >ที่อยู่ที่สามารถติดต่อได้ <span class="required">*</span></label
-            >
-            <input
-              type="text"
-              id="contact-address"
-              class="form-input"
-              placeholder="ที่อยู่"
-              required
-            />
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
             <label for="mobile-phone" class="form-label"
               >โทรศัพท์มือถือ <span class="required">*</span></label
             >
             <input
               type="tel"
-              id="mobile-phone"
+              id="mobile_phone"
               name="mobile_phone"
               class="form-input"
               placeholder="โทรศัพท์มือถือ"
@@ -155,15 +140,47 @@
             />
           </div>
           <div class="form-group">
-            <label for="email" class="form-label"
-              >Email <span class="required">*</span></label
+            <label for="mobile-phone" class="form-label"
+              >โทรศัพท์มือถือผู้ปกครอง <span class="required">*</span></label
             >
             <input
-              type="email"
-              id="email"
-              name="email"
+              type="tel"
+              id="relativemobile_phone"
+              name="relativemobile_phone"
               class="form-input"
-              placeholder="email@example.com"
+              placeholder="โทรศัพท์มือถือผู้ปกครอง"
+              pattern="\d{10}"           
+              maxlength="10"
+              title="กรุณาใส่เบอร์โทรศัพท์ให้ครบ 10 หลัก" 
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label"
+            >Email <span class="required">*</span></label
+          >
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-input"
+            placeholder="email@example.com"
+            required
+          />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="contact-address" class="form-label"
+              >ที่อยู่ที่สามารถติดต่อได้ <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="contact_address"
+              class="form-input"
+              placeholder="ที่อยู่"
               required
             />
           </div>
@@ -189,7 +206,7 @@
             >
             <input
               type="text"
-              id="academic-year"
+              id="academic_year"
               name="academic_year"
               class="form-input"
               placeholder="ปีการศึกษา"
@@ -230,6 +247,7 @@
                     type="text"
                     name="course_code"
                     class="table-input"
+                    required
                   />
                 </td>
                 <td>
@@ -237,6 +255,7 @@
                     type="text"
                     name="course_name"
                     class="table-input"
+                    required
                   />
                 </td>
                 <td>
@@ -244,6 +263,7 @@
                     type="text"
                     name="course_section"
                     class="table-input"
+                    required
                   />
                 </td>
               </tr>
@@ -256,7 +276,7 @@
             >ชี้แจงเหตุผลเพิ่มเติม <span class="required">*</span></label
           >
           <textarea
-            id="additional-explanation"
+            id="additional_explanation"
             class="form-input explanation-box"
             required
           ></textarea>
@@ -268,6 +288,6 @@
         </div>
       </form>
     </div>
-    <script src="../js/script.js"></script>
+    <script src="/js/form.js"></script>
   </body>
 </html>
