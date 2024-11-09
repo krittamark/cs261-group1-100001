@@ -1,4 +1,19 @@
+// Redirect to login if not logged in
+function checkLoginStatus() {
+  const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+  if (!isLoggedIn) {
+    window.location.href = '/login.html';
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
+  // Redirect to login if not logged in
+  const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+  if (!isLoggedIn) {
+    window.location.href = '/login.html';
+    return;
+  }
+
   // Autofill form fields if student data exists in sessionStorage
   const studentData = JSON.parse(sessionStorage.getItem('studentData') || '{}');
   console.log('Retrieved studentData:', studentData);
@@ -82,9 +97,9 @@ document.addEventListener('DOMContentLoaded', function () {
     button.style.display = 'block';
     button.style.margin = '0 auto';
 
-    // Inline function to redirect
+    // Inline function to redirect to template.html
     button.onclick = () => {
-      window.location.href = 'index.html';
+      window.location.href = '/template/template.html';
     };
 
     // Append button to popup
