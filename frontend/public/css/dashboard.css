@@ -32,11 +32,13 @@ main {
   background-color: #fff;
   color: #000;
   cursor: pointer;
-  transition: background-color cubic-bezier(0.4, 0, 0.25, 1) 400ms, color cubic-bezier(0.4, 0, 0.25, 1) 400ms;
+  transition: background-color cubic-bezier(0.4, 0, 0.25, 1) 400ms,
+    color cubic-bezier(0.4, 0, 0.25, 1) 400ms;
 }
 
 .button__filter {
-  transition: background-color cubic-bezier(0.4, 0, 0.25, 1) 400ms, color cubic-bezier(0.4, 0, 0.25, 1) 400ms;
+  transition: background-color cubic-bezier(0.4, 0, 0.25, 1) 400ms,
+    color cubic-bezier(0.4, 0, 0.25, 1) 400ms;
 }
 .button__filter:hover {
   background-color: #f0f0f0;
@@ -51,6 +53,56 @@ main {
 }
 .button__danger:hover {
   background-color: #b71c1c;
+}
+.button__confirm {
+  background-color: crimson;
+  color: white;
+}
+
+.button__cancel {
+  background-color: #cccccc;
+  color: black;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.popup__action {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+#cancelRequestButton {
+  background-color: crimson;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 12px;
 }
 
 .application__title {
