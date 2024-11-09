@@ -1,5 +1,3 @@
-/* naviStyle.css */
-
 /* Styling for the static navigation */
 .side-nav {
     position: fixed;
@@ -13,42 +11,30 @@
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.side-nav h2 {
-    font-size: 26px;
-    color: #7c0017;
+/* Styling for the back-link containing both SVG icon and text */
+.back-link {
+    display: flex; /* Arrange icon and text horizontally */
+    align-items: center; /* Align vertically centered */
+    font-size: 22px;
     font-weight: bold;
-    margin-bottom: 20px;
-    line-height: 1.5;
-    display: flex;
-    flex-direction: column; /* Stack arrow and text vertically */
-    align-items: flex-start; /* Align items to the left */
-    margin-top: 20px; /* Move both arrow and text down */
+    text-decoration: none;
+    color: #757575; /* Default text color */
+    gap: 15px; /* Space between the icon and text */
+    margin-top: 1.2rem;
+}
+
+.back-link:hover {
+    color: #7b0017; /* Change text color on hover */
 }
 
 /* Hover effect for back link icon in the side-nav */
-.side-nav h2 a:hover svg path {
-    fill: #b71c1c; /* Change arrow color on hover */
-}
-
-
-.side-nav h2 span {
-    font-size: 20px;
-    font-weight: bold;
-    margin-left: 75px; /* Indent text for alignment */
-    margin-top: -70px; /* Move text up closer to the arrow */
-}
-
-.back-link {
-    text-decoration: none;
-    font-size: 24px;
-    color: #757575;
-    display: flex;
-    align-items: center;
-    margin-top: 0;
-}
-
 .back-link:hover svg path {
-    fill: #b71c1c;
+    fill: #7b0017; /* Change arrow color on hover */
 }
 
-  
+/* Styling for the span text */
+.back-link span {
+    font-size: 26px;
+    font-weight: bold;
+    line-height: 1.5; /* Maintain consistent line spacing */
+}

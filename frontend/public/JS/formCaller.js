@@ -22,3 +22,4 @@ function getFormType(applicationId) {
 
 //* for testing
 // loadForm("resign");
+// loadForm("delay_registration");
