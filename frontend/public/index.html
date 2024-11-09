@@ -1,78 +1,223 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HTML Page</title>
-</head>
-<body>
-  <button id="cancelRequestButton">ยกเลิกคำร้อง</button>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>คำร้องของฉัน</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="sidebar">
+        <ul>
+          <li>
+          </li>
+        </ul>
+      </div>
+    <main>
+      <div class="header">
+        <h1>คำร้องของฉัน</h1>
+        <span>แสดงสถานะคำร้องของแบบฟอร์ม</span>
+      </div>
+      <div class="browser__container">
+        <div class="browser__title">
+          <span>สืบค้นสถานะคำร้อง</span>
+        </div>
+        <div class="filter">
+          <button class="button button__filter" id="ApproveFilterButton">Approved</button>
+          <button class="button button__filter" id="PendingFilterButton">Pending</button>
+          <button class="button button__filter" id="DraftFilterButton">Draft</button>
+          <button class="button button__filter" id="RejectFilterButton">Rejected</button>
+        </div>
+      </div>
+      <div class="application__container">
+        <div class="application__container" id="Application_Approve">
+          <div class="application__title">Approved / อนุมัติ</div>
+          <ul class="application__list"></ul>
+        </div>
 
-  <!-- โครงสร้างป๊อปอัปสำหรับยกเลิกคำร้อง -->
-  <div id="cancelPopup" class="popup">
-    <div class="popup-content">
-      <h2>ยืนยันการยกเลิกคำร้อง</h2>
-      <p>คุณต้องการยกเลิกคำร้องนี้หรือไม่?</p>
-      <button id="confirmCancel" class="button confirm">ยืนยัน</button>
-      <button id="closePopup" class="button cancel">ยกเลิก</button>
+        <div class="application__container" id="Application_Pending">
+          <div class="application__title">Pending / รอดำเนินการ</div>
+          <ul class="application__list"></ul>
+        </div>
+
+        <div class="application__container" id="Application_Draft">
+          <div class="application__title">Draft / แบบร่าง</div>
+          <ul class="application__list"></ul>
+        </div>
+
+        <div class="application__container" id="Application_Reject">
+          <div class="application__title">Reject / ปฏิเสธ</div>
+          <ul class="application__list">
+            <a href="edit#1" class="application__item">
+              <div class="application__detail">
+                <div class="application__name">${application.name}</div>
+                <span class="application__date">${application.date}</span>
+              </div>
+              <div class="application__action">
+                <button class="button button__danger button__cancel" data-application-id="1">ลบ / ยกเลิกแบบฟอร์ม</button>
+              </div>
+            </a>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+    <!-- โครงสร้างป๊อปอัปสำหรับยกเลิกคำร้อง -->
+    <div id="cancelPopup" class="popup">
+      <div class="popup-content">
+        <h2>ยืนยันการยกเลิกคำร้อง</h2>
+        <p>คุณต้องการยกเลิกคำร้องนี้หรือไม่?</p>
+        <div class="popup__action">
+          <button id="confirmCancel" class="button button__confirm">ยืนยัน</button>
+          <button id="closePopup" class="button button__cancel">ยกเลิก</button>
+        </div>
+      </div>
     </div>
-  </div>
+  </body>
+  </body>
+  <script>
+    document.querySelectorAll(".button__cancel").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const applicationId = event.target.getAttribute("data-application-id");
+        showPopup(applicationId);
+      });
+    });
 
-  <script src="cancel.js"></script>
-  <style>
-    body {
-    font-family: Arial, sans-serif;
-  }
-  
-  .popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .popup-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 300px;
-    text-align: center;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .button {
-    padding: 10px 20px;
-    margin: 5px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-  }
+    document.getElementById("confirmCancel").addEventListener("click", () => {
+      const applicationId = document.getElementById("confirmCancel").getAttribute("data-application-id");
+      console.log(applicationId);
+    });
 
-  #cancelRequestButton {
-    background-color: crimson;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    font-size: 12px;
-  }
-  
-  .confirm {
-    background-color: crimson;
-    color: white;
-  }
-  
-  .cancel {
-    background-color: #cccccc;
-    color: black;
-  }
-  </style>
-</body>
+    document.getElementById("closePopup").addEventListener("click", () => {
+      hidePopup();
+    });
+
+    const showPopup = (applicationId) => {
+      const popup = document.getElementById("cancelPopup");
+      popup.style.display = "block";
+      document.getElementById("confirmCancel").setAttribute("data-application-id", applicationId);
+    };
+
+    const hidePopup = () => {
+      const popup = document.getElementById("cancelPopup");
+      popup.style.display = "none";
+    };
+
+    window.onclick = (event) => {
+      const popup = document.getElementById("cancelPopup");
+      if (event.target === popup) {
+        popup.style.display = "none";
+        const applicationId = target.getAttribute("data-application-id");
+        fetch(`http://localhost:8080/api/applications/${applicationId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        });
+      }
+    };
+  </script>
+  <script>
+    const ApproveFilterButton = document.getElementById("ApproveFilterButton");
+    const PendingFilterButton = document.getElementById("PendingFilterButton");
+    const DraftFilterButton = document.getElementById("DraftFilterButton");
+    const RejectFilterButton = document.getElementById("RejectFilterButton");
+
+    const applicationApprove = document.getElementById("Application_Approve");
+    const applicationPending = document.getElementById("Application_Pending");
+    const applicationDraft = document.getElementById("Application_Draft");
+    const applicationReject = document.getElementById("Application_Reject");
+
+    let currentFilter = null;
+
+    const setDisplay = (filter) => {
+      const displaySettings = {
+        "Approve": ["block", "none", "none", "none"],
+        "Pending": ["none", "block", "none", "none"],
+        "Draft": ["none", "none", "block", "none"],
+        "Reject": ["none", "none", "none", "block"],
+        "All": ["block", "block", "block", "block"]
+      };
+
+      const [approve, pending, draft, reject] = displaySettings[filter] || displaySettings["All"];
+      applicationApprove.style.display = approve;
+      applicationPending.style.display = pending;
+      applicationDraft.style.display = draft;
+      applicationReject.style.display = reject;
+      currentFilter = filter;
+    };
+
+    const handleFilterButtonClick = (filter, button) => {
+      ApproveFilterButton.classList.remove("button__active");
+      PendingFilterButton.classList.remove("button__active");
+      DraftFilterButton.classList.remove("button__active");
+      RejectFilterButton.classList.remove("button__active");
+
+      if (currentFilter === filter) {
+        setDisplay("All");
+        currentFilter = null;
+      } else {
+        button.classList.add("button__active");
+        setDisplay(filter);
+      }
+    };
+
+    ApproveFilterButton.addEventListener("click", () => handleFilterButtonClick("Approve", ApproveFilterButton));
+    PendingFilterButton.addEventListener("click", () => handleFilterButtonClick("Pending", PendingFilterButton));
+    DraftFilterButton.addEventListener("click", () => handleFilterButtonClick("Draft", DraftFilterButton));
+    RejectFilterButton.addEventListener("click", () => handleFilterButtonClick("Reject", RejectFilterButton));
+
+    const applicationCancelButtons = document.querySelectorAll(".button__cancel");
+    applicationCancelButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const applicationId = event.target.getAttribute("data-application-id");
+        console.log(applicationId);
+      });
+    });
+
+    (async () => {
+      await fetch(`http://localhost:8080/api/applications/me/${localStorage.username}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        }
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        data.forEach((application) => {
+          const applicationItem = document.createElement("li");
+          applicationItem.classList.add("applicationItem__wrapper");
+          applicationItem.innerHTML = `
+            <a href="edit#${application.id}" class="application__item">
+              <div class="application__detail">
+                <div class="application__name">${application.name}</div>
+                <span class="application__date">${application.date}</span>
+              </div>
+              <div class="application__action">
+                ${application.status !== "Reject" ? `<button class="button button__danger button__cancel" data-application-id="${application.id}">ลบ / ยกเลิกแบบฟอร์ม</button>` : ""}
+              </div>
+            </a>
+          `;
+
+          if (application.status === "Approve") {
+            applicationApprove.appendChild(applicationItem);
+          } else if (application.status === "Pending") {
+            applicationPending.appendChild(applicationItem);
+          } else if (application.status === "Draft") {
+            applicationDraft.appendChild(applicationItem);
+          } else if (application.status === "Reject") {
+            applicationReject.appendChild(applicationItem);
+          }
+        });
+      })
+    })()
+  </script>
 </html>
