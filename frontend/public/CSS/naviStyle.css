@@ -15,7 +15,7 @@
 .back-link {
     display: flex; /* Arrange icon and text horizontally */
     align-items: center; /* Align vertically centered */
-    font-size: 22px;
+    font-size: 18px;
     font-weight: bold;
     text-decoration: none;
     color: #757575; /* Default text color */
@@ -34,7 +34,7 @@
 
 /* Styling for the span text */
 .back-link span {
-    font-size: 26px;
+    font-size: 22px;
     font-weight: bold;
     line-height: 1.5; /* Maintain consistent line spacing */
 }

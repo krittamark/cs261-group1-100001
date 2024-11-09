@@ -104,3 +104,4 @@ function autofillForm(data) {
         }
     }
 }
+loadForm('resign');
