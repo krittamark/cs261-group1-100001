@@ -473,3 +473,42 @@ function loadForm(formType) {
         container.innerHTML = `<p>Error: Form type "${formType}" not found.</p>`;
     }
 }
+
+window.onload = async function() {
+    try {
+        // Fetch the data from the API
+        const response = await fetch('http://api.cs261.krittamark.com/api/login');
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Mock-up response structure
+        // const data = {
+        //     "success": true,
+        //     "user": {
+        //         "name": "สมมติ เรียนดี",
+        //         "type": "Student",
+        //         "prefixname": " นาย",
+        //         "username": "6609611111",
+        //         "faculty": "วิทยาศาสตร์และเทคโนโลยี",
+        //         "department": "วิทยาการคอมพิวเตอร์",
+        //         "organization": "XYZ University"
+        //     }
+        // };
+
+        // Assuming the response contains a 'user' object with the necessary fields:
+        const { prefixname, name, username, faculty, department } = data.user;
+
+        // Populate the form fields
+        document.getElementById('full-name').value = `${prefixname}${name}`;
+        document.getElementById('student-id').value = username;
+        document.getElementById('faculty').value = faculty;
+        document.getElementById('department').value = department;
+
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+
