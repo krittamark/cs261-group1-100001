@@ -450,57 +450,10 @@ const forms = {
 
 function loadForm(formType) {
     const container = document.getElementById('form-container'); // Ensure this container exists
+
     if (forms[formType]) {
         container.innerHTML = forms[formType]; // Dynamically inject the form HTML
     } else {
         container.innerHTML = `<p>Error: Form type "${formType}" not found.</p>`;
     }
 }
-
-window.onload = async function() {
-    try {
-        // Fetch the data from the API (Uncomment this if using a real API)
-        const response = await fetch('http://api.cs261.krittamark.com/api/login');
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        // Mock-up response structure for testing (Uncomment the next line if fetching from an actual API)
-        // const data = {
-        //     "success": true,
-        //     "user": {
-        //         "name": "สมมติ เรียนดี",
-        //         "type": "Student",
-        //         "prefixname": " นาย",
-        //         "username": "6609611111",
-        //         "faculty": "วิทยาศาสตร์และเทคโนโลยี",
-        //         "department": "วิทยาการคอมพิวเตอร์",
-        //         "organization": "XYZ University"
-        //     }
-        // };
-
-        // Check if the response is successful and contains user data
-        if (data.success && data.user) {
-            const { prefixname, name, username, faculty, department } = data.user;
-
-            // Populate the form fields
-            if (prefixname && name) {
-                document.getElementById('full-name').value = `${prefixname}${name}`;
-            }
-            if (username) {
-                document.getElementById('registration-number').value = username;
-            }
-            if (faculty) {
-                document.getElementById('faculty').value = faculty;
-            }
-            if (department) {
-                document.getElementById('department').value = department;
-            }
-        } else {
-            console.error('Invalid response structure or unsuccessful response.');
-        }
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-};
-
