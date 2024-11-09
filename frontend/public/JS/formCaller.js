@@ -20,5 +20,5 @@ function getFormType(applicationId) {
 // const applicationId = 123; // Example ID
 // getFormType(applicationId);
 
-// //* for testing
-// loadForm("delay_registration");
+//* for testing
+// loadForm("resign");

@@ -146,3 +146,86 @@ table th {
 .send-btn input[type="submit"]:hover {
     background-color: #a30b28;
 }
+
+.popup-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #4CAF50; /* Green background */
+    color: #ffffff; /* White text color */
+    padding: 30px 60px; /* Increased padding for a larger popup */
+    border-radius: 15px; /* Slightly more rounded corners */
+    text-align: center;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Larger shadow for emphasis */
+    z-index: 1000;
+    font-family: 'Noto Sans Thai', 'Roboto', sans-serif;
+    font-size: 18px; /* Base font size */
+    opacity: 0; /* Initial opacity for fade-in effect */
+    transition: opacity 0.5s ease; /* Smooth transition for opacity */
+}
+
+.popup-message div {
+    margin: 10px 0; /* Increase spacing between elements */
+}
+
+/* Animation for fade in and fade out */
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -60%); /* Start slightly above the center */
+    }
+    10%, 90% {
+        opacity: 1;
+        transform: translate(-50%, -50%); /* Centered position */
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -40%); /* End slightly below the center */
+    }
+}
+
+/* style for popup-bottom-right */
+.popup-bottom-right {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #4CAF50; /* Green for success */
+    color: #fff; /* White text */
+    padding: 15px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-family: 'Noto Sans Thai', 'Roboto', sans-serif;
+    font-size: 16px;
+    opacity: 0; /* Initial opacity for fade-in effect */
+    transition: opacity 0.5s ease; /* Smooth transition for fade-in and fade-out */
+    z-index: 1000;
+    width: 300px; /* Set a fixed width for the popup */
+    height: auto; /* Allow height to adjust based on content */
+    display: flex;
+    flex-direction: column; /* Stack text and progress bar */
+}
+
+.popup-bottom-right.error {
+    background-color: #c30e2f; /* Red for error */
+    color: #fff; /* White text */
+}
+
+/* Progress bar container */
+.progress-bar-container {
+    width: 100%;
+    height: 4px; /* Height of the progress bar */
+    background-color: rgba(255, 255, 255, 0.2); /* Light background for the bar */
+    border-radius: 4px;
+    margin-top: 10px; /* Spacing between message and progress bar */
+    position: relative;
+}
+
+/* Progress bar itself */
+.progress-bar {
+    height: 100%;
+    width: 100%; /* Start at 100% width */
+    background-color: #fff; /* White color for the progress bar */
+    border-radius: 4px;
+    transition: width 0s; /* Initial state, no animation until triggered */
+}
