@@ -4,15 +4,28 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: "Noto Sans Thai", sans-serif !important;;
 }
 
 body {
-  background-color: #d3d3d3;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-image: url(/img/Tuview.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(107, 107, 107, 0.5); /* ปรับค่า opacity ที่นี่ (0.5 = 50%) */
+  z-index: 1;
 }
 
 .login-container {
@@ -41,7 +54,6 @@ body {
 h1 {
   font-size: 48px;
   font-weight: bold;
-  margin-bottom: 5px;
 }
 
 p {
@@ -86,7 +98,7 @@ input[type='password'] {
   width: 100%;
   padding: 10px;
   margin-top: 20px;
-  background-color: #333333;
+  background-color: #d32f2f;
   color: #ffffff;
   font-size: 14px;
   font-weight: bold;
@@ -96,7 +108,7 @@ input[type='password'] {
 }
 
 .login-button:hover {
-  background-color: #555555;
+  background-color: #a1001a;
 }
 
 .title-container {
@@ -154,7 +166,6 @@ input[type='password'] {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
-  font-family: Arial, sans-serif;
   z-index: 1001;
 }
 
