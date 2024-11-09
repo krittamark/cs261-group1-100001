@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "body-parser": "^1.20.3",
     "cors": "^2.8.5",
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "express-body-parser-error-handler": "^1.0.7"
   },
   "name": "cs261-frontend",
   "version": "1.0.0",
