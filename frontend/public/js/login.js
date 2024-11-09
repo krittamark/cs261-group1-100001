@@ -14,13 +14,31 @@ function submitLogin() {
     .then(response => response.json())
     .then(data => {
         if (data.status === true) {
-            // Display user details
+            // Display student details
+            if (data.type === "student") {
             document.getElementById('message').innerHTML = ` 
             <div style="padding: 10px; background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; color: #333; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                 <strong>Name:</strong> ${data.displayname_th} <br>
+                <strong>EngName:</strong> ${data.displayname_en} <br>
+                <strong>Email:</strong> ${data.email} <br>
+                <strong>department:</strong> ${data.department} <br>
                 <strong>Faculty:</strong> ${data.faculty}
             </div>
             `;
+            }
+
+            // Display employee details
+            else if (data.type === "employee") {
+                document.getElementById('message').innerHTML = ` 
+                <div style="padding: 10px; background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; color: #333; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                    <strong>Name:</strong> ${data.displayname_th} <br>
+                    <strong>EngName:</strong> ${data.displayname_en} <br>
+                    <strong>Email:</strong> ${data.email} <br>
+                    <strong>department:</strong> ${data.department} <br>
+                    <strong>organization:</strong> ${data.organization}
+                </div>
+                `;
+                }
 
             // confirm that user login
             sessionStorage.setItem("isLoggedIn", "true");
@@ -29,10 +47,13 @@ function submitLogin() {
             // Prepare user data to send to the backend API
             const userData = {
                 username: username,
-                displayname_en: data.displayname_en,  // Adjust based on the response from TU API
-                email: data.email,  // Adjust based on the response from TU API
-                faculty: data.faculty,  // Adjust based on the response from TU API
-                type: data.type || "DefaultType"  // Add a default value for 'type' if it is missing
+                displayname_th: data.displayname_th,
+                displayname_en: data.displayname_en,  
+                email: data.email, 
+                department : data.department, 
+                faculty: data.faculty || "Null", 
+                organization : data.organization || "Null", 
+                type: data.type || "DefaultType"  
             };
 
             // Send the data to your backend API
@@ -58,13 +79,6 @@ function submitLogin() {
 
             showPopup(data.status);
 
-            // Display error if login fails
-            // document.getElementById('message').innerHTML = ` 
-            // <div style="padding: 10px; background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; color: #333; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-            //     <strong>Status:</strong> ${data.status} <br>
-            //     <strong>Error : Login ไม่สำเร็จ</strong>
-            // </div>
-            // `;
         }
     })
     .catch(error => console.error('Error during login:', error));
