@@ -83,7 +83,7 @@ const forms = {
                 </div>
             </div>
 
-            <p><strong>มีความประสงค์ขอจดทะเบียนล่าช้าในรายวิชา</strong></p>
+            <p class="required-label"><strong>มีความประสงค์ขอจดทะเบียนล่าช้าในรายวิชา</strong></p>
 
             <div class="form-row">
                 <table>
@@ -96,9 +96,9 @@ const forms = {
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="text" name="course_code_1"></td>
-                            <td><input type="text" name="course_name_1"></td>
-                            <td><input type="number" name="section_1"></td>
+                            <td><input type="text" name="course_code_1" required></td>
+                            <td><input type="text" name="course_name_1" required></td>
+                            <td><input type="number" name="section_1" required></td>
                         </tr>
                     </tbody>
                 </table>
@@ -206,7 +206,7 @@ const forms = {
                 </div>
             </div>
 
-            <p><strong>มีความประสงค์ขอถอนรายวิชา</strong></p>
+            <p class="required-label"><strong>มีความประสงค์ขอถอนรายวิชา</strong></p>
             <div class="form-row">
                 <table>
                     <thead>
@@ -218,9 +218,9 @@ const forms = {
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="text" name="course_code_1"></td>
-                            <td><input type="text" name="course_name_1"></td>
-                            <td><input type="number" name="section_1"></td>
+                            <td><input type="text" name="course_code_1" required></td>
+                            <td><input type="text" name="course_name_1" required></td>
+                            <td><input type="number" name="section_1" required></td>
                         </tr>
                     </tbody>
                 </table>
@@ -328,7 +328,7 @@ const forms = {
                 </div>
             </div>
 
-            <p>มีความประสงค์ขอจดทะเบียนรายวิชาข้ามหลักสูตร</p>
+            <p class="required-label"><strong>มีความประสงค์ขอจดทะเบียนรายวิชาข้ามหลักสูตร</strong></p>
             <div class="form-row">
                 <table>
                     <thead>
@@ -340,9 +340,9 @@ const forms = {
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="text" name="course_code_1"></td>
-                            <td><input type="text" name="course_name_1"></td>
-                            <td><input type="number" name="section_1"></td>
+                            <td><input type="text" name="course_code_1" required></td>
+                            <td><input type="text" name="course_name_1" required></td>
+                            <td><input type="number" name="section_1" required></td>
                         </tr>
                     </tbody>
                 </table>
