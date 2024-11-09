@@ -51,19 +51,17 @@
       </div>
     </div>
 
-    <div class="overlay" id="overlay" style="display: none"></div>
-    <div class="popup" id="popup" style="display: none">
-      <span class="close" onclick="closePopup()">×</span>
+    <!-- Overlay -->
+    <div id="overlay"></div>
 
-      <!--  Status and popup-message  -->
-      <h2 class="red-text">Status:</h2>
-      <h2 id="popup-message" style="display: inline"></h2>
-
-      <!--  Error message  -->
-      <div class="error-container">
-        <h2 class="red-text" style="display: inline">Error:</h2>
-        <h2 style="display: inline; margin-left: 5px">Login ไม่สำเร็จ</h2>
+    <!-- Popup -->
+    <div id="popup">
+      <div id="popup-icon">✖</div>
+      <div id="popup-message">
+        <h2>Error</h2>
+        <p>There was an error processing your request.</p>
       </div>
+      <button id="popup-ok" onclick="closePopup()">OK</button>
     </div>
 
     <script src="js/login.js"></script>

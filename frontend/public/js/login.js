@@ -99,10 +99,10 @@ function togglePassword() {
 }
 
 function showPopup(statusMessage) {
-  // show popup status
+  // Show popup status
   document.getElementById('overlay').style.display = 'block';
   document.getElementById('popup').style.display = 'block';
-  document.getElementById('popup-message').textContent = statusMessage;
+  document.getElementById('popup-message').innerHTML = statusMessage;
 }
 
 function closePopup() {
