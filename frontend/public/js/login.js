@@ -8,7 +8,7 @@ function submitLogin() {
     headers: {
       'Content-Type': 'application/json',
       'Application-key':
-        'TU01b3acdc84ce14bfebd27d683c9d537d14e26e0e51a17955e55a9c0d192ba07921e49e4b99956ecd60216f332c63a838',
+        'TU8006a67d385d98ce2923e80f7cbf742706efbcf969c021c89a58a703c80fd3a2c80f3235cfed29b9f10060a315e80192',
     },
     body: JSON.stringify({ UserName: username, PassWord: password }),
   })
@@ -28,7 +28,7 @@ function submitLogin() {
             headers: {
               'Content-Type': 'application/json',
               'Application-Key':
-                'TU01b3acdc84ce14bfebd27d683c9d537d14e26e0e51a17955e55a9c0d192ba07921e49e4b99956ecd60216f332c63a838',
+                'TU8006a67d385d98ce2923e80f7cbf742706efbcf969c021c89a58a703c80fd3a2c80f3235cfed29b9f10060a315e80192',
             },
           }
         )
@@ -65,6 +65,9 @@ function submitLogin() {
                 JSON.stringify(autofillData)
               );
               console.log('Autofill data stored:', autofillData);
+
+              // Redirect to template.html
+              window.location.href = '/template/template.html';
             } else {
               console.error(
                 'Failed to fetch detailed student data:',
@@ -81,6 +84,7 @@ function submitLogin() {
     })
     .catch((error) => console.error('Error during login:', error));
 }
+
 function togglePassword() {
   const passwordInput = document.getElementById('password');
   const passwordIcon = document.getElementById('password-icon');
