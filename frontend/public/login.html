@@ -7,24 +7,23 @@
     <link rel="stylesheet" href="css/loginpage_styles.css" />
   </head>
   <body>
-    <main class="login-container">
-      <section class="login-box">
-        <header class="title-container">
+    <div class="login-container">
+      <div class="login-box">
+        <div class="title-container">
           <div class="text-container">
-            <h1>Login</h1>
-            <p>Request form</p>
+            <h1>LOGIN</h1>
+            <p>request form</p>
           </div>
-          <img src="img/tu-logo.webp" alt="University Logo" class="logo" />
-        </header>
+          <img src="img/tu-logo.png" alt="Logo" class="logo" />
+        </div>
         <form id="loginForm">
           <label for="username">Username</label>
           <input
             type="text"
             id="username"
             name="username"
-            placeholder="Enter your student ID"
+            placeholder="enter your student ID"
             required
-            aria-label="Enter your student ID"
           />
 
           <label for="password">Password</label>
@@ -33,25 +32,35 @@
               type="password"
               id="password"
               name="password"
-              placeholder="Enter your password"
+              placeholder="enter your password"
               required
-              aria-label="Enter your password"
             />
-            <span
-              class="toggle-password"
-              onclick="togglePassword()"
-              aria-label="Show/Hide password"
-              >👁️</span
-            >
+            <span class="toggle-password" onclick="togglePassword()">👁️</span>
           </div>
 
           <button type="button" onclick="submitLogin()" class="login-button">
-            Login
+            LOGIN
           </button>
         </form>
         <p id="message"></p>
-      </section>
-    </main>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay" style="display: none"></div>
+    <div class="popup" id="popup" style="display: none">
+      <span class="close" onclick="closePopup()">×</span>
+
+      <!-- แสดง Status และ popup-message ในบรรทัดเดียวกัน -->
+      <h2 class="red-text">Status:</h2>
+      <h2 id="popup-message" style="display: inline"></h2>
+
+      <!-- บรรทัดใหม่สำหรับ Error message ในบรรทัดเดียวกัน -->
+      <div class="error-container">
+        <h2 class="red-text" style="display: inline">Error:</h2>
+        <h2 style="display: inline; margin-left: 5px">Login ไม่สำเร็จ</h2>
+      </div>
+    </div>
+
     <script src="js/login.js"></script>
   </body>
 </html>
