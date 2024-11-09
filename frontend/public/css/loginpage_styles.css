@@ -24,7 +24,7 @@
   
   .login-box {
     background-color: #ffffff;
-    width: 320px;
+    width: 400px;
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -39,14 +39,15 @@
   }
   
   h1 {
-    font-size: 24px;
+    font-size: 48px;
     font-weight: bold;
     margin-bottom: 5px;
   }
   
   p {
-    font-size: 14px;
+    font-size: 20px;
     margin-bottom: 20px;
+    margin-left:3.5px;
     color: #666666;
   }
   
@@ -107,7 +108,7 @@
 .text-container {
     display: flex;
     flex-direction: column;
-    text-align: center;
+    text-align: left;
     margin-right: 10px; /* เพิ่มระยะห่างระหว่างข้อความกับรูป */
 }
 
@@ -117,7 +118,7 @@
 }
 
 .logo {
-    width: 70px; /* ปรับขนาดรูปตามที่ต้องการ */
+    width: 120px; /* ปรับขนาดรูปตามที่ต้องการ */
     height: auto;
 }
 
