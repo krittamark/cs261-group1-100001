@@ -1,49 +1,81 @@
 * {
-    font-family: "Noto Sans Thai", sans-serif !important;
-  }
-  
+  font-family: "Noto Sans Thai", sans-serif !important;
+}
+
 .sidebar {
-    width: 250px;
-    background-color: #e6e6e6;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  width: 350px;
+  background-color: #f0f0f0;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: fixed; /* ทำให้ sidebar ติดอยู่กับที่ */
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow-y: auto;
 }
 
 .sidebar img {
-    margin-top: 20px;
-    width: 100%;
-    margin-bottom: 20px;
+  margin-top: 30px;
+  width: 90%;
+  margin-bottom: 20px;
+  display: block; /* ทำให้เป็นบล็อกเพื่อให้จัดกึ่งกลางได้ */
+  margin-left: auto; /* จัดกึ่งกลางด้านซ้าย */
+  margin-right: auto; /* จัดกึ่งกลางด้านขวา */
 }
 
 .sidebar a {
-    font-size: 16px;
-    color: #333;
-    text-decoration: none;
-    margin-bottom: 20px;
+  font-size: 16px;
+  color: #333;
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+
+.menu {
+  margin-top: 20px;
+  width: 100%; /* ทำให้ hover ครอบคลุมเต็มความกว้าง */
+}
+
+.menu a {
+  font-size: 16px;
+  color: #333;
+  text-decoration: none;
+  margin-bottom: 0px;
+  padding: 8px 40px; /* เพิ่มระยะห่างด้านใน */
+  display: block;
+  width: calc(90% + 5px); /* ให้ครอบคลุมเต็มความกว้างของ sidebar */
+  margin-left: -25px; /* เยื้องไปทางซ้ายเพื่อให้ตรงกับ padding ของ sidebar */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.menu a:hover {
+  background-color: #cccccc; /* เปลี่ยนสีพื้นหลังเมื่อวางเมาส์ */
+  color: #000; /* เปลี่ยนสีตัวอักษรเมื่อวางเมาส์ */
+  font-weight: bold; /* ทำให้ตัวอักษรหนาขึ้นเมื่อวางเมาส์ */
 }
 
 .sidebar .logout {
-    font-size: 16px;
-    color: white;
-    background-color: #d32f2f;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s, color 0.3s;
-    margin-top: auto;
-    align-self: center;
+  font-size: 16px;
+  color: white;
+  background-color: #d32f2f;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+  margin-top: auto;
+  margin-bottom: 80px;
+  align-self: center;
 }
 
 .sidebar .logout:hover {
-    background-color: #b71c1c;
-    color: #f0f0f0;
+  background-color: #b71c1c;
+  color: #f0f0f0;
 }
 
 .sidebar .logout:active {
-    background-color: #7C0017;
-    color: #ffffff;
+  background-color: #7C0017;
+  color: #ffffff;
 }
