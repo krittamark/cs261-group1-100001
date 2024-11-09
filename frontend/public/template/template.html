@@ -21,6 +21,12 @@
           window.location.href = '/login.html';
         }
       });
+
+      function logout() {
+        // Clear session storage and redirect to login
+        sessionStorage.clear();
+        window.location.href = '/login.html';
+      }
     </script>
   </head>
   <body>
@@ -34,7 +40,7 @@
         <a href="#">แบบร่าง</a>
         <a href="#">สร้างคำร้อง</a>
       </div>
-      <a href="#" class="logout">Log out</a>
+      <a class="logout" onclick="logout()">Log out</a>
     </div>
 
     <div class="content">
