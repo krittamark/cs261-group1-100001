@@ -4,198 +4,150 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>คำร้องของฉัน</title>
-    <style>
-      body {
-        font-family: sans-serif; /* Use a default sans-serif font */
-        display: flex;
-        min-height: 100vh;
-        margin: 0; /* Remove default body margin */
-      }
-
-      .sidebar {
-        width: 250px;
-        background-color: #f0f0f0; /* Light gray background for sidebar */
-        padding: 20px;
-      }
-
-      .content {
-        flex: 1;
-        padding: 20px;
-      }
-
-      .header {
-        margin-bottom: 20px;
-      }
-
-      .status-buttons {
-        margin-bottom: 20px;
-      }
-
-      .status-buttons button {
-        margin: 5px;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        background-color: #ddd;
-        cursor: pointer;
-      }
-
-      .status-buttons button.active {
-        background-color: #3498db; /* Example active color */
-        color: white;
-      }
-
-      .application-list {
-        list-style: none; /* Remove default list styling */
-        padding: 0;
-      }
-
-      .application-item {
-        background-color: #f9f9f9;
-        padding: 15px;
-        margin-bottom: 10px;
-        border-radius: 5px;
-        display: flex;
-        justify-content: space-between; /* Align items to left and right */
-        align-items: center; /* Vertically center content */
-      }
-
-      .action-buttons button {
-        background-color: #c0392b; /* Example red color */
-        color: white;
-        border: none;
-        padding: 8px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-left: 10px;
-      }
-
-      button.logout {
-        background-color: #c0392b; /* Red color */
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-
-      button.create {
-        background-color: #c0392b; /* Red color */
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-    </style>
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
   </head>
   <body>
-    <aside class="sidebar">
-      <img src="logo.png" alt="Thammasat University Logo" width="100" />
-      <br /><br />
-      <!-- Replace logo.png -->
-      <a href="#">คำร้องของฉัน</a><br />
-      <a href="#">แบบร่าง</a><br />
-      <a href="#">สร้างคำร้อง</a><br /><br />
-      <button class="logout">→ Log out</button>
-    </aside>
-
-    <main class="content">
+    <div class="wrapper">
+      <div class="sidebar">
+        <ul>
+          <li>
+          </li>
+        </ul>
+      </div>
+    <main>
       <div class="header">
         <h1>คำร้องของฉัน</h1>
-        <p>แสดงสถานะคำร้องของแบบฟอร์ม</p>
-        <button class="create">+ สร้างคำร้อง</button>
+        <span>แสดงสถานะคำร้องของแบบฟอร์ม</span>
       </div>
-
-      <div class="status-buttons">
-        <button class="active">Approved</button>
-        <button>Pending</button>
-        <button>Draft</button>
-        <button>Reject</button>
+      <div class="browser__container">
+        <div class="browser__title">
+          <span>สืบค้นสถานะคำร้อง</span>
+        </div>
+        <div class="filter">
+          <button class="button button__filter" id="ApproveFilterButton">Approved</button>
+          <button class="button button__filter" id="PendingFilterButton">Pending</button>
+          <button class="button button__filter" id="DraftFilterButton">Draft</button>
+          <button class="button button__filter" id="RejectFilterButton">Rejected</button>
+        </div>
       </div>
+      <div class="application__container">
+        <div class="application__container" id="Application_Approve">
+          <div class="application__title">Approved / อนุมัติ</div>
+          <ul class="application__list"></ul>
+        </div>
 
-      <h2>Approved / อนุมัติ</h2>
-      <ul class="application-list"></ul>
+        <div class="application__container" id="Application_Pending">
+          <div class="application__title">Pending / รอดำเนินการ</div>
+          <ul class="application__list"></ul>
+        </div>
 
+        <div class="application__container" id="Application_Draft">
+          <div class="application__title">Draft / แบบร่าง</div>
+          <ul class="application__list"></ul>
+        </div>
+
+        <div class="application__container" id="Application_Reject">
+          <div class="application__title">Reject / ปฏิเสธ</div>
+          <ul class="application__list"></ul>
+        </div>
+      </div>
     </main>
   </body>
   <script>
-    // Fetch list of applications from the server
-    const applications = [
-      {
-        id: 1,
-        form: "แบบฟอร์มจดทะเบียนล่าช้า",
-        date: "14/05/2024",
-        status: "Approved",
-      },
-      {
-        id: 2,
-        form: "แบบฟอร์มขอถอนรายวิชา",
-        date: "01/11/2023",
-        status: "Approved",
-      },
-      {
-        id: 3,
-        form: "แบบฟอร์มขอจดทะเบียนรายวิชาข้ามหลักสูตร",
-        date: "20/10/2024",
-        status: "Pending",
-      },
-      {
-        id: 4,
-        form: "แบบฟอร์มขอลาออกDraft",
-        date: "10/09/2023",
-        status: "Draft",
-      },
-      {
-        id: 5,
-        form: "แบบฟอร์มขอลาออกReject",
-        date: "10/09/2023",
-        status: "Reject",
-      },
-    ];
+    const ApproveFilterButton = document.getElementById("ApproveFilterButton");
+    const PendingFilterButton = document.getElementById("PendingFilterButton");
+    const DraftFilterButton = document.getElementById("DraftFilterButton");
+    const RejectFilterButton = document.getElementById("RejectFilterButton");
 
-    // Display applications based on their status
-    const displayApplications = (status) => {
-      const applicationList = document.querySelector(".application-list");
-      applicationList.innerHTML = "";
+    const applicationApprove = document.getElementById("Application_Approve");
+    const applicationPending = document.getElementById("Application_Pending");
+    const applicationDraft = document.getElementById("Application_Draft");
+    const applicationReject = document.getElementById("Application_Reject");
 
-      applications
-        .filter((application) => application.status === status)
-        .forEach((application) => {
-          const item = document.createElement("li");
-          item.classList.add("application-item");
-          item.innerHTML = `
-            ${application.form} <br />
-            <small>${application.date}</small>
-            <div class="action-buttons">
-              <button application-id="${application.id}">ลบ / ยกเลิกคำร้อง</button>
-            </div>
-          `;
-          applicationList.appendChild(item);
-        });
+    let currentFilter = null;
+
+    const setDisplay = (filter) => {
+      const displaySettings = {
+        "Approve": ["block", "none", "none", "none"],
+        "Pending": ["none", "block", "none", "none"],
+        "Draft": ["none", "none", "block", "none"],
+        "Reject": ["none", "none", "none", "block"],
+        "All": ["block", "block", "block", "block"]
+      };
+
+      const [approve, pending, draft, reject] = displaySettings[filter] || displaySettings["All"];
+      applicationApprove.style.display = approve;
+      applicationPending.style.display = pending;
+      applicationDraft.style.display = draft;
+      applicationReject.style.display = reject;
+      currentFilter = filter;
     };
 
-    // Add event listeners to status buttons
-    const statusButtons = document.querySelectorAll(".status-buttons button");
-    statusButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        statusButtons.forEach((button) => button.classList.remove("active"));
-        button.classList.add("active");
-        displayApplications(button.textContent);
+    const handleFilterButtonClick = (filter, button) => {
+      ApproveFilterButton.classList.remove("button__active");
+      PendingFilterButton.classList.remove("button__active");
+      DraftFilterButton.classList.remove("button__active");
+      RejectFilterButton.classList.remove("button__active");
+
+      if (currentFilter === filter) {
+        setDisplay("All");
+        currentFilter = null;
+      } else {
+        button.classList.add("button__active");
+        setDisplay(filter);
+      }
+    };
+
+    ApproveFilterButton.addEventListener("click", () => handleFilterButtonClick("Approve", ApproveFilterButton));
+    PendingFilterButton.addEventListener("click", () => handleFilterButtonClick("Pending", PendingFilterButton));
+    DraftFilterButton.addEventListener("click", () => handleFilterButtonClick("Draft", DraftFilterButton));
+    RejectFilterButton.addEventListener("click", () => handleFilterButtonClick("Reject", RejectFilterButton));
+
+    const applicationCancelButtons = document.querySelectorAll(".button__cancel");
+    applicationCancelButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const applicationId = event.target.getAttribute("data-application-id");
+        console.log(applicationId);
       });
     });
 
-    // Display applications with the default status
-    displayApplications("Approved");
+    (async () => {
+      await fetch(`http://localhost:8080/api/applications/me/${localStorage.username}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        }
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        data.forEach((application) => {
+          const applicationItem = document.createElement("li");
+          applicationItem.classList.add("applicationItem__wrapper");
+          applicationItem.innerHTML = `
+            <a href="edit#${application.id}" class="application__item">
+              <div class="application__detail">
+                <div class="application__name">${application.name}</div>
+                <span class="application__date">${application.date}</span>
+              </div>
+              <div class="application__action">
+                ${application.status !== "Reject" ? `<button class="button button__danger button__cancel" data-application-id="${application.id}">ลบ / ยกเลิกแบบฟอร์ม</button>` : ""}
+              </div>
+            </a>
+          `;
 
-    // Change status title when clicking on status buttons
-    const statusTitle = document.querySelector("h2");
-    statusButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        statusTitle.textContent = button.textContent;
-      });
-    });
-
-
+          if (application.status === "Approve") {
+            applicationApprove.appendChild(applicationItem);
+          } else if (application.status === "Pending") {
+            applicationPending.appendChild(applicationItem);
+          } else if (application.status === "Draft") {
+            applicationDraft.appendChild(applicationItem);
+          } else if (application.status === "Reject") {
+            applicationReject.appendChild(applicationItem);
+          }
+        });
+      })
+    })()
   </script>
 </html>
