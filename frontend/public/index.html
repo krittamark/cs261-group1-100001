@@ -1,23 +1,201 @@
 <!DOCTYPE html>
 <html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>หน้าแรก</title>
-</head>
-<body>
-    <h1>ยินดีต้อนรับสู่เว็บไซต์</h1>
-    <p>กรุณาล็อกอินก่อนเข้าถึงเนื้อหา</p>
-    
-    <script>
-        // เช็คสถานะการล็อกอินจาก sessionStorage หรือ localStorage
-        if (!sessionStorage.getItem("isLoggedIn")) {
-            // ถ้าไม่ได้ล็อกอิน, ให้เปลี่ยนเส้นทางไปที่หน้า login
-            window.location.href = "login.html";
-        } else {
-            // ถ้าได้ล็อกอิน, แสดงข้อความต้อนรับ
-            document.body.innerHTML += "<p>คุณได้ล็อกอินแล้ว!</p>";
-        }
-    </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>คำร้องของฉัน</title>
+    <style>
+      body {
+        font-family: sans-serif; /* Use a default sans-serif font */
+        display: flex;
+        min-height: 100vh;
+        margin: 0; /* Remove default body margin */
+      }
+
+      .sidebar {
+        width: 250px;
+        background-color: #f0f0f0; /* Light gray background for sidebar */
+        padding: 20px;
+      }
+
+      .content {
+        flex: 1;
+        padding: 20px;
+      }
+
+      .header {
+        margin-bottom: 20px;
+      }
+
+      .status-buttons {
+        margin-bottom: 20px;
+      }
+
+      .status-buttons button {
+        margin: 5px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #ddd;
+        cursor: pointer;
+      }
+
+      .status-buttons button.active {
+        background-color: #3498db; /* Example active color */
+        color: white;
+      }
+
+      .application-list {
+        list-style: none; /* Remove default list styling */
+        padding: 0;
+      }
+
+      .application-item {
+        background-color: #f9f9f9;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between; /* Align items to left and right */
+        align-items: center; /* Vertically center content */
+      }
+
+      .action-buttons button {
+        background-color: #c0392b; /* Example red color */
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 10px;
+      }
+
+      button.logout {
+        background-color: #c0392b; /* Red color */
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button.create {
+        background-color: #c0392b; /* Red color */
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <img src="logo.png" alt="Thammasat University Logo" width="100" />
+      <br /><br />
+      <!-- Replace logo.png -->
+      <a href="#">คำร้องของฉัน</a><br />
+      <a href="#">แบบร่าง</a><br />
+      <a href="#">สร้างคำร้อง</a><br /><br />
+      <button class="logout">→ Log out</button>
+    </aside>
+
+    <main class="content">
+      <div class="header">
+        <h1>คำร้องของฉัน</h1>
+        <p>แสดงสถานะคำร้องของแบบฟอร์ม</p>
+        <button class="create">+ สร้างคำร้อง</button>
+      </div>
+
+      <div class="status-buttons">
+        <button class="active">Approved</button>
+        <button>Pending</button>
+        <button>Draft</button>
+        <button>Reject</button>
+      </div>
+
+      <h2>Approved / อนุมัติ</h2>
+      <ul class="application-list"></ul>
+
+    </main>
+  </body>
+  <script>
+    // Fetch list of applications from the server
+    const applications = [
+      {
+        id: 1,
+        form: "แบบฟอร์มจดทะเบียนล่าช้า",
+        date: "14/05/2024",
+        status: "Approved",
+      },
+      {
+        id: 2,
+        form: "แบบฟอร์มขอถอนรายวิชา",
+        date: "01/11/2023",
+        status: "Approved",
+      },
+      {
+        id: 3,
+        form: "แบบฟอร์มขอจดทะเบียนรายวิชาข้ามหลักสูตร",
+        date: "20/10/2024",
+        status: "Pending",
+      },
+      {
+        id: 4,
+        form: "แบบฟอร์มขอลาออกDraft",
+        date: "10/09/2023",
+        status: "Draft",
+      },
+      {
+        id: 5,
+        form: "แบบฟอร์มขอลาออกReject",
+        date: "10/09/2023",
+        status: "Reject",
+      },
+    ];
+
+    // Display applications based on their status
+    const displayApplications = (status) => {
+      const applicationList = document.querySelector(".application-list");
+      applicationList.innerHTML = "";
+
+      applications
+        .filter((application) => application.status === status)
+        .forEach((application) => {
+          const item = document.createElement("li");
+          item.classList.add("application-item");
+          item.innerHTML = `
+            ${application.form} <br />
+            <small>${application.date}</small>
+            <div class="action-buttons">
+              <button application-id="${application.id}">ลบ / ยกเลิกคำร้อง</button>
+            </div>
+          `;
+          applicationList.appendChild(item);
+        });
+    };
+
+    // Add event listeners to status buttons
+    const statusButtons = document.querySelectorAll(".status-buttons button");
+    statusButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        statusButtons.forEach((button) => button.classList.remove("active"));
+        button.classList.add("active");
+        displayApplications(button.textContent);
+      });
+    });
+
+    // Display applications with the default status
+    displayApplications("Approved");
+
+    // Change status title when clicking on status buttons
+    const statusTitle = document.querySelector("h2");
+    statusButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        statusTitle.textContent = button.textContent;
+      });
+    });
+
+
+  </script>
 </html>
