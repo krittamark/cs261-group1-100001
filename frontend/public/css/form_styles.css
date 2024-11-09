@@ -15,7 +15,7 @@ body {
 .sidebar {
   width: 350px; /* ขยายความกว้างของ sidebar ให้ใหญ่ขึ้น */
   background-color: #f0f0f0;
-  padding-left: 2%; /* เพิ่ม padding ให้กับ sidebar */
+  padding: 25px;
 }
 
 .back-link {
