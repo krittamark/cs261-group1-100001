@@ -82,9 +82,9 @@ document.addEventListener('DOMContentLoaded', function () {
     button.style.display = 'block';
     button.style.margin = '0 auto';
 
-    // Inline function to redirect
+    // Inline function to redirect to template.html
     button.onclick = () => {
-      window.location.href = 'index.html';
+      window.location.href = '/template/template.html';
     };
 
     // Append button to popup
