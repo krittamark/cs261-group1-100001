@@ -1,6 +1,6 @@
 // Fetch form type from API and dynamically load the form
 function getFormType(applicationId) {
-    fetch(`/api/application?id=${applicationId}`)
+    fetch(`http://api.cs261.krittamark.com/api/applications/${applicationId}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -8,7 +8,7 @@ function getFormType(applicationId) {
             return response.json();
         })
         .then(data => {
-            const formType = data.type; // Ensure `data.type` exists and is valid
+            const formType = data.type; // Extract the 'type' field from the API response
             loadForm(formType);         // Call the loader function to display the form
         })
         .catch(error => {
