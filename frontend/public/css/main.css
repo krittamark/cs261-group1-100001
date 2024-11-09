@@ -1,3 +1,7 @@
+* {
+    font-family: "Noto Sans Thai", sans-serif !important;
+  }
+  
 .sidebar {
     width: 250px;
     background-color: #e6e6e6;
