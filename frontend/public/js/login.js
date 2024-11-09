@@ -103,3 +103,24 @@ function submitLogin() {
     })
     .catch((error) => console.error('Error during login:', error));
 }
+
+function togglePassword() {
+    const passwordField = document.getElementById("password");
+    if (passwordField.type === "password") {
+      passwordField.type = "text";
+    } else {
+      passwordField.type = "password";
+    }
+}
+
+function showPopup(statusMessage) {
+    // แสดงข้อความ status ในป๊อปอัพ
+    document.getElementById('overlay').style.display = 'block';
+    document.getElementById('popup').style.display = 'block';
+    document.getElementById('popup-message').textContent = statusMessage; // อัปเดตข้อความ status
+}
+
+function closePopup() {
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('popup').style.display = 'none';
+}
