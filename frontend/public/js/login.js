@@ -14,41 +14,16 @@ function submitLogin() {
     .then(response => response.json())
     .then(data => {
         if (data.status === true) {
-            // Display student details
-            if (data.type === "student") {
-            document.getElementById('message').innerHTML = ` 
-            <div style="padding: 10px; background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; color: #333; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                <strong>Name:</strong> ${data.displayname_th} <br>
-                <strong>EngName:</strong> ${data.displayname_en} <br>
-                <strong>Email:</strong> ${data.email} <br>
-                <strong>department:</strong> ${data.department} <br>
-                <strong>Faculty:</strong> ${data.faculty}
-            </div>
-            `;
-            }
 
-            // Display employee details
-            else if (data.type === "employee") {
-                document.getElementById('message').innerHTML = ` 
-                <div style="padding: 10px; background-color: rgba(255, 255, 255, 0.9); border-radius: 10px; color: #333; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                    <strong>Name:</strong> ${data.displayname_th} <br>
-                    <strong>EngName:</strong> ${data.displayname_en} <br>
-                    <strong>Email:</strong> ${data.email} <br>
-                    <strong>department:</strong> ${data.department} <br>
-                    <strong>organization:</strong> ${data.organization}
-                </div>
-                `;
-                }
-
-            // confirm that user login
+            // confirm that user logedin
             sessionStorage.setItem("isLoggedIn", "true");
 
 
             // Prepare user data to send to the backend API
             const userData = {
+                success: data.status,
                 username: username,
-                displayname_th: data.displayname_th,
-                displayname_en: data.displayname_en,  
+                name: data.displayname_en,  
                 email: data.email, 
                 department : data.department, 
                 faculty: data.faculty || "Null", 
@@ -57,7 +32,7 @@ function submitLogin() {
             };
 
             // Send the data to your backend API
-            fetch('http://localhost:8080/api/users', {
+            fetch('http://localhost:8080/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -85,19 +60,23 @@ function submitLogin() {
 }
 
 function togglePassword() {
-    const passwordField = document.getElementById("password");
-    if (passwordField.type === "password") {
-      passwordField.type = "text";
+    const passwordInput = document.getElementById("password");
+    const passwordIcon = document.getElementById("password-icon");
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        passwordIcon.src = "img/hidden.png"; // รูป icon สำหรับซ่อน
     } else {
-      passwordField.type = "password";
+        passwordInput.type = "password";
+        passwordIcon.src = "img/view.png"; // รูป icon สำหรับแสดง
     }
 }
 
 function showPopup(statusMessage) {
-    // แสดงข้อความ status ในป๊อปอัพ
+    // show popup status 
     document.getElementById('overlay').style.display = 'block';
     document.getElementById('popup').style.display = 'block';
-    document.getElementById('popup-message').textContent = statusMessage; // อัปเดตข้อความ status
+    document.getElementById('popup-message').textContent = statusMessage;
 }
 
 function closePopup() {

@@ -23,7 +23,9 @@
                 <label for="password">Password</label>
                 <div class="password-container">
                     <input type="password" id="password" name="password" placeholder="enter your password" required>
-                    <span class="toggle-password" onclick="togglePassword()">👁️</span>
+                    <span class="toggle-password" onclick="togglePassword()">
+                        <img src="img/view.png" alt="Toggle Password" id="password-icon">
+                    </span>
                 </div>
                 
                 <button type="button" onclick="submitLogin()" class="login-button">LOGIN</button>
@@ -36,11 +38,11 @@
 <div class="popup" id="popup" style="display: none;">
     <span class="close" onclick="closePopup()">×</span>
     
-    <!-- แสดง Status และ popup-message ในบรรทัดเดียวกัน -->
+    <!--  Status and popup-message  -->
     <h2 class="red-text">Status:</h2>
     <h2 id="popup-message" style="display: inline;"></h2>
     
-    <!-- บรรทัดใหม่สำหรับ Error message ในบรรทัดเดียวกัน -->
+    <!--  Error message  -->
     <div class="error-container">
         <h2 class="red-text" style="display: inline;">Error:</h2>
         <h2 style="display: inline; margin-left: 5px;">Login ไม่สำเร็จ</h2>
