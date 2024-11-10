@@ -68,6 +68,7 @@
   margin-top: auto;
   margin-bottom: 80px;
   align-self: center;
+  transition: 0.3s;
 }
 
 .sidebar .logout:hover {

@@ -9,17 +9,59 @@ main {
   margin-top: 20px;
 }
 .browser__title {
-  font-size: large;
+  margin-top: 20px;
+  font-size: 30px;
+  font-weight: bold;
+}
+.button__container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px; /* Adjust spacing below the button */
+}
+.header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Add spacing between text and button */
+  margin-bottom: 20px; /* Adjust space below the header */
+  margin-top:30px;
+}
+
+.header__container h1 {
+  margin: 0;
+}
+
+.header__container p {
+  margin: 5px 0 0 0;
+  color: #666; /* Adjust color if needed */
+}
+
+.create__button {
+  display: flex;
+  width: 200px; /* Slightly smaller width if desired */
+  height: 55px;
+  padding: 10px 20px; /* Adjust padding to reduce button size */
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  background-color: #C30E2F;
+  color: #ffffff;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.create__button:hover {
+  background-color: #b71c1c;
 }
 
 .filter {
   display: flex;
-  justify-content: start;
   flex-direction: row;
-  align-items: center;
-  margin-top: 20px;
+  margin-top: 10px; 
+  margin-bottom: 20px; 
+  gap: 7%; /* Space between buttons */
 }
-
 .button {
   border: none;
   outline: none;
@@ -28,23 +70,41 @@ main {
   align-items: center;
   padding: 10px 20px;
   margin-right: 10px;
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: #fff;
   color: #000;
   cursor: pointer;
   transition: background-color cubic-bezier(0.4, 0, 0.25, 1) 400ms,
     color cubic-bezier(0.4, 0, 0.25, 1) 400ms;
 }
-
 .button__filter {
-  transition: background-color cubic-bezier(0.4, 0, 0.25, 1) 400ms,
-    color cubic-bezier(0.4, 0, 0.25, 1) 400ms;
+  font-size: 20px;
+  width: 200px;
+  background-color: #f0f0f0; /* Light gray background */
+  color: #000; /* Black text */
+  padding: 8px 16px; /* Adjust padding for spacing */
+  border: none; /* Remove border */
+  border-radius: 8px; /* Rounded corners */
+  font-weight: normal; /* Regular font weight */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition */
+  margin-top: 15px;
+}
+
+.button__filter:hover {
+  background-color: #e0e0e0; /* Slightly darker gray on hover */
+}
+
+.button__filter:focus, .button__active {
+  background-color: #dcdcdc; /* Maintain a soft gray when active */
 }
 .button__filter:hover {
   background-color: #f0f0f0;
 }
 .button__active {
   background-color: #f0f0f0;
+  color: #000;
+  font-weight: bold;
 }
 
 .button__danger {
@@ -52,7 +112,7 @@ main {
   color: #fff;
 }
 .button__danger:hover {
-  background-color: #b71c1c;
+  background-color: #C30E2F;
 }
 .button__confirm {
   background-color: crimson;
@@ -106,7 +166,8 @@ main {
 }
 
 .application__title {
-  font-size: large;
+  font-size: 20px;
+  font-weight: bold;
   margin-top: 20px;
 }
 .application__list {
@@ -131,15 +192,15 @@ main {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 24px;
-  border: 1px solid #f0f0f0;
-  border-radius: 5px;
+  padding: 15px;
+  border: 1px solid #ddd;
   margin-bottom: 10px;
-  background-color: rgb(240, 240, 240);
+  border-radius: 5px;
+  background-color: #f9f9f9;
   transition: background-color cubic-bezier(0.4, 0, 0.25, 1) 400ms;
 }
 .application__item:hover {
-  background-color: rgb(235, 235, 235);
+  background-color: #f0f0f0;
   transition: background-color cubic-bezier(0.4, 0, 0.25, 1) 400ms;
 }
 .application__name {

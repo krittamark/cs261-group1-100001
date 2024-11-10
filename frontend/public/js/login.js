@@ -67,7 +67,7 @@ function submitLogin() {
               console.log('Autofill data stored:', autofillData);
 
               // Redirect to template.html
-              window.location.href = '/template/template.html';
+              window.location.href = '/index.html';
             } else {
               console.error(
                 'Failed to fetch detailed student data:',
