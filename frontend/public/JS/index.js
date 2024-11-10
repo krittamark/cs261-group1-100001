@@ -54,15 +54,22 @@ function displayApplications(data) {
     const approveTableBody = document.getElementById("approveTableBody");
     const pendingTableBody = document.getElementById("pendingTableBody");
     const rejectTableBody = document.getElementById("rejectTableBody");
+    const draftTableBody = document.getElementById("draftTableBody");
 
     // Clear previous content
     approveTableBody.innerHTML = "";
     pendingTableBody.innerHTML = "";
     rejectTableBody.innerHTML = "";
+    draftTableBody.innerHTML = "";
 
     data.forEach((application) => {
-        // Skip applications with "Draft" status
-        if (application.formStatus.toLowerCase() === "draft") return;
+        // Determine the action button based on formStatus
+        let actionButton = "";
+        if (application.formStatus.toLowerCase() === "pending") {
+            actionButton = `<button class="action-button admit" data-application-id="${application.id}">Cancel / ยกเลิกคำร้อง</button>`;
+        } else if (application.formStatus.toLowerCase() === "draft") {
+            actionButton = `<button class="action-button edit" data-application-id="${application.id}">Edit / แก้ไข</button>`;
+        }
 
         const row = document.createElement("tr");
         row.innerHTML = `
@@ -71,7 +78,7 @@ function displayApplications(data) {
             <td>${application.fullName || "No Name"}</td>
             <td>${application.formType || "No Type"}</td>
             <td class="status ${getStatusClass(application.formStatus)}">${application.formStatus || "Unknown"}</td>
-            <td><button class="action-button admit" data-application-id="${application.id}">Cancel / ยกเลิกคำร้อง</button></td>
+            <td>${actionButton}</td> <!-- Action button included conditionally -->
         `;
 
         // Append the row to the correct table body based on formStatus
@@ -81,19 +88,30 @@ function displayApplications(data) {
             pendingTableBody.appendChild(row);
         } else if (application.formStatus.toLowerCase() === "rejected") {
             rejectTableBody.appendChild(row);
+        } else if (application.formStatus.toLowerCase() === "draft") {
+            draftTableBody.appendChild(row);
         }
 
-        // Attach cancel event handler to the button
-        const cancelButton = row.querySelector(".action-button");
-        if (cancelButton) {
-            cancelButton.addEventListener("click", (event) => {
-                event.preventDefault();
-                const applicationId = event.target.getAttribute("data-application-id");
-                showPopup(applicationId);
-            });
+        // Attach event handler to the button based on action
+        const actionBtn = row.querySelector(".action-button");
+        if (actionBtn) {
+            if (application.formStatus.toLowerCase() === "pending") {
+                actionBtn.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    const applicationId = event.target.getAttribute("data-application-id");
+                    showPopup(applicationId);
+                });
+            } else if (application.formStatus.toLowerCase() === "draft") {
+                actionBtn.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    const applicationId = event.target.getAttribute("data-application-id");
+                    window.location.href = `/HTML/edit.html?id=${applicationId}`;
+                });
+            }
         }
     });
 }
+
 
 function getStatusClass(status) {
     switch (status?.toLowerCase()) {
@@ -103,6 +121,8 @@ function getStatusClass(status) {
             return "pending";
         case "rejected":
             return "rejected";
+        case "draft":
+            return "draft";
         default:
             return "unknown";
     }
@@ -113,12 +133,14 @@ function setupFilterButtons() {
         Approve: document.getElementById("ApproveFilterButton"),
         Pending: document.getElementById("PendingFilterButton"),
         Reject: document.getElementById("RejectFilterButton"),
+        Draft: document.getElementById("DraftFilterButton"),
     };
 
     const sections = {
         Approve: document.getElementById("Application_Approve"),
         Pending: document.getElementById("Application_Pending"),
         Reject: document.getElementById("Application_Reject"),
+        Draft: document.getElementById("Application_Draft"),
     };
 
     let currentFilter = "All";

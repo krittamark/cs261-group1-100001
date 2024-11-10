@@ -43,6 +43,7 @@
         <button class="button button__filter" id="ApproveFilterButton">Approved</button>
         <button class="button button__filter" id="PendingFilterButton">Pending</button>
         <button class="button button__filter" id="RejectFilterButton">Rejected</button>
+        <button class="button button__filter" id="DraftFilterButton">Draft</button>
       </div>
     </div>
 
@@ -97,6 +98,24 @@
           </tr>
         </thead>
         <tbody id="rejectTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Draft Applications Table -->
+    <div class="application__container" id="Application_Draft">
+      <div class="application__title">Draft / แบบร่าง</div>
+      <table class="application-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>เลขทะเบียน</th>
+            <th>ชื่อ</th>
+            <th>ประเภทคำร้อง</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="draftTableBody"></tbody>
       </table>
     </div>
   </div>
