@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  function showSuccessPopup(title, message) {
+  function showPopup(title, message, isSuccess = true) {
     const overlay = document.createElement('div');
     overlay.id = 'popup-overlay';
     overlay.style.position = 'fixed';
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
     overlay.style.zIndex = 1000;
 
     const popup = document.createElement('div');
-    popup.id = 'success-popup';
+    popup.id = 'popup';
     popup.style.backgroundColor = 'white';
     popup.style.padding = '20px';
     popup.style.borderRadius = '10px';
@@ -62,26 +62,31 @@ document.addEventListener('DOMContentLoaded', function () {
     popup.style.gap = '20px';
 
     popup.innerHTML = `
-      <div style="width: 80px; height: 80px; background-color: #3BAD3E; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
-        <span style="font-size: 40px; color: white; font-weight: bold;">&#10004;</span>
+      <div style="width: 80px; height: 80px; background-color: ${
+        isSuccess ? '#3BAD3E' : '#d9534f'
+      }; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+        <span style="font-size: 40px; color: white; font-weight: bold;">${
+          isSuccess ? '&#10004;' : '&#10006;'
+        }</span>
       </div>
       <h2 style="font-size: 35px; color: #333; margin: 0 0 10px;">${title}</h2>
       <p style="font-size: 20px; color: #666; margin: 0 0 20px;">${message}</p>
     `;
 
     const button = document.createElement('button');
-    button.innerText = 'กลับสู่หน้าหลัก';
+    button.innerText = 'ตกลง';
     button.style.padding = '10px 20px';
     button.style.fontSize = '16px';
     button.style.color = 'white';
-    button.style.backgroundColor = '#d9534f';
+    button.style.backgroundColor = isSuccess ? '#3BAD3E' : '#d9534f';
     button.style.border = 'none';
     button.style.borderRadius = '5px';
     button.style.cursor = 'pointer';
     button.style.margin = '0 auto';
 
     button.onclick = () => {
-      window.location.href = '/template/template.html';
+      document.body.removeChild(overlay); // Close the popup
+      if (isSuccess) window.location.href = '/template/template.html'; // Redirect if successful
     };
 
     popup.appendChild(button);
@@ -116,14 +121,17 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
         formStatus = 'draft';
         if (validateForm(form)) {
-          // Only proceed if form is valid
           submitForm(
             form,
             'แบบร่างของคุณถูกบันทึกแล้ว',
             'แบบร่างของคุณถูกบันทึกสำเร็จ'
           );
         } else {
-          alert('กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน');
+          showPopup(
+            'การบันทึกไม่สำเร็จ',
+            'กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน',
+            false
+          );
         }
       });
 
@@ -133,14 +141,17 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
         formStatus = 'pending';
         if (validateForm(form)) {
-          // Only proceed if form is valid
           submitForm(
             form,
             'การยื่นคำร้องสำเร็จ',
             'คำร้องของคุณกำลังรอการอนุมัติ'
           );
         } else {
-          alert('กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน');
+          showPopup(
+            'การยื่นคำร้องไม่สำเร็จ',
+            'กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน',
+            false
+          );
         }
       });
 
@@ -166,8 +177,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
       console.log('Collected Form Data:', formData);
 
-      // Show the popup with the specified title and message
-      showSuccessPopup(title, message);
+      // Show success popup with the specified title and message
+      showPopup(title, message);
     }
   });
 });
