@@ -17,6 +17,7 @@ public class DatabaseInitializer {
         String[] alterStatements = {
                 "ALTER TABLE request ALTER COLUMN form_type NVARCHAR(50);",
                 "ALTER TABLE request ALTER COLUMN full_name NVARCHAR(100);",
+                "ALTER TABLE request ALTER COLUMN year NVARCHAR(50);",
                 "ALTER TABLE request ALTER COLUMN registration_number NVARCHAR(20);",
                 "ALTER TABLE request ALTER COLUMN faculty NVARCHAR(100);",
                 "ALTER TABLE request ALTER COLUMN department NVARCHAR(100);",
@@ -31,7 +32,11 @@ public class DatabaseInitializer {
                 "ALTER TABLE request ALTER COLUMN course_name NVARCHAR(255);",
                 "ALTER TABLE request ALTER COLUMN course_section NVARCHAR(10);",
                 "ALTER TABLE request ALTER COLUMN additional_explanation NVARCHAR(255);",
-                "ALTER TABLE request ALTER COLUMN form_status NVARCHAR(50);"
+                "ALTER TABLE request ALTER COLUMN form_status NVARCHAR(50);",
+                "ALTER TABLE request ALTER COLUMN resign_year NVARCHAR(50);",
+                "ALTER TABLE request ALTER COLUMN semester NVARCHAR(50);",
+                "ALTER TABLE request ALTER COLUMN debt NVARCHAR(255);",
+                "ALTER TABLE request ALTER COLUMN grade_request NVARCHAR(50);"
         };
 
         for (String sql : alterStatements) {

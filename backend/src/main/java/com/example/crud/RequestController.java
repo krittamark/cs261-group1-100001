@@ -69,6 +69,10 @@ public class RequestController {
             if (requestDetails.getCourseSection() != null) request.setCourseSection(requestDetails.getCourseSection());
             if (requestDetails.getAdditionalExplanation() != null) request.setAdditionalExplanation(requestDetails.getAdditionalExplanation());
             if (requestDetails.getFormStatus() != null) request.setFormStatus(requestDetails.getFormStatus());
+            if (requestDetails.getYear() != null) request.setYear(requestDetails.getFormStatus());
+            if (requestDetails.getResignYear() != null) request.setResignYear(requestDetails.getResignYear());
+            if (requestDetails.getDebt() != null) request.setDebt(requestDetails.getDebt());
+            if (requestDetails.getGradeRequest() != null) request.setGradeRequest(requestDetails.getGradeRequest());
 
             Request updatedRequest = requestService.saveRequest(request);
             return new ResponseEntity<>(updatedRequest, HttpStatus.OK);

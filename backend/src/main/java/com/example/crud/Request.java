@@ -15,6 +15,7 @@ public class Request {
 
     private String formType;
     private String fullName;
+    private String year;
     private String registrationNumber;
     private String faculty;
     private String department;
@@ -30,6 +31,10 @@ public class Request {
     private String courseSection;
     private String additionalExplanation;
     private String formStatus;
+    private String resignYear;
+    private String debt;
+    private String gradeRequest;
+
 
     // Constructors
     public Request() {}
@@ -40,6 +45,7 @@ public class Request {
                    String courseSection, String additionalExplanation, String formStatus) {
         this.formType = formType;
         this.fullName = fullName;
+        this.year = year;
         this.registrationNumber = registrationNumber;
         this.faculty = faculty;
         this.department = department;
@@ -81,6 +87,14 @@ public class Request {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public String getRegistrationNumber() {
@@ -201,5 +215,28 @@ public class Request {
 
     public void setFormStatus(String formStatus) {
         this.formStatus = formStatus;
+    }
+    public String getResignYear() {
+        return resignYear;
+    }
+
+    public void setResignYear(String resignYear) {
+        this.resignYear = resignYear;
+    }
+
+    public String getDebt() {
+        return debt;
+    }
+
+    public void setDebt(String debt) {
+        this.debt = debt;
+    }
+
+    public String getGradeRequest() {
+        return gradeRequest;
+    }
+
+    public void setGradeRequest(String gradeRequest) {
+        this.gradeRequest = gradeRequest;
     }
 }
