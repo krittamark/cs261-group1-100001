@@ -54,6 +54,7 @@
         <thead>
           <tr>
             <th>ID</th>
+            <th>Date</th>
             <th>เลขทะเบียน</th>
             <th>ชื่อ</th>
             <th>ประเภทคำร้อง</th>
@@ -70,6 +71,7 @@
         <thead>
           <tr>
             <th>ID</th>
+            <th>Date</th>
             <th>เลขทะเบียน</th>
             <th>ชื่อ</th>
             <th>ประเภทคำร้อง</th>
@@ -87,6 +89,7 @@
         <thead>
           <tr>
             <th>ID</th>
+            <th>Date</th>
             <th>เลขทะเบียน</th>
             <th>ชื่อ</th>
             <th>ประเภทคำร้อง</th>
@@ -105,6 +108,7 @@
         <thead>
           <tr>
             <th>ID</th>
+            <th>Date</th>
             <th>เลขทะเบียน</th>
             <th>ชื่อ</th>
             <th>ประเภทคำร้อง</th>
@@ -128,7 +132,16 @@
       </div>
     </div>
   </div>
-
+  <div id="deleteDraftPopup" class="popup">
+    <div class="popup-content">
+        <h2>ยืนยันการลบแบบร่าง</h2>
+        <p>คุณต้องการลบแบบร่างนี้หรือไม่?</p>
+        <div class="popup__action">
+            <button id="confirmDeleteDraft" class="button button__confirm">ยืนยัน</button>
+            <button id="closeDeleteDraftPopup" class="button button__cancel">ยกเลิก</button>
+        </div>
+    </div>
+</div>
   <!-- Link to JavaScript -->
   <script src="/js/index.js"></script>
 </body>

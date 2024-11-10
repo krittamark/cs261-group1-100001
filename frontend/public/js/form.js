@@ -56,13 +56,21 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
 
             const applicationData = await response.json();
-            populateForm(applicationData); // Populate form with fetched data
+
+            // Check form type and call the appropriate populate function
+            const topicElement = document.querySelector("h1.topic").textContent;
+            if (topicElement.includes("คำร้องลาออก")) {
+                populateResignForm(applicationData);
+            } else {
+                populateForm(applicationData);  // Call the other populate function for different form types
+            }
         } catch (error) {
             console.error("Error loading application data:", error);
         }
     }
 
     function populateForm(data) {
+        // Basic information
         document.getElementById("date").value = data.date || "";
         document.getElementById("subject").value = data.formType || "";
         document.getElementById("full_name").value = data.fullName || "";
@@ -75,13 +83,55 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.getElementById("email").value = data.email || "";
         document.getElementById("contact_address").value = data.contactAddress || "";
         document.getElementById("advisor").value = data.advisor || "";
+        // Academic year and semester
         document.getElementById("academic_year").value = data.academicYear || "";
         document.getElementById("semester").value = data.semester || "";
+    
+        // Course information
         document.getElementById("course_code").value = data.courseCode || "";
         document.getElementById("course_name").value = data.courseName || "";
         document.getElementById("course_section").value = data.courseSection || "";
+    
+        // Additional explanation
         document.getElementById("additional_explanation").value = data.additionalExplanation || "";
+    
+        // Grade request
+        if (data.gradeRequest === "want") {
+            document.getElementById("want_grade").checked = true;
+        } else if (data.gradeRequest === "dont-want") {
+            document.getElementById("dont_want_grade").checked = true;
+        }
     }
+    function populateResignForm(data) {
+        // Basic information
+        document.getElementById("date").value = data.date || "";
+        document.getElementById("subject").value = data.formType || "";
+        document.getElementById("full_name").value = data.fullName || "";
+        document.getElementById("registration_number").value = data.registrationNumber || "";
+        document.getElementById("year").value = data.year || "";
+        document.getElementById("faculty").value = data.faculty || "";
+        document.getElementById("department").value = data.department || "";
+        document.getElementById("mobile_phone").value = data.mobilePhone || "";
+        document.getElementById("relative_mobile_phone").value = data.relativeMobilePhone || "";
+        document.getElementById("email").value = data.email || "";
+        document.getElementById("contact_address").value = data.contactAddress || "";
+        document.getElementById("advisor").value = data.advisor || "";
+    
+        // Resign year and semester
+        document.getElementById("resign_year").value = data.resignYear || "";
+        document.getElementById("semester").value = data.semester || "";
+    
+        // Debt information
+        document.getElementById("debt").value = data.debt || "";
+    
+        // Grade request (radio buttons)
+        if (data.gradeRequest === "want") {
+            document.getElementById("want_grade").checked = true;
+        } else if (data.gradeRequest === "dont-want") {
+            document.getElementById("dont_want_grade").checked = true;
+        }
+    }
+    
 
     // Show popup function
     function showPopup(title, message, isSuccess = true) {
@@ -137,7 +187,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         button.onclick = () => {
             document.body.removeChild(overlay);
-            if (isSuccess) window.location.href = "/template/template.html";
+            if (isSuccess) window.location.href = "/index.html";
         };
 
         popup.appendChild(button);

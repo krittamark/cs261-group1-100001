@@ -76,22 +76,28 @@ function displayApplications(data) {
             actionButton = `<button class="action-button cancel" data-application-id="${application.id}">Cancel / ยกเลิกคำร้อง</button>`;
         } else if (application.formStatus.toLowerCase() === "draft") {
             const editLink = formTypeLinks[application.formType] || "/HTML/default_edit.html";
+            
+            // Edit and Delete buttons for drafts
             actionButton = `
                 <a href="${editLink}?id=${application.id}" class="action-button edit">Edit / แก้ไข</a>
-                <button class="action-button delete" data-application-id="${application.id}">Delete / ลบ</button>
+                <button class="action-button delete" onclick="showDeleteDraftPopup(${application.id})">Delete / ลบ</button>
             `;
         }
-
+    
+        // Format the date for display
+        const formattedDate = application.date ? new Date(application.date).toLocaleDateString() : "-";
+    
         const row = document.createElement("tr");
         row.innerHTML = `
             <td>${application.id}</td>
+            <td>${formattedDate}</td> <!-- Display the formatted date here -->
             <td>${application.registrationNumber || "-"}</td>
             <td>${application.fullName || "No Name"}</td>
             <td>${application.formType || "No Type"}</td>
             <td class="status ${getStatusClass(application.formStatus)}">${application.formStatus || "Unknown"}</td>
             <td>${actionButton}</td>
         `;
-
+    
         if (application.formStatus.toLowerCase() === "approved") {
             approveTableBody.appendChild(row);
         } else if (application.formStatus.toLowerCase() === "pending") {
@@ -227,6 +233,59 @@ async function deleteDraft(draftId) {
         
         // Optionally refresh application list
         fetchApplications(); // Refresh applications after deletion
+    } catch (error) {
+        console.error("Error deleting draft:", error);
+    }
+}
+// Show delete draft confirmation popup
+function showDeleteDraftPopup(draftId) {
+    const popup = document.getElementById("deleteDraftPopup");
+    popup.style.display = "block";
+    document.getElementById("confirmDeleteDraft").setAttribute("data-draft-id", draftId);
+}
+
+// Hide delete draft popup
+function hideDeleteDraftPopup() {
+    document.getElementById("deleteDraftPopup").style.display = "none";
+}
+
+// Confirm delete draft
+document.getElementById("confirmDeleteDraft").addEventListener("click", () => {
+    const draftId = document.getElementById("confirmDeleteDraft").getAttribute("data-draft-id");
+    deleteDraft(draftId);
+});
+
+document.getElementById("closeDeleteDraftPopup").addEventListener("click", hideDeleteDraftPopup);
+
+// Close delete draft popup when clicking outside
+window.onclick = (event) => {
+    const deleteDraftPopup = document.getElementById("deleteDraftPopup");
+    if (event.target === deleteDraftPopup) {
+        hideDeleteDraftPopup();
+    }
+};
+
+// JavaScript function to delete a draft record
+async function deleteDraft(draftId) {
+    try {
+        const response = await fetch(`http://localhost:8080/api/requests/${draftId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to delete draft");
+        }
+
+        alert("Draft deleted successfully");
+
+        // Hide the delete draft popup
+        hideDeleteDraftPopup();
+
+        // Refresh applications list after deletion
+        fetchApplications();
     } catch (error) {
         console.error("Error deleting draft:", error);
     }
