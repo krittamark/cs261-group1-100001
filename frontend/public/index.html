@@ -35,54 +35,70 @@
       <button class="create__button" onclick="document.location = '/template/template.html'"><span class="plus-icon">&#10010;</span>สร้างคำร้อง</button>
     </div>
     
-     <div class="browser__container">
+    <div class="browser__container">
       <div class="browser__title">
         <span>สืบค้นสถานะคำร้อง</span>
       </div>
       <div class="filter">
         <button class="button button__filter" id="ApproveFilterButton">Approved</button>
         <button class="button button__filter" id="PendingFilterButton">Pending</button>
-        <button class="button button__filter" id="DraftFilterButton">Draft</button>
         <button class="button button__filter" id="RejectFilterButton">Rejected</button>
       </div>
     </div>
 
+    <!-- Approved Applications Table -->
     <div class="application__container" id="Application_Approve">
       <div class="application__title">Approved / อนุมัติ</div>
-      <ul class="application__list"></ul>
+      <table class="application-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>เลขทะเบียน</th>
+            <th>ชื่อ</th>
+            <th>ประเภทคำร้อง</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="approveTableBody"></tbody>
+      </table>
     </div>
 
+    <!-- Pending Applications Table -->
     <div class="application__container" id="Application_Pending">
       <div class="application__title">Pending / รอดำเนินการ</div>
-      <ul class="application__list"></ul>
-    </div>
-
-    <div class="application__container" id="Application_Draft">
-      <div class="application__title">Draft / แบบร่าง</div>
-      <ul class="application__list"></ul>
-    </div>
-
-    <div class="application__container" id="Application_Reject">
-      <div class="application__title">Reject / ปฏิเสธ</div>
-      <ul class="application__list"></ul>
-    </div>
-    <div class="application-table">
-      <table>
-          <thead>
-              <tr>
-                  <th>ID</th>
-                  <th>เลขทะเบียน</th>
-                  <th>ชื่อ</th>
-
-                  <th>ประเภทคำร้อง</th>
-                  <th>Status</th>
-                  <th colspan="2">Action</th>
-              </tr>
-          </thead>
-          <tbody id="applicationTableBody">
-              <!-- Table rows will be dynamically populated here by JavaScript -->
-          </tbody>
+      <table class="application-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>เลขทะเบียน</th>
+            <th>ชื่อ</th>
+            <th>ประเภทคำร้อง</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="pendingTableBody"></tbody>
       </table>
+    </div>
+
+    <!-- Rejected Applications Table -->
+    <div class="application__container" id="Application_Reject">
+      <div class="application__title">Rejected / ปฏิเสธ</div>
+      <table class="application-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>เลขทะเบียน</th>
+            <th>ชื่อ</th>
+            <th>ประเภทคำร้อง</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="rejectTableBody"></tbody>
+      </table>
+    </div>
   </div>
 
   <!-- Popup structure for canceling application -->
@@ -96,8 +112,6 @@
       </div>
     </div>
   </div>
-</div>
-  
 
   <!-- Link to JavaScript -->
   <script src="/js/index.js"></script>
