@@ -56,6 +56,14 @@ function displayApplications(data) {
     const rejectTableBody = document.getElementById("rejectTableBody");
     const draftTableBody = document.getElementById("draftTableBody");
 
+    // Define a mapping between form types and their corresponding HTML pages
+    const formTypeLinks = {
+        "คำร้องจดทะเบียนล่าช้า": "/form/delayed_registration.html",
+        "คำร้องลาออก": "/form/resign.html",
+        "คำร้องขอจดทะเบียนรายวิชาข้ามหลักสูตร": "/form/reg_request.html",
+        "คำร้องขอถอนรายวิชา (Drop W)": "/form/withdraw_course.html"
+    };
+
     // Clear previous content
     approveTableBody.innerHTML = "";
     pendingTableBody.innerHTML = "";
@@ -63,12 +71,13 @@ function displayApplications(data) {
     draftTableBody.innerHTML = "";
 
     data.forEach((application) => {
-        // Determine the action button based on formStatus
         let actionButton = "";
         if (application.formStatus.toLowerCase() === "pending") {
             actionButton = `<button class="action-button admit" data-application-id="${application.id}">Cancel / ยกเลิกคำร้อง</button>`;
         } else if (application.formStatus.toLowerCase() === "draft") {
-            actionButton = `<button class="action-button edit" data-application-id="${application.id}">Edit / แก้ไข</button>`;
+            // Use the formType to find the correct link
+            const editLink = formTypeLinks[application.formType] || "/HTML/default_edit.html";
+            actionButton = `<a href="${editLink}?id=${application.id}" class="action-button edit" data-application-id="${application.id}">Edit / แก้ไข</a>`;
         }
 
         const row = document.createElement("tr");
@@ -78,10 +87,9 @@ function displayApplications(data) {
             <td>${application.fullName || "No Name"}</td>
             <td>${application.formType || "No Type"}</td>
             <td class="status ${getStatusClass(application.formStatus)}">${application.formStatus || "Unknown"}</td>
-            <td>${actionButton}</td> <!-- Action button included conditionally -->
+            <td>${actionButton}</td>
         `;
 
-        // Append the row to the correct table body based on formStatus
         if (application.formStatus.toLowerCase() === "approved") {
             approveTableBody.appendChild(row);
         } else if (application.formStatus.toLowerCase() === "pending") {
@@ -90,24 +98,6 @@ function displayApplications(data) {
             rejectTableBody.appendChild(row);
         } else if (application.formStatus.toLowerCase() === "draft") {
             draftTableBody.appendChild(row);
-        }
-
-        // Attach event handler to the button based on action
-        const actionBtn = row.querySelector(".action-button");
-        if (actionBtn) {
-            if (application.formStatus.toLowerCase() === "pending") {
-                actionBtn.addEventListener("click", (event) => {
-                    event.preventDefault();
-                    const applicationId = event.target.getAttribute("data-application-id");
-                    showPopup(applicationId);
-                });
-            } else if (application.formStatus.toLowerCase() === "draft") {
-                actionBtn.addEventListener("click", (event) => {
-                    event.preventDefault();
-                    const applicationId = event.target.getAttribute("data-application-id");
-                    window.location.href = `/HTML/edit.html?id=${applicationId}`;
-                });
-            }
         }
     });
 }

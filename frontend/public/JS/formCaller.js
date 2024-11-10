@@ -1,6 +1,6 @@
 // Fetch form type from API and dynamically load the form
 function getFormType(applicationId) {
-    fetch(`http://api.cs261.krittamark.com/api/applications/${applicationId}`)
+    fetch(`http://localhost:8080/api/requests/${applicationId}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -9,8 +9,8 @@ function getFormType(applicationId) {
         })
         .then(data => {
             const formType = data.type; // Extract the 'type' field from the API response
-            loadForm(formType);         // Call the loader function to display the form // Check if the form type is resignation
-            autofillForm(data); // Call the autofill function for resignation
+            loadForm(formType);         // Call the loader function to display the form
+            autofillForm(data); // Call the autofill function to fill in the form details
         })
         .catch(error => {
             console.error('Error fetching form type:', error);
@@ -104,4 +104,3 @@ function autofillForm(data) {
         }
     }
 }
-// loadForm('resign');

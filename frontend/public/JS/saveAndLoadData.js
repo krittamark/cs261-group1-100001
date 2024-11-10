@@ -1,121 +1,145 @@
-// saveAndLoadData.js
-
-// Function to save form data to localStorage
-function saveDraft(event) {
+// Function to save (or update) form data to the database
+async function saveForm(event) {
     event.preventDefault(); // Prevent default form submission
-    
+
     const form = event.target.closest('form');
     const formData = new FormData(form);
-    const formId = form.id;
+    const applicationId = form.dataset.applicationId; // Assumes form element has a data attribute for applicationId
 
+    // Convert form data to JSON
     const dataToSave = {};
     formData.forEach((value, key) => {
         dataToSave[key] = value;
     });
 
-    localStorage.setItem(`draft_${formId}`, JSON.stringify(dataToSave));
-    
-    // Show the popup message
-    showDraftedMessage('บันทึกแบบร่างเรียบร้อยแล้ว!');
-}
-
-// Function to load form data from localStorage
-function loadDraft(formId) {
-    const savedData = localStorage.getItem(`draft_${formId}`);
-    if (savedData) {
-        const data = JSON.parse(savedData);
-        const form = document.getElementById(formId);
-
-        Object.keys(data).forEach((key) => {
-            const input = form.querySelector(`[name="${key}"]`);
-            if (input) {
-                input.value = data[key];
-            }
+    try {
+        const response = await fetch(`http://api.cs261.krittamark.com/api/applications/${applicationId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(dataToSave),
         });
 
-        showBringPopup('โหลดแบบร่างสำเร็จ!');
-    } else {
-        showBringPopup('ERROR: ไม่พบแบบร่างในฐานข้อมูล', true);
+        if (!response.ok) {
+            throw new Error(`Failed to update application: ${response.statusText}`);
+        }
+
+        // Show a success message
+        showDraftedMessage('บันทึกข้อมูลเรียบร้อยแล้ว!');
+    } catch (error) {
+        console.error('Error updating application:', error);
+        showBringPopup('เกิดข้อผิดพลาดในการบันทึกข้อมูล', true);
     }
 }
 
-// Event listener for loading a draft when the form is loaded
+// Function to load form data from the database
+async function loadFormData(applicationId) {
+    try {
+        const response = await fetch(`http://api.cs261.krittamark.com/api/applications/${applicationId}`);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch application: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        autofillForm(data); // Fill the form with the fetched data
+
+        showBringPopup('โหลดข้อมูลสำเร็จ!');
+    } catch (error) {
+        console.error('Error loading application data:', error);
+        showBringPopup('ERROR: ไม่พบข้อมูลในฐานข้อมูล', true);
+    }
+}
+
+// Function to autofill form fields with data from the database
+function autofillForm(data) {
+    const details = data.details;
+    const form = document.getElementById(data.type); // Use form ID based on data type (e.g., delay_registration)
+
+    if (!form) return;
+
+    Object.keys(details).forEach((key) => {
+        const input = form.querySelector(`[name="${key}"]`);
+        if (input) {
+            input.value = details[key];
+        }
+    });
+}
+
+// Event listener to load data when the form loads
 document.addEventListener('DOMContentLoaded', () => {
+    const applicationId = new URLSearchParams(window.location.search).get('id'); // Get the application ID from URL
+    if (applicationId) {
+        loadFormData(applicationId); // Load form data from the database
+    }
+
+    // Attach the saveForm function to form submit events
     const forms = document.querySelectorAll('form');
     forms.forEach((form) => {
-        loadDraft(form.id);
+        form.addEventListener('submit', saveForm);
+        form.dataset.applicationId = applicationId; // Store the application ID in the form element
     });
 });
 
-// function to display pop-up message
+// Function to display a popup message (success message)
 function showDraftedMessage(message) {
-    // Create the popup container
     const popup = document.createElement('div');
     popup.className = 'popup-message';
 
-    // Create checkmark icon
     const checkmark = document.createElement('div');
-    checkmark.innerHTML = '&#10003;'; // Unicode for checkmark
-    checkmark.style.fontSize = '60px'; // Larger checkmark
+    checkmark.innerHTML = '&#10003;';
+    checkmark.style.fontSize = '60px';
     checkmark.style.marginBottom = '20px';
 
-    // Create message text
     const text = document.createElement('div');
     text.textContent = message;
-    text.style.fontSize = '24px'; // Larger font size for message
+    text.style.fontSize = '24px';
 
-    // Append elements to popup
     popup.appendChild(checkmark);
     popup.appendChild(text);
 
-    // Append the popup to the body
     document.body.appendChild(popup);
 
-    // Fade in and remove after 3 seconds
-    setTimeout(() => popup.style.opacity = '1', 50); // Delay for fade-in effect
+    setTimeout(() => popup.style.opacity = '1', 50);
     setTimeout(() => {
         popup.style.opacity = '0';
-        setTimeout(() => popup.remove(), 500); // Allow fade-out transition
+        setTimeout(() => popup.remove(), 500);
     }, 3000);
 }
 
+// Function to display a popup message (error or info)
 function showBringPopup(message, isError = false) {
     const popup = document.createElement('div');
     popup.className = 'popup-bottom-right';
     popup.textContent = message;
 
-    // Create progress bar container
     const progressBarContainer = document.createElement('div');
     progressBarContainer.className = 'progress-bar-container';
 
-    // Create progress bar itself
     const progressBar = document.createElement('div');
     progressBar.className = 'progress-bar';
     progressBarContainer.appendChild(progressBar);
 
     popup.appendChild(progressBarContainer);
 
-    // Apply error style if it's an error message
     if (isError) {
-        popup.classList.add('error'); // Add 'error' class for custom error styling
+        popup.classList.add('error');
     }
 
     document.body.appendChild(popup);
 
     setTimeout(() => {
-        popup.style.opacity = '1'; // Fade in
+        popup.style.opacity = '1';
     }, 50);
 
-    const displayDuration = 5000; // Popup will stay for 5 seconds (adjust this value as needed)
-
-    // Animate progress bar shrinking from left to right over the displayDuration
+    const displayDuration = 5000;
     setTimeout(() => {
-        progressBar.style.transition = `width ${displayDuration}ms linear`; // Animate width decrease
-        progressBar.style.width = '0'; // Shrink the progress bar to 0 width from left to right
+        progressBar.style.transition = `width ${displayDuration}ms linear`;
+        progressBar.style.width = '0';
     }, 50);
 
     setTimeout(() => {
-        popup.style.opacity = '0'; // Fade out
-        setTimeout(() => popup.remove(), 500); // Remove from DOM after fade-out
-    }, displayDuration); // The popup will stay visible for the duration of `displayDuration`
+        popup.style.opacity = '0';
+        setTimeout(() => popup.remove(), 500);
+    }, displayDuration);
 }
