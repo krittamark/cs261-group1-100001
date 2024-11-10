@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,6 +74,8 @@ public class RequestController {
             if (requestDetails.getResignYear() != null) request.setResignYear(requestDetails.getResignYear());
             if (requestDetails.getDebt() != null) request.setDebt(requestDetails.getDebt());
             if (requestDetails.getGradeRequest() != null) request.setGradeRequest(requestDetails.getGradeRequest());
+            if (request.getDate() == null) {request.setDate(LocalDate.now());
+            }
 
             Request updatedRequest = requestService.saveRequest(request);
             return new ResponseEntity<>(updatedRequest, HttpStatus.OK);

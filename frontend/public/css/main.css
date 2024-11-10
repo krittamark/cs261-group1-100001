@@ -374,6 +374,16 @@
 .application-table .action-button.cancel:hover {
   background-color: #b71c1c; /* Darker red on hover */
 }
+/* Delete Button Styling */
+.application-table .action-button.delete {
+  background-color: #d32f2f; /* Red color for delete button */
+  color: white;
+}
+
+/* Hover Effect for Delete Button */
+.application-table .action-button.delete:hover {
+  background-color: #b71c1c; /* Darker red on hover */
+}
 
 /* Status Cell Styling */
 .status {

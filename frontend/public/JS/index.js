@@ -76,7 +76,10 @@ function displayApplications(data) {
             actionButton = `<button class="action-button cancel" data-application-id="${application.id}">Cancel / ยกเลิกคำร้อง</button>`;
         } else if (application.formStatus.toLowerCase() === "draft") {
             const editLink = formTypeLinks[application.formType] || "/HTML/default_edit.html";
-            actionButton = `<a href="${editLink}?id=${application.id}" class="action-button edit">Edit / แก้ไข</a>`;
+            actionButton = `
+                <a href="${editLink}?id=${application.id}" class="action-button edit">Edit / แก้ไข</a>
+                <button class="action-button delete" data-application-id="${application.id}">Delete / ลบ</button>
+            `;
         }
 
         const row = document.createElement("tr");
@@ -197,3 +200,34 @@ window.onclick = (event) => {
         hidePopup();
     }
 };
+// JavaScript function to delete a draft record
+async function deleteDraft(draftId) {
+    // Confirm before deleting
+    if (!confirm("Are you sure you want to delete this draft?")) {
+        return;
+    }
+
+    try {
+        // Delete draft from the server
+        const response = await fetch(`http://localhost:8080/api/requests/${draftId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to delete draft");
+        }
+
+        alert("Draft deleted successfully");
+
+        // Remove the deleted draft from the table
+        document.querySelector(`#draftTableBody tr[data-id="${draftId}"]`).remove();
+        
+        // Optionally refresh application list
+        fetchApplications(); // Refresh applications after deletion
+    } catch (error) {
+        console.error("Error deleting draft:", error);
+    }
+}

@@ -6,6 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 
+import java.time.LocalDate;
+
 @Entity
 public class Request {
 
@@ -34,6 +36,7 @@ public class Request {
     private String resignYear;
     private String debt;
     private String gradeRequest;
+    private LocalDate date;
 
 
     // Constructors
@@ -238,5 +241,12 @@ public class Request {
 
     public void setGradeRequest(String gradeRequest) {
         this.gradeRequest = gradeRequest;
+    }
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

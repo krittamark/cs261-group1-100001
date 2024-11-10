@@ -36,7 +36,8 @@ public class DatabaseInitializer {
                 "ALTER TABLE request ALTER COLUMN resign_year NVARCHAR(50);",
                 "ALTER TABLE request ALTER COLUMN semester NVARCHAR(50);",
                 "ALTER TABLE request ALTER COLUMN debt NVARCHAR(255);",
-                "ALTER TABLE request ALTER COLUMN grade_request NVARCHAR(50);"
+                "ALTER TABLE request ALTER COLUMN grade_request NVARCHAR(50);",
+                "ALTER TABLE request ALTER COLUMN date DATE;"
         };
 
         for (String sql : alterStatements) {
