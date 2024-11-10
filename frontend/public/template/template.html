@@ -10,35 +10,17 @@
       rel="stylesheet"
     />
     <title>Thammasat University Form Selection</title>
-    <link rel="stylesheet" href="../css/main.css" />
-    <link rel="stylesheet" href="../css/template.css" />
-    <link rel="stylesheet" href="/css/dashboard.css">
-
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        // Redirect to login if not logged in
-        const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-        if (!isLoggedIn) {
-          window.location.href = '/login.html';
-        }
-      });
-
-      function logout() {
-        // Clear session storage and redirect to login
-        sessionStorage.clear();
-        window.location.href = '/login.html';
-      }
-    </script>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/template.css" />
   </head>
   <body>
     <div class="sidebar">
       <img
-        src="../img/Thammasat_Horz_logo_route1_01 1.png"
+        src="/img/Thammasat_Horz_logo_route1_01 1.png"
         alt="Thammasat University Logo"
       />
       <div class="menu">
         <a href="/index.html">คำร้องของฉัน</a>
-        <a href="#">แบบร่าง</a>
         <a href="/template/template.html">สร้างคำร้อง</a>
       </div>
       <a class="logout" onclick="logout()">Log out</a>
@@ -91,4 +73,19 @@
       </div>
     </div>
   </body>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Redirect to login if not logged in
+      const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+      if (!isLoggedIn) {
+        window.location.href = '/login.html';
+      }
+    });
+
+    function logout() {
+      // Clear session storage and redirect to login
+      sessionStorage.clear();
+      window.location.href = '/login.html';
+    }
+  </script>
 </html>
