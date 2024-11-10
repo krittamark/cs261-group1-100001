@@ -1,103 +1,63 @@
 package com.example.crud;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 
 @Entity
-@Table(name = "requests")  // Table name
 public class Request {
-
-    @Column(name = "status", nullable = false)
-    private String status;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "subject", nullable = false)
-    private String subject;
-
-    @Column(name = "recipient", nullable = false)
-    private String recipient;
-
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
-
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
-
-    @Column(name = "student_id", nullable = false)
-    private String studentId;
-
-    @Column(name = "major", nullable = false)
-    private String major;
-
-    @Column(name = "address_number", nullable = false)
-    private String addressNumber;
-
-    @Column(name = "sub_district", nullable = false)
-    private String subDistrict;
-
-    @Column(name = "district", nullable = false)
-    private String district;
-
-    @Column(name = "province", nullable = false)
-    private String province;
-
-    @Column(name = "student_phone", nullable = false)
-    private String studentPhone;
-
-    @Column(name = "parent_phone", nullable = false)
-    private String parentPhone;
-
-    @Column(name = "advisor", nullable = false)
+    private String formType;
+    private String fullName;
+    private String registrationNumber;
+    private String faculty;
+    private String department;
+    private String email;
+    private String contactAddress;
+    private String mobilePhone;
+    private String relativeMobilePhone;
     private String advisor;
-
-    @Column(name = "request_type", nullable = false)
-    private String requestType;
-
-    @Column(name = "semester")
-    private String semester;
-
-    @Column(name = "academic_year")
     private String academicYear;
-
-    @Column(name = "course_code")
+    private String semester;
     private String courseCode;
-
-    @Column(name = "course_name")
     private String courseName;
+    private String courseSection;
+    private String additionalExplanation;
+    private String formStatus;
 
-    @Column(name = "section")
-    private String section;
+    // Constructors
+    public Request() {}
 
-    @Column(name = "start_semester")
-    private String startSemester;
-
-    @Column(name = "start_academic_year")
-    private String startAcademicYear;
-
-    @Column(name = "debt_status")
-    private String debtStatus;
-
-    @Column(name = "debt_amount")
-    private String debtAmount;
-
-    @Column(name = "comment")
-    private String comment;
+    public Request(String formType, String fullName, String registrationNumber, String faculty, String department,
+                   String email, String contactAddress, String mobilePhone, String relativeMobilePhone,
+                   String advisor, String academicYear, String semester, String courseCode, String courseName,
+                   String courseSection, String additionalExplanation, String formStatus) {
+        this.formType = formType;
+        this.fullName = fullName;
+        this.registrationNumber = registrationNumber;
+        this.faculty = faculty;
+        this.department = department;
+        this.email = email;
+        this.contactAddress = contactAddress;
+        this.mobilePhone = mobilePhone;
+        this.relativeMobilePhone = relativeMobilePhone;
+        this.advisor = advisor;
+        this.academicYear = academicYear;
+        this.semester = semester;
+        this.courseCode = courseCode;
+        this.courseName = courseName;
+        this.courseSection = courseSection;
+        this.additionalExplanation = additionalExplanation;
+        this.formStatus = formStatus;
+    }
 
     // Getters and Setters
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public Long getId() {
         return id;
@@ -107,100 +67,76 @@ public class Request {
         this.id = id;
     }
 
-    public String getSubject() {
-        return subject;
+    public String getFormType() {
+        return formType;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setFormType(String formType) {
+        this.formType = formType;
     }
 
-    public String getRecipient() {
-        return recipient;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getRegistrationNumber() {
+        return registrationNumber;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setRegistrationNumber(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getFaculty() {
+        return faculty;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
     }
 
-    public String getStudentId() {
-        return studentId;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
-    public String getMajor() {
-        return major;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMajor(String major) {
-        this.major = major;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getAddressNumber() {
-        return addressNumber;
+    public String getContactAddress() {
+        return contactAddress;
     }
 
-    public void setAddressNumber(String addressNumber) {
-        this.addressNumber = addressNumber;
+    public void setContactAddress(String contactAddress) {
+        this.contactAddress = contactAddress;
     }
 
-    public String getSubDistrict() {
-        return subDistrict;
+    public String getMobilePhone() {
+        return mobilePhone;
     }
 
-    public void setSubDistrict(String subDistrict) {
-        this.subDistrict = subDistrict;
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
     }
 
-    public String getDistrict() {
-        return district;
+    public String getRelativeMobilePhone() {
+        return relativeMobilePhone;
     }
 
-    public void setDistrict(String district) {
-        this.district = district;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getStudentPhone() {
-        return studentPhone;
-    }
-
-    public void setStudentPhone(String studentPhone) {
-        this.studentPhone = studentPhone;
-    }
-
-    public String getParentPhone() {
-        return parentPhone;
-    }
-
-    public void setParentPhone(String parentPhone) {
-        this.parentPhone = parentPhone;
+    public void setRelativeMobilePhone(String relativeMobilePhone) {
+        this.relativeMobilePhone = relativeMobilePhone;
     }
 
     public String getAdvisor() {
@@ -211,12 +147,12 @@ public class Request {
         this.advisor = advisor;
     }
 
-    public String getRequestType() {
-        return requestType;
+    public String getAcademicYear() {
+        return academicYear;
     }
 
-    public void setRequestType(String requestType) {
-        this.requestType = requestType;
+    public void setAcademicYear(String academicYear) {
+        this.academicYear = academicYear;
     }
 
     public String getSemester() {
@@ -225,14 +161,6 @@ public class Request {
 
     public void setSemester(String semester) {
         this.semester = semester;
-    }
-
-    public String getAcademicYear() {
-        return academicYear;
-    }
-
-    public void setAcademicYear(String academicYear) {
-        this.academicYear = academicYear;
     }
 
     public String getCourseCode() {
@@ -251,51 +179,27 @@ public class Request {
         this.courseName = courseName;
     }
 
-    public String getSection() {
-        return section;
+    public String getCourseSection() {
+        return courseSection;
     }
 
-    public void setSection(String section) {
-        this.section = section;
+    public void setCourseSection(String courseSection) {
+        this.courseSection = courseSection;
     }
 
-    public String getStartSemester() {
-        return startSemester;
+    public String getAdditionalExplanation() {
+        return additionalExplanation;
     }
 
-    public void setStartSemester(String startSemester) {
-        this.startSemester = startSemester;
+    public void setAdditionalExplanation(String additionalExplanation) {
+        this.additionalExplanation = additionalExplanation;
     }
 
-    public String getStartAcademicYear() {
-        return startAcademicYear;
+    public String getFormStatus() {
+        return formStatus;
     }
 
-    public void setStartAcademicYear(String startAcademicYear) {
-        this.startAcademicYear = startAcademicYear;
-    }
-
-    public String getDebtStatus() {
-        return debtStatus;
-    }
-
-    public void setDebtStatus(String debtStatus) {
-        this.debtStatus = debtStatus;
-    }
-
-    public String getDebtAmount() {
-        return debtAmount;
-    }
-
-    public void setDebtAmount(String debtAmount) {
-        this.debtAmount = debtAmount;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setFormStatus(String formStatus) {
+        this.formStatus = formStatus;
     }
 }

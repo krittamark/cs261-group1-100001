@@ -62,25 +62,13 @@
             <label for="full-name" class="form-label"
               >ชื่อ-นามสกุล (ใส่คำนำหน้า) <span class="required">*</span></label
             >
-            <input
-              type="text"
-              id="full_name"
-              class="form-input"
-              placeholder="ชื่อ-นามสกุล"
-              required
-            />
+            <input type="text" id="full_name" name="fullName" class="form-input" placeholder="ชื่อ-นามสกุล" required />
           </div>
           <div class="form-group">
             <label for="registration-number" class="form-label"
               >เลขทะเบียน <span class="required">*</span></label
             >
-            <input
-              type="text"
-              id="registration_number"
-              class="form-input"
-              placeholder="เลขทะเบียน"
-              required
-            />
+            <input type="text" id="registration_number" name="registrationNumber" class="form-input" placeholder="เลขทะเบียน" required />
           </div>
         </div>
 
@@ -101,23 +89,13 @@
             <label for="faculty" class="form-label"
               >คณะ <span class="required">*</span></label
             >
-            <input
-              type="text"
-              id="faculty"
-              class="form-input"
-              required
-            />
+            <input type="text" id="faculty" name="faculty" class="form-input" placeholder="คณะ" required />
           </div>
           <div class="form-group">
             <label for="department" class="form-label"
               >สาขาวิชา <span class="required">*</span></label
             >
-            <input
-              type="text"
-              id="department"
-              class="form-input"
-              required
-            />
+            <input type="text" id="department" name="department" class="form-input" placeholder="สาขาวิชา" required />
           </div>
         </div>
 
@@ -126,34 +104,14 @@
             <label for="mobile-phone" class="form-label"
               >โทรศัพท์มือถือ <span class="required">*</span></label
             >
-            <input
-              type="tel"
-              id="mobile_phone"
-              name="mobile_phone"
-              class="form-input"
-              placeholder="โทรศัพท์มือถือ"
-              pattern="\d{10}"           
-              maxlength="10"
-              title="กรุณาใส่เบอร์โทรศัพท์ให้ครบ 10 หลัก"             
-              required
-            />
+            <input type="tel" id="mobile_phone" name="mobilePhone" class="form-input" placeholder="โทรศัพท์มือถือ" pattern="\d{10}" maxlength="10" required />
           </div>
 
           <div class="form-group">
             <label for="mobile-phone" class="form-label"
               >โทรศัพท์มือถือผู้ปกครอง <span class="required">*</span></label
             >
-            <input
-              type="tel"
-              id="relativemobile_phone"
-              name="relativemobile_phone"
-              class="form-input"
-              placeholder="โทรศัพท์มือถือผู้ปกครอง"
-              pattern="\d{10}"           
-              maxlength="10"
-              title="กรุณาใส่เบอร์โทรศัพท์ให้ครบ 10 หลัก" 
-              required
-            />
+            <input type="tel" id="relative_mobile_phone" name="relativeMobilePhone" class="form-input" placeholder="โทรศัพท์มือถือผู้ปกครอง" pattern="\d{10}" maxlength="10" required />
           </div>
         </div>
 
@@ -161,14 +119,7 @@
           <label for="email" class="form-label"
             >Email <span class="required">*</span></label
           >
-          <input
-            type="email"
-            id="email"
-            name="email"
-            class="form-input"
-            placeholder="email@example.com"
-            required
-          />
+          <input type="email" id="email" name="email" class="form-input" placeholder="email@example.com" required />
         </div>
 
         <div class="form-row">
@@ -176,13 +127,7 @@
             <label for="contact-address" class="form-label"
               >ที่อยู่ที่สามารถติดต่อได้ <span class="required">*</span></label
             >
-            <input
-              type="text"
-              id="contact_address"
-              class="form-input"
-              placeholder="ที่อยู่"
-              required
-            />
+            <input type="text" id="contact_address" name="contactAddress" class="form-input" placeholder="ที่อยู่" required />
           </div>
         </div>
 
@@ -190,13 +135,7 @@
           <label for="advisor" class="form-label"
             >อาจารย์ที่ปรึกษา <span class="required">*</span></label
           >
-          <input
-            type="text"
-            id="advisor"
-            class="form-input"
-            placeholder="อาจารย์ที่ปรึกษา"
-            required
-          />
+          <input type="text" id="advisor" name="advisor" class="form-input" placeholder="อาจารย์ที่ปรึกษา" required />
         </div>
 
         <div class="form-row">
@@ -204,27 +143,13 @@
               <label for="academic-year" class="form-label"
                 >ปีการศึกษา <span class="required">*</span></label
               >
-              <input
-                type="text"
-                id="academic_year"
-                name="academic_year"
-                class="form-input"
-                placeholder="ปีการศึกษา"
-                required
-              />
+              <input type="text" id="academic_year" name="academicYear" class="form-input" placeholder="ปีการศึกษา" required />
             </div>
             <div class="form-group">
               <label for="semester" class="form-label"
                 >ภาคการศึกษา <span class="required">*</span></label
               >
-              <input
-                type="text"
-                id="semester"
-                name="semester"
-                class="form-input"
-                placeholder="ภาคการศึกษา"
-                required
-              />
+              <input type="text" id="semester" name="semester" class="form-input" placeholder="ภาคการศึกษา" required />
             </div>
           </div>
 
@@ -243,24 +168,30 @@
                 <td>
                   <input
                     type="text"
-                    name="course_code"
+                    id="course_code"
+                    name="courseCode"
                     class="table-input"
+                    placeholder="รหัสวิชา"
                     required
                   />
                 </td>
                 <td>
                   <input
                     type="text"
-                    name="course_name"
+                    id="course_name"
+                    name="courseName"
                     class="table-input"
+                    placeholder="ชื่อวิชา"
                     required
                   />
                 </td>
                 <td>
                   <input
                     type="text"
-                    name="course_section"
+                    id="course_section"
+                    name="courseSection"
                     class="table-input"
+                    placeholder="Section"
                     required
                   />
                 </td>
@@ -273,11 +204,7 @@
           <label for="additional-explanation" class="form-label"
             >ชี้แจงเหตุผลเพิ่มเติม <span class="required">*</span></label
           >
-          <textarea
-            id="additional_explanation"
-            class="form-input explanation-box"
-            required
-          ></textarea>
+          <textarea id="additional_explanation" name="additionalExplanation" class="form-input explanation-box" placeholder="ชี้แจงเหตุผลเพิ่มเติม" required></textarea>
         </div>
 
         <div class="button-group">
