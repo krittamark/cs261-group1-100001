@@ -18,7 +18,7 @@ function submitLogin() {
 
       if (data.status === true) {
         sessionStorage.setItem('isLoggedIn', 'true');
-
+        sessionStorage.setItem('registrationNumber', username)
         // Fetch detailed student data
         const studentId = username;
         fetch(

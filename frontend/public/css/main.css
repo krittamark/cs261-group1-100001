@@ -80,3 +80,15 @@
   background-color: #7C0017;
   color: #ffffff;
 }
+.status.approved {
+  color: green;
+}
+.status.pending {
+  color: orange;
+}
+.status.rejected {
+  color: red;
+}
+.status.unknown {
+  color: gray;
+}

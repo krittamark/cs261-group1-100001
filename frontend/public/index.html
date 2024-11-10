@@ -35,7 +35,7 @@
       <button class="create__button" onclick="document.location = '/template/template.html'"><span class="plus-icon">&#10010;</span>สร้างคำร้อง</button>
     </div>
     
-    <div class="browser__container">
+     <div class="browser__container">
       <div class="browser__title">
         <span>สืบค้นสถานะคำร้อง</span>
       </div>
@@ -66,6 +66,22 @@
       <div class="application__title">Reject / ปฏิเสธ</div>
       <ul class="application__list"></ul>
     </div>
+    <div class="application-table">
+      <table>
+          <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>เลขทะเบียน</th>
+                  <th>ชื่อ</th>
+                  <th>ประเภทคำร้อง</th>
+                  <th>Status</th>
+                  <th colspan="2">Action</th>
+              </tr>
+          </thead>
+          <tbody id="applicationTableBody">
+              <!-- Table rows will be dynamically populated here by JavaScript -->
+          </tbody>
+      </table>
   </div>
 
   <!-- Popup structure for canceling application -->
@@ -79,6 +95,8 @@
       </div>
     </div>
   </div>
+</div>
+  
 
   <!-- Link to JavaScript -->
   <script src="/js/index.js"></script>
