@@ -95,6 +95,19 @@
   </body>
   </body>
   <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Redirect to login if not logged in
+        const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+        if (!isLoggedIn) {
+          window.location.href = '/login.html';
+        }
+      });
+
+      function logout() {
+        // Clear session storage and redirect to login
+        sessionStorage.clear();
+        window.location.href = '/login.html';
+      }
     document.querySelectorAll(".button__cancel").forEach((button) => {
       button.addEventListener("click", (event) => {
         event.preventDefault();
