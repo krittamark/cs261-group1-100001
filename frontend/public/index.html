@@ -1,256 +1,86 @@
 <!DOCTYPE html>
 <html lang="th">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <title>คำร้องของฉัน</title>
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/template.css">
-    <link rel="stylesheet" href="/css/dashboard.css">
-  </head>
-  <body>
-    <div class="sidebar">
-      <img
-        src="../img/Thammasat_Horz_logo_route1_01 1.png"
-        alt="Thammasat University Logo"
-      />
-      <div class="menu">
-        <a href="/index.html">คำร้องของฉัน</a>
-        <a href="#">แบบร่าง</a>
-        <a href="/template/template.html">สร้างคำร้อง</a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title>คำร้องของฉัน</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/template.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+  <div class="sidebar">
+    <img src="../img/Thammasat_Horz_logo_route1_01 1.png" alt="Thammasat University Logo" />
+    <div class="menu">
+      <a href="/index.html">คำร้องของฉัน</a>
+      <a href="#">แบบร่าง</a>
+      <a href="/template/template.html">สร้างคำร้อง</a>
+    </div>
+    <a class="logout" onclick="logout()">Log out</a>
+  </div>
+
+  <div class="content">
+    <div class="header__container">
+      <div>
+        <h1>คำร้องของฉัน</h1>
+        <p>แสดงสถานะคำร้องของแบบฟอร์ม</p>
       </div>
-      <a class="logout" onclick="logout()">Log out</a>
+      <button class="create__button" onclick="document.location = '/template/template.html'"><span class="plus-icon">&#10010;</span>สร้างคำร้อง</button>
+    </div>
+    
+    <div class="browser__container">
+      <div class="browser__title">
+        <span>สืบค้นสถานะคำร้อง</span>
+      </div>
+      <div class="filter">
+        <button class="button button__filter" id="ApproveFilterButton">Approved</button>
+        <button class="button button__filter" id="PendingFilterButton">Pending</button>
+        <button class="button button__filter" id="DraftFilterButton">Draft</button>
+        <button class="button button__filter" id="RejectFilterButton">Rejected</button>
+      </div>
     </div>
 
-    <div class="content">
-      <div class="header__container">
-        <div>
-          <h1>คำร้องของฉัน</h1>
-          <p>แสดงสถานะคำร้องของแบบฟอร์ม</p>
-        </div>
-        <button class="create__button" onclick="document.location = '/template/template.html'"><span class="plus-icon">&#10010;</span>สร้างคำร้อง</button>
-      </div>
-        <div class="browser__container">
-          <div class="browser__title">
-            <span>สืบค้นสถานะคำร้อง</span>
-          </div>
-      
-        
-        <div class="filter">
-          <button class="button button__filter" id="ApproveFilterButton">Approved</button>
-          <button class="button button__filter" id="PendingFilterButton">Pending</button>
-          <button class="button button__filter" id="DraftFilterButton">Draft</button>
-          <button class="button button__filter" id="RejectFilterButton">Rejected</button>
-        </div>
-      </div>
-      <div class="application__container">
-        <div class="application__container" id="Application_Approve">
-          <div class="application__title">Approved / อนุมัติ</div>
-          <ul class="application__list"></ul>
-        </div>
+    <div class="application__container" id="Application_Approve">
+      <div class="application__title">Approved / อนุมัติ</div>
+      <ul class="application__list"></ul>
+    </div>
 
-        <div class="application__container" id="Application_Pending">
-          <div class="application__title">Pending / รอดำเนินการ</div>
-          <ul class="application__list"></ul>
-        </div>
+    <div class="application__container" id="Application_Pending">
+      <div class="application__title">Pending / รอดำเนินการ</div>
+      <ul class="application__list"></ul>
+    </div>
 
-        <div class="application__container" id="Application_Draft">
-          <div class="application__title">Draft / แบบร่าง</div>
-          <ul class="application__list"></ul>
-        </div>
+    <div class="application__container" id="Application_Draft">
+      <div class="application__title">Draft / แบบร่าง</div>
+      <ul class="application__list"></ul>
+    </div>
 
-        <div class="application__container" id="Application_Reject">
-          <div class="application__title">Reject / ปฏิเสธ</div>
-          <ul class="application__list">
-            <a href="edit#1" class="application__item">
-              <div class="application__detail">
-                <div class="application__name">${application.name}</div>
-                <span class="application__date">${application.date}</span>
-              </div>
-              <div class="application__action">
-                <button class="button button__danger button__cancel" data-application-id="1">ลบ / ยกเลิกแบบฟอร์ม</button>
-              </div>
-            </a>
-          </ul>
-        </div>
+    <div class="application__container" id="Application_Reject">
+      <div class="application__title">Reject / ปฏิเสธ</div>
+      <ul class="application__list"></ul>
+    </div>
+  </div>
+
+  <!-- Popup structure for canceling application -->
+  <div id="cancelPopup" class="popup">
+    <div class="popup-content">
+      <h2>ยืนยันการยกเลิกคำร้อง</h2>
+      <p>คุณต้องการยกเลิกคำร้องนี้หรือไม่?</p>
+      <div class="popup__action">
+        <button id="confirmCancel" class="button button__confirm">ยืนยัน</button>
+        <button id="closePopup" class="button button__cancel">ยกเลิก</button>
       </div>
     </div>
-    <!-- โครงสร้างป๊อปอัปสำหรับยกเลิกคำร้อง -->
-    <div id="cancelPopup" class="popup">
-      <div class="popup-content">
-        <h2>ยืนยันการยกเลิกคำร้อง</h2>
-        <p>คุณต้องการยกเลิกคำร้องนี้หรือไม่?</p>
-        <div class="popup__action">
-          <button id="confirmCancel" class="button button__confirm">ยืนยัน</button>
-          <button id="closePopup" class="button button__cancel">ยกเลิก</button>
-        </div>
-      </div>
-    </div>
-  </body>
-  </body>
-  <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        // Redirect to login if not logged in
-        const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-        if (!isLoggedIn) {
-          window.location.href = '/login.html';
-        }
-      });
+  </div>
 
-      function logout() {
-        // Clear session storage and redirect to login
-        sessionStorage.clear();
-        window.location.href = '/login.html';
-      }
-    document.querySelectorAll(".button__cancel").forEach((button) => {
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-        const applicationId = event.target.getAttribute("data-application-id");
-        showPopup(applicationId);
-      });
-    });
-
-    document.getElementById("confirmCancel").addEventListener("click", () => {
-      const applicationId = document.getElementById("confirmCancel").getAttribute("data-application-id");
-      console.log(applicationId);
-    });
-
-    document.getElementById("closePopup").addEventListener("click", () => {
-      hidePopup();
-    });
-
-    const showPopup = (applicationId) => {
-      const popup = document.getElementById("cancelPopup");
-      popup.style.display = "block";
-      document.getElementById("confirmCancel").setAttribute("data-application-id", applicationId);
-    };
-
-    const hidePopup = () => {
-      const popup = document.getElementById("cancelPopup");
-      popup.style.display = "none";
-    };
-
-    window.onclick = (event) => {
-      const popup = document.getElementById("cancelPopup");
-      if (event.target === popup) {
-        popup.style.display = "none";
-        const applicationId = target.getAttribute("data-application-id");
-        fetch(`http://localhost:8080/api/applications/${applicationId}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          }
-        })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-        });
-      }
-    };
-  </script>
-  <script>
-    const ApproveFilterButton = document.getElementById("ApproveFilterButton");
-    const PendingFilterButton = document.getElementById("PendingFilterButton");
-    const DraftFilterButton = document.getElementById("DraftFilterButton");
-    const RejectFilterButton = document.getElementById("RejectFilterButton");
-
-    const applicationApprove = document.getElementById("Application_Approve");
-    const applicationPending = document.getElementById("Application_Pending");
-    const applicationDraft = document.getElementById("Application_Draft");
-    const applicationReject = document.getElementById("Application_Reject");
-
-    let currentFilter = null;
-
-    const setDisplay = (filter) => {
-      const displaySettings = {
-        "Approve": ["block", "none", "none", "none"],
-        "Pending": ["none", "block", "none", "none"],
-        "Draft": ["none", "none", "block", "none"],
-        "Reject": ["none", "none", "none", "block"],
-        "All": ["block", "block", "block", "block"]
-      };
-
-      const [approve, pending, draft, reject] = displaySettings[filter] || displaySettings["All"];
-      applicationApprove.style.display = approve;
-      applicationPending.style.display = pending;
-      applicationDraft.style.display = draft;
-      applicationReject.style.display = reject;
-      currentFilter = filter;
-    };
-
-    const handleFilterButtonClick = (filter, button) => {
-      ApproveFilterButton.classList.remove("button__active");
-      PendingFilterButton.classList.remove("button__active");
-      DraftFilterButton.classList.remove("button__active");
-      RejectFilterButton.classList.remove("button__active");
-
-      if (currentFilter === filter) {
-        setDisplay("All");
-        currentFilter = null;
-      } else {
-        button.classList.add("button__active");
-        setDisplay(filter);
-      }
-    };
-
-    ApproveFilterButton.addEventListener("click", () => handleFilterButtonClick("Approve", ApproveFilterButton));
-    PendingFilterButton.addEventListener("click", () => handleFilterButtonClick("Pending", PendingFilterButton));
-    DraftFilterButton.addEventListener("click", () => handleFilterButtonClick("Draft", DraftFilterButton));
-    RejectFilterButton.addEventListener("click", () => handleFilterButtonClick("Reject", RejectFilterButton));
-
-    const applicationCancelButtons = document.querySelectorAll(".button__cancel");
-    applicationCancelButtons.forEach((button) => {
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-        const applicationId = event.target.getAttribute("data-application-id");
-        console.log(applicationId);
-      });
-    });
-
-    (async () => {
-      await fetch(`http://localhost:8080/api/applications/me/${localStorage.username}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        }
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        data.forEach((application) => {
-          const applicationItem = document.createElement("li");
-          applicationItem.classList.add("applicationItem__wrapper");
-          applicationItem.innerHTML = `
-            <a href="edit#${application.id}" class="application__item">
-              <div class="application__detail">
-                <div class="application__name">${application.name}</div>
-                <span class="application__date">${application.date}</span>
-              </div>
-              <div class="application__action">
-                ${application.status !== "Reject" ? `<button class="button button__danger button__cancel" data-application-id="${application.id}">ลบ / ยกเลิกแบบฟอร์ม</button>` : ""}
-              </div>
-            </a>
-          `;
-
-          if (application.status === "Approve") {
-            applicationApprove.appendChild(applicationItem);
-          } else if (application.status === "Pending") {
-            applicationPending.appendChild(applicationItem);
-          } else if (application.status === "Draft") {
-            applicationDraft.appendChild(applicationItem);
-          } else if (application.status === "Reject") {
-            applicationReject.appendChild(applicationItem);
-          }
-        });
-      })
-    })()
-  </script>
+  <!-- Link to JavaScript -->
+  <script src="/js/index.js"></script>
+</body>
 </html>
