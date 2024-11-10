@@ -63,9 +63,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     function populateForm(data) {
-        // Assuming form fields have IDs that match the keys in `data`
         document.getElementById("date").value = data.date || "";
-        document.getElementById("subject").value = data.formType || "";  // Fill subject with formType
+        document.getElementById("subject").value = data.formType || "";
         document.getElementById("full_name").value = data.fullName || "";
         document.getElementById("registration_number").value = data.registrationNumber || "";
         document.getElementById("year").value = data.year || "";
@@ -137,8 +136,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         button.style.margin = "0 auto";
 
         button.onclick = () => {
-            document.body.removeChild(overlay); // Close the popup
-            if (isSuccess) window.location.href = "/template/template.html"; // Redirect if successful
+            document.body.removeChild(overlay);
+            if (isSuccess) window.location.href = "/template/template.html";
         };
 
         popup.appendChild(button);
@@ -149,9 +148,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Enhanced form validation logic
     function validateForm(form) {
         let isValid = true;
-        form.querySelectorAll(
-            "input[required], select[required], textarea[required]"
-        ).forEach((input) => {
+        form.querySelectorAll("input[required], select[required], textarea[required]").forEach((input) => {
             if (!input.value.trim()) {
                 input.style.borderColor = "red";
                 isValid = false;
@@ -201,8 +198,13 @@ document.addEventListener("DOMContentLoaded", async function () {
                 }
             });
 
-            fetch("http://localhost:8080/api/requests", {
-                method: "POST",
+            const method = applicationId ? "PUT" : "POST"; // Use PUT if updating, POST if creating
+            const url = applicationId
+                ? `http://localhost:8080/api/requests/${applicationId}`
+                : "http://localhost:8080/api/requests";
+
+            fetch(url, {
+                method: method,
                 headers: {
                     "Content-Type": "application/json",
                 },

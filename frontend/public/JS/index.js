@@ -19,7 +19,7 @@ function logout() {
 
 async function fetchApplications() {
     const registrationNumber = sessionStorage.getItem("registrationNumber"); // Retrieve the logged-in user ID
-    console.log("Logged-in User's Registration Number:", registrationNumber); // Log user's registration number
+    console.log("Logged-in User's Registration Number:", registrationNumber);
 
     try {
         const response = await fetch("http://localhost:8080/api/requests", {
@@ -34,14 +34,14 @@ async function fetchApplications() {
         }
 
         const data = await response.json();
-        console.log("Fetched data:", data); // Log fetched data
+        console.log("Fetched data:", data);
 
         // Filter data to include only records matching the logged-in user's registration number
         const userApplications = data.filter(
             (application) => application.registrationNumber === registrationNumber
         );
 
-        console.log("Filtered applications for logged-in user:", userApplications); // Log only the user's applications
+        console.log("Filtered applications for logged-in user:", userApplications);
 
         displayApplications(userApplications);
 
@@ -73,9 +73,8 @@ function displayApplications(data) {
     data.forEach((application) => {
         let actionButton = "";
         if (application.formStatus.toLowerCase() === "pending") {
-            actionButton = `<button class="action-button admit" data-application-id="${application.id}">Cancel / ยกเลิกคำร้อง</button>`;
+            actionButton = `<button class="action-button cancel" data-application-id="${application.id}">Cancel / ยกเลิกคำร้อง</button>`;
         } else if (application.formStatus.toLowerCase() === "draft") {
-            // Use the formType to find the correct link and pass application ID as URL parameter
             const editLink = formTypeLinks[application.formType] || "/HTML/default_edit.html";
             actionButton = `<a href="${editLink}?id=${application.id}" class="action-button edit">Edit / แก้ไข</a>`;
         }
@@ -94,6 +93,8 @@ function displayApplications(data) {
             approveTableBody.appendChild(row);
         } else if (application.formStatus.toLowerCase() === "pending") {
             pendingTableBody.appendChild(row);
+            const cancelButton = row.querySelector(".cancel");
+            cancelButton.addEventListener("click", () => showPopup(application.id));
         } else if (application.formStatus.toLowerCase() === "rejected") {
             rejectTableBody.appendChild(row);
         } else if (application.formStatus.toLowerCase() === "draft") {
@@ -101,7 +102,6 @@ function displayApplications(data) {
         }
     });
 }
-
 
 function getStatusClass(status) {
     switch (status?.toLowerCase()) {
@@ -150,13 +150,13 @@ function setupFilterButtons() {
                 setDisplay(status);
                 currentFilter = status;
             }
-            // Update button active state
             Object.values(filterButtons).forEach((btn) => btn.classList.remove("button__active"));
             if (currentFilter !== "All") button.classList.add("button__active");
         });
     });
 }
 
+// Updated showPopup function to confirm cancellation
 function showPopup(applicationId) {
     const popup = document.getElementById("cancelPopup");
     popup.style.display = "block";

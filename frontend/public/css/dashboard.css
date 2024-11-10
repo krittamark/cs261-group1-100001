@@ -1,8 +1,6 @@
-main {
-  width: 100%;
-  margin: 0 100px;
-}
-
+* {
+  font-family: "Noto Sans Thai", sans-serif !important;
+} 
 .browser__container {
   display: flex;
   flex-direction: column;
