@@ -102,6 +102,7 @@
   justify-content: space-between; /* Add spacing between text and button */
   margin-bottom: 20px; /* Adjust space below the header */
   margin-top:30px;
+  width: 83%;
 }
 
 .header__container h1 {
@@ -115,12 +116,12 @@
 
 .create__button {
   display: flex;
-  width: 200px; /* Slightly smaller width if desired */
+  width: 180px; /* Slightly smaller width if desired */
   height: 55px;
   padding: 10px 20px; /* Adjust padding to reduce button size */
   justify-content: center;
   align-items: center;
-  border-radius: 15px;
+  border-radius: 24px;
   background-color: #c30e2f;
   color: #ffffff;
   font-size: 18px;
@@ -342,21 +343,36 @@
   border: 1px solid #ddd; /* Border around the whole table */
 }
 
-/* Action Button Styling */
+/* General Action Button Styling */
 .application-table .action-button {
-  background-color: #d32f2f;
   color: white;
   padding: 5px 10px;
   border: none;
   border-radius: 14px;
   font-size: 14px;
   cursor: pointer;
-  text-align: left; /* Left-align action buttons */
+  text-align: left;
   transition: background-color 0.3s;
 }
 
-.application-table .action-button:hover {
-  background-color: #b71c1c;
+/* Specific Styling for Edit Button */
+.application-table .action-button.edit {
+  background-color: #1e88e5; /* Blue color for edit button */
+}
+
+/* Hover Effect for Edit Button */
+.application-table .action-button.edit:hover {
+  background-color: #1565c0; /* Darker blue on hover */
+}
+
+/* Specific Styling for Cancel Button */
+.application-table .action-button.cancel {
+  background-color: #d32f2f; /* Red color for cancel button */
+}
+
+/* Hover Effect for Cancel Button */
+.application-table .action-button.cancel:hover {
+  background-color: #b71c1c; /* Darker red on hover */
 }
 
 /* Status Cell Styling */
