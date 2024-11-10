@@ -75,9 +75,9 @@ function displayApplications(data) {
         if (application.formStatus.toLowerCase() === "pending") {
             actionButton = `<button class="action-button admit" data-application-id="${application.id}">Cancel / ยกเลิกคำร้อง</button>`;
         } else if (application.formStatus.toLowerCase() === "draft") {
-            // Use the formType to find the correct link
+            // Use the formType to find the correct link and pass application ID as URL parameter
             const editLink = formTypeLinks[application.formType] || "/HTML/default_edit.html";
-            actionButton = `<a href="${editLink}?id=${application.id}" class="action-button edit" data-application-id="${application.id}">Edit / แก้ไข</a>`;
+            actionButton = `<a href="${editLink}?id=${application.id}" class="action-button edit">Edit / แก้ไข</a>`;
         }
 
         const row = document.createElement("tr");
