@@ -104,4 +104,4 @@ function autofillForm(data) {
         }
     }
 }
-loadForm('resign');
+// loadForm('resign');
