@@ -3,7 +3,7 @@
 }
 
 .sidebar {
-  width: 350px;
+  width: 300px;
   background-color: #f0f0f0;
   padding: 25px;
   display: flex;
@@ -80,124 +80,7 @@
   background-color: #7C0017;
   color: #ffffff;
 }
-.status.approved {
-  color: green;
-}
-.status.pending {
-  color: orange;
-}
-.status.rejected {
-  color: red;
-}
-.status.unknown {
-  color: gray;
-}
-/* Application Table Container */
-.application-table {
-  margin: 30px;
-  border-collapse: collapse;
-  width: calc(100% - 380px); /* Adjust width to fit alongside sidebar */
-  margin-left: 370px; /* Offset for the sidebar */
-  background-color: #ffffff; /* White background for a clean look */
-  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.15);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
 
-/* Table Header */
-.application-table table thead th {
-  background-color: #333333; /* Darker header background */
-  color: #ffffff;
-  font-weight: bold;
-  text-align: left;
-  padding: 16px;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  border-bottom: 4px solid #e0e0e0;
-}
-
-/* Table Body */
-.application-table table tbody td {
-  padding: 14px 16px; /* Extra padding for readability */
-  color: #555555; /* Softer text color */
-  border-bottom: 1px solid #e0e0e0;
-  font-size: 15px;
-}
-
-/* Alternate Row Colors */
-.application-table table tbody tr:nth-child(even) {
-  background-color: #f7f7f7;
-}
-
-/* Row Hover Effect */
-.application-table table tbody tr:hover {
-  background-color: #f0f0f0; /* Slightly darker for hover */
-  transform: scale(1.02); /* Slight scale effect on hover */
-  transition: transform 0.2s ease-in-out;
-}
-
-/* Table Border */
-.application-table table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-/* Action Button Styling */
-.application-table .action-button {
-  background-color: #0288d1;
-  color: white;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s, transform 0.2s ease-in-out;
-  font-size: 14px;
-}
-
-.application-table .action-button:hover {
-  background-color: #0277bd;
-  transform: scale(1.05);
-}
-
-.application-table .action-button.cancel {
-  background-color: #d32f2f;
-}
-
-.application-table .action-button.cancel:hover {
-  background-color: #b71c1c;
-}
-
-/* Status Cell Styling */
-.status {
-  font-weight: bold;
-  padding: 6px 12px;
-  border-radius: 20px;
-  text-align: center;
-  display: inline-block;
-  font-size: 14px;
-}
-
-.status.approved {
-  color: #388e3c;
-  background-color: #c8e6c9;
-}
-
-.status.pending {
-  color: #f57c00;
-  background-color: #ffe0b2;
-}
-
-.status.rejected {
-  color: #d32f2f;
-  background-color: #ffcdd2;
-}
-
-.status.unknown {
-  color: #757575;
-  background-color: #e0e0e0;
-}
 .browser__container {
   display: flex;
   flex-direction: column;
@@ -369,7 +252,10 @@
 .application__title {
   font-size: 20px;
   font-weight: bold;
-  margin-top: 20px;
+  margin-top: 50px;
+  margin-bottom: 10px;
+  text-align: left !important; /* Force left alignment */
+  display: block; /* Ensure it behaves like a block element */
 }
 .application__list {
   padding: 0;
@@ -410,4 +296,96 @@
 .application__date {
   font-size: small;
   color: gray;  
+}
+/* Application Table Container */
+.application-table {
+  width: 80%; /* Adjust width to fit alongside sidebar */
+  border-collapse: collapse;
+  background-color: #ffffff;
+  margin-top: 25px;
+
+}
+
+/* Table Header */
+.application-table thead th {
+  background-color: rgb(255, 255, 255);
+  color: #000000;
+  font-weight: bold;
+  text-align: left; /* Left-align header text */
+  padding: 12px;
+  font-size: 16px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+/* Table Body */
+.application-table tbody td {
+  padding: 12px;
+  color: #333333;
+  font-size: 15px;
+  text-align: left; /* Left-align all cell content */
+
+}
+
+/* Remove alternate row colors and hover effect for simplicity */
+.application-table tbody tr:nth-child(even) {
+  background-color: transparent; /* No alternate colors */
+}
+
+.application-table tbody tr:hover {
+  background-color: transparent; /* No hover effect */
+}
+
+/* Table Border */
+.application-table table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd; /* Border around the whole table */
+}
+
+/* Action Button Styling */
+.application-table .action-button {
+  background-color: #d32f2f;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 14px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: left; /* Left-align action buttons */
+  transition: background-color 0.3s;
+}
+
+.application-table .action-button:hover {
+  background-color: #b71c1c;
+}
+
+/* Status Cell Styling */
+.status {
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 20px;
+  text-align: left; /* Left-align status text */
+  display: inline-block;
+  font-size: 14px;
+  margin:8px;
+}
+
+.status.approved {
+  color: #388e3c;
+  background-color: #c8e6c9;
+}
+
+.status.pending {
+  color: #f57c00;
+  background-color: #ffe0b2;
+}
+
+.status.rejected {
+  color: #d32f2f;
+  background-color: #ffcdd2;
+}
+
+.status.unknown {
+  color: #757575;
+  background-color: #e0e0e0;
 }
