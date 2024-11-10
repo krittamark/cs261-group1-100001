@@ -6,3 +6,12 @@ services:
       - "3000:3000"
     command: npm start
 
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: mssql
+    ports:
+      - "1433:1433"
+    env_file:
+      - .env
+    environment:
+      SA_PASSWORD: ${SA_PASSWORD}
