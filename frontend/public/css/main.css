@@ -300,7 +300,7 @@
 }
 /* Application Table Container */
 .application-table {
-  width: 80%; /* Adjust width to fit alongside sidebar */
+  width: 85%; /* Adjust width to fit alongside sidebar */
   border-collapse: collapse;
   background-color: #ffffff;
   margin-top: 25px;
