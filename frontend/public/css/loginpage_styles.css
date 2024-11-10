@@ -24,7 +24,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(107, 107, 107, 0.5); /* ปรับค่า opacity ที่นี่ (0.5 = 50%) */
+  background-color: rgba(196, 196, 196, 0.5); /* ปรับค่า opacity ที่นี่ (0.5 = 50%) */
   z-index: 1;
 }
 

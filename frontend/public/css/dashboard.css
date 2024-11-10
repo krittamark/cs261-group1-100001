@@ -43,16 +43,22 @@ main {
   justify-content: center;
   align-items: center;
   border-radius: 15px;
-  background-color: #C30E2F;
+  background-color: #c30e2f;
   color: #ffffff;
   font-size: 18px;
   border: none;
   cursor: pointer;
+  font-weight: bold;
   transition: background-color 0.3s ease;
+  gap: 6px;
 }
 
 .create__button:hover {
-  background-color: #b71c1c;
+  background-color: #a1001a;
+}
+
+.create__button .plus-icon{
+  font-weight: 400;
 }
 
 .filter {
@@ -92,7 +98,7 @@ main {
 }
 
 .button__filter:hover {
-  background-color: #e0e0e0; /* Slightly darker gray on hover */
+  background-color: #2b2b2b; /* Slightly darker gray on hover */
 }
 
 .button__filter:focus, .button__active {

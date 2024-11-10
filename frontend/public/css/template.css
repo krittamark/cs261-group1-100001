@@ -52,7 +52,7 @@ body {
 }
 
 .form-card button {
-  background-color: #d32f2f;
+  background-color: #c30e2f;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -62,7 +62,7 @@ body {
 }
 
 .form-card button:hover {
-  background-color: #b71c1c;
+  background-color: #a1001a;
   color: #ffffff;
 }
 
