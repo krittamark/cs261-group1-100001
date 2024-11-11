@@ -1,17 +1,28 @@
 services:
-  frontend:
-    build: ./frontend
-    container_name: frontend
-    ports:
-      - "3000:3000"
-    command: npm start
+    frontend:
+        build: ./frontend
+        container_name: frontend
+        ports:
+            - "3001:3001"
+        command: npm start
 
-  mssql:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: mssql
-    ports:
-      - "1433:1433"
-    env_file:
-      - .env
-    environment:
-      SA_PASSWORD: ${SA_PASSWORD}
+    mssql:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        container_name: mssql
+        ports:
+            - "1433:1433"
+        environment:
+            - ACCEPT_EULA=Y
+            - SA_PASSWORD=Cs261pass!
+
+    backend:
+        build: ./backend
+        container_name: backend
+        ports:
+            - "8080:8080" # Exposing Spring Boot on port 8080
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:sqlserver://mssql:1433;databaseName=myDB;encrypt=true;trustServerCertificate=true;useUnicode=true;characterEncoding=UTF-8
+            - SPRING_DATASOURCE_USERNAME=sa
+            - SPRING_DATASOURCE_PASSWORD=Cs261pass!
+        depends_on:
+            - mssql
