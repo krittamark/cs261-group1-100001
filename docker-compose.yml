@@ -6,6 +6,16 @@ services:
       - "3000:3000"
     command: npm start
 
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mssql
+    networks:
+      - webnet
+
   mssql:
     image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: mssql
@@ -15,3 +25,10 @@ services:
       - .env
     environment:
       SA_PASSWORD: ${SA_PASSWORD}
+      ACCEPT_EULA: Y
+    networks:
+      - webnet
+
+# network
+networks:
+  webnet:
