@@ -1,10 +1,4 @@
 services:
-  frontend:
-    build: ./frontend
-    container_name: frontend
-    ports:
-      - "3000:3000"
-    command: npm start
 
   mssql:
     image: mcr.microsoft.com/mssql/server:2019-latest
@@ -15,3 +9,32 @@ services:
       - .env
     environment:
       SA_PASSWORD: ${SA_PASSWORD}
+      ACCEPT_EULA: Y
+    volumes:
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    command: /opt/mssql/bin/sqlservr & /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "${SA_PASSWORD}" -i /docker-entrypoint-initdb.d/startup.sql -C
+    networks:
+      - webnet
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    command: npm start
+
+  backend:
+    build: ./backend
+    container_name: backend
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mssql
+    networks:
+      - webnet
+
+
+# network
+networks:
+  webnet:

@@ -1,23 +1,148 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>หน้าแรก</title>
-</head>
-<body>
-    <h1>ยินดีต้อนรับสู่เว็บไซต์</h1>
-    <p>กรุณาล็อกอินก่อนเข้าถึงเนื้อหา</p>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet"
+  />
+  <title>คำร้องของฉัน</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/template.css">
+  </head>
+  <body>
+    <div class="sidebar">
+      <img
+        src="/img/Thammasat_Horz_logo_route1_01 1.png"
+        alt="Thammasat University Logo"
+      />
+      <div class="menu">
+        <a href="/index.html">คำร้องของฉัน</a>
+        <a href="/template/template.html">สร้างคำร้อง</a>
+      </div>
+      <a class="logout" onclick="logout()">Log out</a>
+    </div>
+
+  <div class="content">
+    <div class="header__container">
+      <div>
+        <h1>คำร้องของฉัน</h1>
+        <p>แสดงสถานะคำร้องของแบบฟอร์ม</p>
+      </div>
+      <button class="create__button" onclick="document.location = '/template/template.html'"><span class="plus-icon">&#10010;</span>สร้างคำร้อง</button>
+    </div>
     
-    <script>
-        // เช็คสถานะการล็อกอินจาก sessionStorage หรือ localStorage
-        if (!sessionStorage.getItem("isLoggedIn")) {
-            // ถ้าไม่ได้ล็อกอิน, ให้เปลี่ยนเส้นทางไปที่หน้า login
-            window.location.href = "login.html";
-        } else {
-            // ถ้าได้ล็อกอิน, แสดงข้อความต้อนรับ
-            document.body.innerHTML += "<p>คุณได้ล็อกอินแล้ว!</p>";
-        }
-    </script>
+    <div class="browser__container">
+      <div class="browser__title">
+        <span>สืบค้นสถานะคำร้อง</span>
+      </div>
+      <div class="filter">
+        <button class="button button__filter" id="ApproveFilterButton">Approved</button>
+        <button class="button button__filter" id="RejectFilterButton">Rejected</button>
+        <button class="button button__filter" id="PendingFilterButton">Pending</button>
+        <button class="button button__filter" id="DraftFilterButton">Draft</button>
+      </div>
+    </div>
+
+    <!-- Approved Applications Table -->
+    <div class="application__container" id="Application_Approve">
+      <div class="application__title">Approved / อนุมัติ</div>
+      <table class="application-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>เลขทะเบียน</th>
+            <th>ชื่อ</th>
+            <th>ประเภทคำร้อง</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="approveTableBody"></tbody>
+      </table>
+    </div>
+    <!-- Rejected Applications Table -->
+    <div class="application__container" id="Application_Reject">
+      <div class="application__title">Rejected / ปฏิเสธ</div>
+      <table class="application-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>เลขทะเบียน</th>
+            <th>ชื่อ</th>
+            <th>ประเภทคำร้อง</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="rejectTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Pending Applications Table -->
+    <div class="application__container" id="Application_Pending">
+      <div class="application__title">Pending / รอดำเนินการ</div>
+      <table class="application-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>เลขทะเบียน</th>
+            <th>ชื่อ</th>
+            <th>ประเภทคำร้อง</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="pendingTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Draft Applications Table -->
+    <div class="application__container" id="Application_Draft">
+      <div class="application__title">Draft / แบบร่าง</div>
+      <table class="application-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>เลขทะเบียน</th>
+            <th>ชื่อ</th>
+            <th>ประเภทคำร้อง</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="draftTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Popup structure for canceling application -->
+  <div id="cancelPopup" class="popup">
+    <div class="popup-content">
+      <h2>ยืนยันการยกเลิกคำร้อง</h2>
+      <p>คุณต้องการยกเลิกคำร้องนี้หรือไม่?</p>
+      <div class="popup__action">
+        <button id="confirmCancel" class="button button__confirm">ยืนยัน</button>
+        <button id="closePopup" class="button button__cancel">ยกเลิก</button>
+      </div>
+    </div>
+  </div>
+  <div id="deleteDraftPopup" class="popup">
+    <div class="popup-content">
+        <h2>ยืนยันการลบแบบร่าง</h2>
+        <p>คุณต้องการลบแบบร่างนี้หรือไม่?</p>
+        <div class="popup__action">
+            <button id="confirmDeleteDraft" class="button button__confirm">ยืนยัน</button>
+            <button id="closeDeleteDraftPopup" class="button button__cancel">ยกเลิก</button>
+        </div>
+    </div>
+</div>
+  <!-- Link to JavaScript -->
+  <script src="/js/index.js"></script>
 </body>
 </html>
