@@ -1,4 +1,4 @@
-FROM openjdk:16-alpine
+FROM openjdk:24-jdk-slim
 
 COPY ./target/crudAPI-0.0.1-SNAPSHOT.jar backend-api.jar
 
