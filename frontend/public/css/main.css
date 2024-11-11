@@ -3,6 +3,7 @@
 }
 
 .sidebar {
+  overflow: hidden;
   width: 300px;
   background-color: #f0f0f0;
   padding: 25px;
@@ -47,6 +48,12 @@
   width: 350px ; /* ให้ครอบคลุมเต็มความกว้างของ sidebar */
   margin-left: -25px; /* เยื้องไปทางซ้ายเพื่อให้ตรงกับ padding ของ sidebar */
   transition: background-color 0.3s, color 0.3s;
+}
+
+.menu a.active {
+  background-color: #cccccc; /* เปลี่ยนสีพื้นหลังเมื่อวางเมาส์ */
+  color: #000; /* เปลี่ยนสีตัวอักษรเมื่อวางเมาส์ */
+  font-weight: bold; /* ทำให้ตัวอักษรหนาขึ้นเมื่อวางเมาส์ */
 }
 
 .menu a:hover {
