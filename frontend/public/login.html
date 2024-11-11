@@ -1,81 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap"
-            rel="stylesheet"
-        />
-        <title>Login Page</title>
-        <link rel="stylesheet" href="css/loginpage_styles.css" />
-    </head>
-    <body>
-        <div class="overlay"></div>
-        <div class="login-container">
-            <div class="login-box">
-                <div class="title-container">
-                    <div class="text-container">
-                        <h1>LOGIN</h1>
-                        <p>request form</p>
-                    </div>
-                    <img
-                        src="img/Emblem_of_Thammasat_University.svg.png"
-                        alt="Logo"
-                        class="logo"
-                    />
-                </div>
-                <form id="loginForm">
-                    <label for="username">Username</label>
-                    <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        placeholder="enter your student ID"
-                        required
-                    />
-
-                    <label for="password">Password</label>
-                    <div class="password-container">
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder="enter your password"
-                            required
-                        />
-                        <span class="toggle-password" id="toggle-password">
-                            <img
-                                src="img/view.png"
-                                alt="Toggle Password"
-                                id="password-icon"
-                            />
-                        </span>
-                    </div>
-
-                    <button
-                        type="button"
-                        id="login-button"
-                        class="login-button"
-                    >
-                        LOGIN
-                    </button>
-                </form>
-            </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Login Page</title>
+    <link rel="stylesheet" href="css/loginpage_styles.css" />
+  </head>
+  <body>
+    <div class="overlay"></div>
+    <div class="login-container">
+      <div class="login-box">
+        <div class="title-container">
+          <div class="text-container">
+            <h1>LOGIN</h1>
+            <p>request form</p>
+          </div>
+          <img
+            src="img/Emblem_of_Thammasat_University.svg.png"
+            alt="Logo"
+            class="logo"
+          />
         </div>
+        <form id="loginForm">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="enter your student ID"
+            required
+          />
 
-        <!-- Overlay -->
-        <div id="overlay"></div>
+          <label for="password">Password</label>
+          <div class="password-container">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="enter your password"
+              required
+            />
+            <span class="toggle-password" id="toggle-password">
+              <img
+                src="img/view.png"
+                alt="Toggle Password"
+                id="password-icon"
+              />
+            </span>
+          </div>
 
-        <!-- Popup -->
-        <div id="popup" style="display: none">
-            <div id="popup-icon">✖</div>
-            <div id="popup-message"></div>
-            <button id="popup-ok">OK</button>
-        </div>
+          <button type="button" id="login-button" class="login-button">
+            LOGIN
+          </button>
+        </form>
+      </div>
+    </div>
 
-        <script src="js/login.js"></script>
-    </body>
+    <!-- Overlay -->
+    <div id="overlay"></div>
+
+    <!-- Popup -->
+    <div id="popup" style="display: none">
+      <div id="popup-icon">✖</div>
+      <div id="popup-message"></div>
+      <button id="popup-ok">OK</button>
+    </div>
+
+    <script src="js/login.js"></script>
+    <script>
+      // listen for enter keypress event
+      document.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+          document.getElementById("login-button").click();
+        }
+      });
+    </script>
+  </body>
 </html>

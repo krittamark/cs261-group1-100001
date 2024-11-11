@@ -49,6 +49,12 @@
   transition: background-color 0.3s, color 0.3s;
 }
 
+.menu a.active {
+  background-color: #cccccc; /* เปลี่ยนสีพื้นหลังเมื่อวางเมาส์ */
+  color: #000; /* เปลี่ยนสีตัวอักษรเมื่อวางเมาส์ */
+  font-weight: bold; /* ทำให้ตัวอักษรหนาขึ้นเมื่อวางเมาส์ */
+}
+
 .menu a:hover {
   background-color: #cccccc; /* เปลี่ยนสีพื้นหลังเมื่อวางเมาส์ */
   color: #000; /* เปลี่ยนสีตัวอักษรเมื่อวางเมาส์ */
