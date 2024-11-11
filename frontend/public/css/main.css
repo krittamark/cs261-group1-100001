@@ -3,7 +3,7 @@
 }
 
 .sidebar {
-  width: 350px;
+  width: 300px;
   background-color: #f0f0f0;
   padding: 25px;
   display: flex;
@@ -44,7 +44,7 @@
   margin-bottom: 0px;
   padding: 8px 40px; /* เพิ่มระยะห่างด้านใน */
   display: block;
-  width: calc(90% + 5px); /* ให้ครอบคลุมเต็มความกว้างของ sidebar */
+  width: 350px ; /* ให้ครอบคลุมเต็มความกว้างของ sidebar */
   margin-left: -25px; /* เยื้องไปทางซ้ายเพื่อให้ตรงกับ padding ของ sidebar */
   transition: background-color 0.3s, color 0.3s;
 }
@@ -68,6 +68,7 @@
   margin-top: auto;
   margin-bottom: 80px;
   align-self: center;
+  transition: 0.3s;
 }
 
 .sidebar .logout:hover {
@@ -78,4 +79,339 @@
 .sidebar .logout:active {
   background-color: #7C0017;
   color: #ffffff;
+}
+
+.browser__container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+.browser__title {
+  margin-top: 20px;
+  font-size: 30px;
+  font-weight: bold;
+}
+.button__container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px; /* Adjust spacing below the button */
+}
+.header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Add spacing between text and button */
+  margin-bottom: 20px; /* Adjust space below the header */
+  margin-top:30px;
+  width: 83%;
+}
+
+.header__container h1 {
+  margin: 0;
+}
+
+.header__container p {
+  margin: 5px 0 0 0;
+  color: #666; /* Adjust color if needed */
+}
+
+.create__button {
+  display: flex;
+  width: 180px; /* Slightly smaller width if desired */
+  height: 55px;
+  padding: 10px 20px; /* Adjust padding to reduce button size */
+  justify-content: center;
+  align-items: center;
+  border-radius: 24px;
+  background-color: #c30e2f;
+  color: #ffffff;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  gap: 6px;
+}
+
+.create__button:hover {
+  background-color: #a1001a;
+}
+
+.create__button .plus-icon{
+  font-weight: 400;
+}
+
+.filter {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px; 
+  margin-bottom: 20px; 
+  gap: 7%; /* Space between buttons */
+}
+.button {
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  margin-right: 10px;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+  transition: background-color cubic-bezier(0.4, 0, 0.25, 1) 400ms,
+    color cubic-bezier(0.4, 0, 0.25, 1) 400ms;
+}
+.button__filter {
+  font-size: 20px;
+  width: 200px;
+  background-color: #f0f0f0; /* Light gray background */
+  color: #000; /* Black text */
+  padding: 8px 16px; /* Adjust padding for spacing */
+  border: none; /* Remove border */
+  border-radius: 8px; /* Rounded corners */
+  font-weight: normal; /* Regular font weight */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition */
+  margin-top: 15px;
+}
+
+.button__filter:hover {
+  background-color: #2b2b2b; /* Slightly darker gray on hover */
+}
+
+.button__filter:focus, .button__active {
+  background-color: #dcdcdc; /* Maintain a soft gray when active */
+}
+.button__filter:hover {
+  background-color: #f0f0f0;
+}
+.button__active {
+  background-color: #f0f0f0;
+  color: #000;
+  font-weight: bold;
+}
+
+.button__danger {
+  background-color: #c30e2f;
+  color: #fff;
+}
+.button__danger:hover {
+  background-color: #C30E2F;
+}
+.button__confirm {
+  background-color: crimson;
+  color: white;
+}
+
+.button__cancel {
+  background-color: #cccccc;
+  color: black;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.popup__action {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+#cancelRequestButton {
+  background-color: crimson;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.application__title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 50px;
+  margin-bottom: 10px;
+  text-align: left !important; /* Force left alignment */
+  display: block; /* Ensure it behaves like a block element */
+}
+.application__list {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.applicationItem__wrapper a {
+  text-decoration: none;
+  color: inherit;
+}
+.applicationItem__wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.application__item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  transition: background-color cubic-bezier(0.4, 0, 0.25, 1) 400ms;
+}
+.application__item:hover {
+  background-color: #f0f0f0;
+  transition: background-color cubic-bezier(0.4, 0, 0.25, 1) 400ms;
+}
+.application__name {
+  font-size: large;
+}
+.application__date {
+  font-size: small;
+  color: gray;  
+}
+/* Application Table Container */
+.application-table {
+  width: 85%; /* Adjust width to fit alongside sidebar */
+  border-collapse: collapse;
+  background-color: #ffffff;
+  margin-top: 25px;
+
+}
+
+/* Table Header */
+.application-table thead th {
+  background-color: rgb(255, 255, 255);
+  color: #000000;
+  font-weight: bold;
+  text-align: left; /* Left-align header text */
+  padding: 12px;
+  font-size: 16px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+/* Table Body */
+.application-table tbody td {
+  padding: 12px;
+  color: #333333;
+  font-size: 15px;
+  text-align: left; /* Left-align all cell content */
+
+}
+
+/* Remove alternate row colors and hover effect for simplicity */
+.application-table tbody tr:nth-child(even) {
+  background-color: transparent; /* No alternate colors */
+}
+
+.application-table tbody tr:hover {
+  background-color: transparent; /* No hover effect */
+}
+
+/* Table Border */
+.application-table table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd; /* Border around the whole table */
+}
+
+/* General Action Button Styling */
+.application-table .action-button {
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 14px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.3s;
+}
+
+/* Specific Styling for Edit Button */
+.application-table .action-button.edit {
+  background-color: #1e88e5; /* Blue color for edit button */
+}
+
+/* Hover Effect for Edit Button */
+.application-table .action-button.edit:hover {
+  background-color: #1565c0; /* Darker blue on hover */
+}
+
+/* Specific Styling for Cancel Button */
+.application-table .action-button.cancel {
+  background-color: #d32f2f; /* Red color for cancel button */
+}
+
+/* Hover Effect for Cancel Button */
+.application-table .action-button.cancel:hover {
+  background-color: #b71c1c; /* Darker red on hover */
+}
+/* Delete Button Styling */
+.application-table .action-button.delete {
+  background-color: #d32f2f; /* Red color for delete button */
+  color: white;
+}
+
+/* Hover Effect for Delete Button */
+.application-table .action-button.delete:hover {
+  background-color: #b71c1c; /* Darker red on hover */
+}
+
+/* Status Cell Styling */
+.status {
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 20px;
+  text-align: left; /* Left-align status text */
+  display: inline-block;
+  font-size: 14px;
+  margin:8px;
+}
+
+.status.approved {
+  color: #388e3c;
+  background-color: #c8e6c9;
+}
+
+.status.pending {
+  color: #f57c00;
+  background-color: #ffe0b2;
+}
+
+.status.rejected {
+  color: #d32f2f;
+  background-color: #ffcdd2;
+}
+
+.status.unknown {
+  color: #757575;
+  background-color: #e0e0e0;
 }

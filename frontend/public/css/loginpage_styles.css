@@ -1,173 +1,214 @@
 /* styles.css */
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-  }
-  
-  body {
-    background-color: #d3d3d3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-  
-  .login-box {
-    background-color: #ffffff;
-    width: 320px;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    z-index: 1;
-  }
-  
-  .logo {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 10px;
-  }
-  
-  h1 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  p {
-    font-size: 14px;
-    margin-bottom: 20px;
-    color: #666666;
-  }
-  
-  label {
-    font-size: 12px;
-    font-weight: bold;
-    display: block;
-    margin-top: 15px;
-    text-align: left;
-  }
-  
-  input[type="text"],
-  input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 8px;
-    border: 1px solid #cccccc;
-    background-color: #f0f0f0;
-    font-size: 14px;
-  }
-  
-  .password-container {
-    position: relative;
-  }
-  
-  .toggle-password {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-  }
-  
-  .login-button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 20px;
-    background-color: #333333;
-    color: #ffffff;
-    font-size: 14px;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
-  .login-button:hover {
-    background-color: #555555;
-  }
-
-  .title-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans Thai", sans-serif !important;;
 }
 
-.text-container {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    margin-right: 10px; /* เพิ่มระยะห่างระหว่างข้อความกับรูป */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url(/img/Tuview.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.title-container h1 {
-    margin-right: 10px; /* เพิ่มระยะห่างระหว่างคำว่า LOGIN กับรูป */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(196, 196, 196, 0.5); /* ปรับค่า opacity ที่นี่ (0.5 = 50%) */
+  z-index: 1;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.login-box {
+  background-color: #ffffff;
+  width: 400px;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 1;
 }
 
 .logo {
-    width: 70px; /* ปรับขนาดรูปตามที่ต้องการ */
-    height: auto;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
 }
 
+h1 {
+  font-size: 48px;
+  font-weight: bold;
+}
 
-  
+p {
+  font-size: 20px;
+  margin-bottom: 20px;
+  margin-left: 3.5px;
+  color: #666666;
+}
 
-  /* Overlay พื้นหลังที่คลุมทั้งหน้าจอ */
-.overlay {
+label {
+  font-size: 12px;
+  font-weight: bold;
+  display: block;
+  margin-top: 15px;
+  text-align: left;
+}
+
+input[type='text'],
+input[type='password'] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 8px;
+  border: 1px solid #cccccc;
+  background-color: #f0f0f0;
+  font-size: 14px;
+}
+
+.password-container {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.login-button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #d32f2f;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #a1001a;
+}
+
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-right: 10px; /* เพิ่มระยะห่างระหว่างข้อความกับรูป */
+}
+
+.title-container h1 {
+  margin-top: 10px;
+  margin-right: 10px; /* เพิ่มระยะห่างระหว่างคำว่า LOGIN กับรูป */
+}
+
+.logo {
+  width: 120px; /* ปรับขนาดรูปตามที่ต้องการ */
+  height: auto;
+}
+
+#password-icon {
+  width: 24px; /* ความกว้างของรูป */
+  height: 24px; /* ความสูงของรูป */
+  margin-top: 10px;
+  cursor: pointer; /* เปลี่ยน cursor เป็น pointer เมื่อ hover */
+}
+
+/* Overlay */
+#overlay {
   position: fixed;
+  display: none;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* สีพื้นหลังโปร่งแสง */
-  z-index: 1;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 }
 
-/* จัดตำแหน่ง Popup ให้อยู่กึ่งกลาง */
-.popup {
+/* Popup */
+#popup {
   position: fixed;
+  display: none;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 350px;
   padding: 20px;
-  width: 300px; /* กำหนดความกว้างตามต้องการ */
-  background-color: #fff;
-  border: 1px solid #ccc;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: #fff;
   border-radius: 8px;
-  z-index: 2; /* ทำให้ popup อยู่เหนือ overlay */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 1001;
 }
 
-/* ปุ่ม close ที่อยู่มุมขวาบน */
-.close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+/* Icon */
+#popup-icon {
   font-size: 24px;
-  cursor: pointer;
+  color: #d32f2f;
+  background-color: #fdecea;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+}
+
+/* Message */
+#popup-message h2 {
+  font-size: 20px;
   color: #333;
+  margin: 10px 0 5px;
 }
 
-/* ทำให้ Status เป็นสีแดง */
-.red-text {
-  display: inline;
-  color: red;
-  margin-right: 5px;
+#popup-message p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
 }
 
-.error-container {
-  display: flex;
-  align-items: baseline;
-  margin-top: 10px;
+/* OK Button */
+#popup-ok {
+  margin-top: 20px;
+  padding: 10px 0;
+  width: 100%;
+  background: #d32f2f;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#popup-ok:hover {
+  background: #b71c1c;
 }

@@ -15,7 +15,7 @@
       <div class="sidebar">
         <ul>
           <li>
-            <a href="index.html" class="back-link">
+            <a href="/template/template.html" class="back-link">
               <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
                 <path d="M50 27.5001V32.5H20L33.75 46.25L30.2 49.8L10.4 30L30.2 10.2001L33.75 13.7501L20 27.5001H50Z" fill="#515151"/>
                 </svg>
@@ -25,263 +25,118 @@
         </ul>
       </div>
       
-    <div class="container">
-      <h1 class="topic">คำร้องลาออก</h1>
-
-      <div class="divider"></div>
-
-      <form class="main-form">
-        <div class="form-row">
+      <div class="container">
+        <h1 class="topic">คำร้องลาออก</h1>
+      
+        <div class="divider"></div>
+      
+        <form class="main-form">
+          <!-- Existing fields for Date and Subject -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="date" class="form-label">วันที่ <span class="required">*</span></label>
+              <input type="date" id="date" name="date" class="form-input" placeholder="DD/MM/YYYY" required />
+            </div>
+            <div class="form-group">
+              <label for="subject" class="form-label">เรื่อง <span class="required">*</span></label>
+              <input type="text" id="subject" name="subject" class="form-input" placeholder="เรื่อง" required />
+            </div>
+          </div>
+      
+          <!-- Name and Registration Number -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="full_name" class="form-label">ชื่อ-นามสกุล <span class="required">*</span></label>
+              <input type="text" id="full_name" name="fullName" class="form-input" placeholder="ชื่อ-นามสกุล" required />
+            </div>
+            <div class="form-group">
+              <label for="registration_number" class="form-label">เลขทะเบียน <span class="required">*</span></label>
+              <input type="text" id="registration_number" name="registrationNumber" class="form-input" placeholder="เลขทะเบียน" required />
+            </div>
+          </div>
+      
+          <!-- Year, Faculty, and Department -->
+          <div class="form-row-3">
+            <div class="form-group">
+              <label for="year" class="form-label">ชั้นปี <span class="required">*</span></label>
+              <input type="text" id="year" name="year" class="form-input" placeholder="ชั้นปี" required />
+            </div>
+            <div class="form-group">
+              <label for="faculty" class="form-label">คณะ <span class="required">*</span></label>
+              <input type="text" id="faculty" name="faculty" class="form-input" placeholder="คณะ" required />
+            </div>
+            <div class="form-group">
+              <label for="department" class="form-label">สาขาวิชา <span class="required">*</span></label>
+              <input type="text" id="department" name="department" class="form-input" placeholder="สาขาวิชา" required />
+            </div>
+          </div>
+      
+          <!-- Contact Information -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="mobile_phone" class="form-label">โทรศัพท์มือถือ <span class="required">*</span></label>
+              <input type="tel" id="mobile_phone" name="mobilePhone" class="form-input" placeholder="โทรศัพท์มือถือ" pattern="\d{10}" maxlength="10" required />
+            </div>
+            <div class="form-group">
+              <label for="relative_mobile_phone" class="form-label">โทรศัพท์มือถือผู้ปกครอง <span class="required">*</span></label>
+              <input type="tel" id="relative_mobile_phone" name="relativeMobilePhone" class="form-input" placeholder="โทรศัพท์มือถือผู้ปกครอง" pattern="\d{10}" maxlength="10" required />
+            </div>
+          </div>
+      
+          <!-- Email and Address -->
           <div class="form-group">
-            <label for="date" class="form-label"
-              >วันที่ <span class="required">*</span></label
-            >
-            <input
-              type="date"
-              id="date"
-              name="date"
-              class="form-input"
-              placeholder="DD/MM/YYYY"
-              required
-            />
+            <label for="email" class="form-label">Email <span class="required">*</span></label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="email@example.com" required />
           </div>
+      
           <div class="form-group">
-            <label for="subject" class="form-label"
-              >เรื่อง <span class="required">*</span></label
-            >
-            <input
-              type="text"
-              id="subject"
-              class="form-input"
-              placeholder="เรื่อง"
-              required
-            />
+            <label for="contact_address" class="form-label">ที่อยู่ที่สามารถติดต่อได้ <span class="required">*</span></label>
+            <input type="text" id="contact_address" name="contactAddress" class="form-input" placeholder="ที่อยู่" required />
           </div>
-        </div>
-
-        <div class="form-row">
+      
+          <!-- Advisor -->
           <div class="form-group">
-            <label for="full-name" class="form-label"
-              >ชื่อ-นามสกุล (ใส่คำนำหน้า) <span class="required">*</span></label
-            >
-            <input
-              type="text"
-              id="full_name"
-              name="full_name"
-              class="form-input"
-              placeholder="ชื่อ-นามสกุล"
-              required
-            />
+            <label for="advisor" class="form-label">อาจารย์ที่ปรึกษา <span class="required">*</span></label>
+            <input type="text" id="advisor" name="advisor" class="form-input" placeholder="อาจารย์ที่ปรึกษา" required />
           </div>
+      
+          <!-- Resign Year and Semester -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="resign_year" class="form-label">ขอลาออกตั้งแต่ปีการศึกษา <span class="required">*</span></label>
+              <input type="text" id="resign_year" name="resignYear" class="form-input" placeholder="ปีการศึกษา" required />
+            </div>
+            <div class="form-group">
+              <label for="semester" class="form-label">ภาคการศึกษา <span class="required">*</span></label>
+              <input type="text" id="semester" name="semester" class="form-input" placeholder="ภาคการศึกษา" required />
+            </div>
+          </div>
+      
+          <!-- Debt and Grade Request -->
           <div class="form-group">
-            <label for="registration-number" class="form-label"
-              >เลขทะเบียน <span class="required">*</span></label
-            >
-            <input
-              type="text"
-              id="registration_number"
-              name="registration_number"
-              class="form-input"
-              placeholder="เลขทะเบียน"
-              required
-            />
+            <label for="debt" class="form-label">มีหนี้ค้างหรือไม่ โปรดระบุ</label>
+            <input type="text" id="debt" name="debt" class="form-input" placeholder="รายละเอียดหนี้ (ถ้ามี)" />
           </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="year" class="form-label"
-              >ชั้นปี <span class="required">*</span></label
-            >
-            <input
-              type="text"
-              id="year"
-              name="year"
-              class="form-input"
-              placeholder="ชั้นปี"
-              required
-            />
+      
+          <div class="form-row radio-group">
+            <label class="form-label">ต้องการเกรดในภาคเรียนที่ยื่นคำร้องลาออกหรือไม่</label>
+            <div>
+              <input type="radio" id="want_grade" name="gradeRequest" value="want" class="radio-input" required />
+              <label for="want_grade" class="radio-label">ต้องการ</label>
+            </div>
+            <div>
+              <input type="radio" id="dont_want_grade" name="gradeRequest" value="dont-want" class="radio-input" required />
+              <label for="dont_want_grade" class="radio-label">ไม่ต้องการ</label>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="faculty" class="form-label"
-              >คณะ <span class="required">*</span></label
-            >
-            <input
-              type="text"
-              id="faculty"
-              class="form-input"
-              required
-            />
+      
+          <div class="button-group">
+            <button type="button" class="draft-button">บันทึกแบบร่าง</button>
+            <button type="submit" class="submit-button">ส่งคำร้อง</button>
           </div>
-          <div class="form-group">
-            <label for="department" class="form-label"
-              >สาขาวิชา <span class="required">*</span></label
-            >
-            <input
-              type="text"
-              id="department"
-              class="form-input"
-              required
-            />
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="mobile-phone" class="form-label"
-              >โทรศัพท์มือถือ <span class="required">*</span></label
-            >
-            <input
-              type="tel"
-              id="mobile_phone"
-              name="mobile_phone"
-              class="form-input"
-              placeholder="โทรศัพท์มือถือ"
-              pattern="\d{10}"           
-              maxlength="10"
-              title="กรุณาใส่เบอร์โทรศัพท์ให้ครบ 10 หลัก" 
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="mobile-phone" class="form-label"
-              >โทรศัพท์มือถือผู้ปกครอง <span class="required">*</span></label
-            >
-            <input
-              type="tel"
-              id="relativemobile_phone"
-              name="relativemobile_phone"
-              class="form-input"
-              placeholder="โทรศัพท์มือถือผู้ปกครอง"
-              pattern="\d{10}"           
-              maxlength="10"
-              title="กรุณาใส่เบอร์โทรศัพท์ให้ครบ 10 หลัก" 
-              required
-            />
-          </div>
-        </div>
-        
-        <div class="form-group">
-          <label for="email" class="form-label"
-            >Email <span class="required">*</span></label
-          >
-          <input
-            type="email"
-            id="email"
-            name="email"
-            class="form-input"
-            placeholder="email@example.com"
-            required
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="contact-address" class="form-label"
-            >ที่อยู่ที่สามารถติดต่อได้ <span class="required">*</span></label
-          >
-          <input
-            type="text"
-            id="contact_address"
-            name="contact_address"
-            class="form-input"
-            placeholder="ที่อยู่"
-            required
-          />
-        </div>
-
-        
-        <div class="form-group">
-          <label for="advisor" class="form-label"
-            >อาจารย์ที่ปรึกษา <span class="required">*</span></label
-          >
-          <input
-            type="text"
-            id="advisor"
-            class="form-input"
-            placeholder="อาจารย์ที่ปรึกษา"
-            required
-          />
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="academic-year" class="form-label"
-              >ขอลาออกตั้งแต่ปีการศึกษา <span class="required">*</span></label
-            >
-            <input
-              type="text"
-              id="academic_year"
-              name="academic_year"
-              class="form-input"
-              placeholder="ปีการศึกษา"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="semester" class="form-label"
-              >ภาคการศึกษา <span class="required">*</span></label
-            >
-            <input
-              type="text"
-              id="semester"
-              name="semester"
-              class="form-input"
-              placeholder="ภาคการศึกษา"
-              required
-            />
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="debt" class="form-label"
-            >มีหนี้ค้างหรือไม่ โปรดระบุ
-            <span class="required">(ถ้าไม่มีไม่ต้องใส่)</span></label
-          >
-          <input
-            type="text"
-            id="debt"
-            name="debt"
-            class="form-input"
-            placeholder="รายละเอียดหนี้ (ถ้ามี)"
-            
-          />
-        </div>
-
-        <div class="form-row radio-group">
-          <label class="form-label"
-            >ต้องการเกรดในภาคเรียนที่ยื่นคำร้องลาออกหรือไม่</label
-          >
-          <div>
-            <input
-              type="radio"
-              id="want_grade"
-              name="grade_request"
-              value="want"
-              class="radio-input"
-              required
-            />
-            <label for="want-grade" class="radio-label">ต้องการ</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="dont_want_grade"
-              name="grade_request"
-              value="dont-want"
-              class="radio-input"
-              required
-            />
-            <label for="dont-want-grade" class="radio-label">ไม่ต้องการ</label>
-          </div>
-        </div>
-
-        <div class="button-group">
-          <button type="button" class="draft-button">บันทึกแบบร่าง</button>
-          <button type="submit" class="submit-button">ส่งคำร้อง</button>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+      
     <script src="/js/form.js"></script>
   </body>
 </html>
