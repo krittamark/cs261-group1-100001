@@ -1,7 +1,7 @@
 {
-  "name": "final",
+  "name": "frontend",
   "version": "1.0.0",
-  "description": "This repository contains the frontend and backend code for our CS261 project. The system allows students to submit petitions online, track their status, and provides administrators with tools to manage and process these petitions efficiently.",
+  "description": "This repository contains the frontend code for our CS261 project. The system allows students to submit petitions online, track their status, and provides administrators with tools to manage and process these petitions efficiently.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,9 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.1",
+    "body-parser": "^1.20.3",
     "cors": "^2.8.5",
-    "express-body-parser-error-handler": "^1.0.7",
-    "mssql": "^11.0.1"
+    "express": "^4.21.1",
+    "express-body-parser-error-handler": "^1.0.7"
   }
 }
