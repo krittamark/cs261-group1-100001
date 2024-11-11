@@ -11,65 +11,6 @@
         />
         <title>Login Page</title>
         <link rel="stylesheet" href="css/loginpage_styles.css" />
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // Redirect to index if user is already logged in
-                const isLoggedIn = sessionStorage.getItem("isLoggedIn");
-                if (isLoggedIn) {
-                    window.location.href = "/index.html";
-                }
-            });
-
-            function togglePassword() {
-                const passwordInput = document.getElementById("password");
-                const passwordIcon = document.getElementById("password-icon");
-                if (passwordInput.type === "password") {
-                    passwordInput.type = "text";
-                    passwordIcon.src = "img/hide.png"; // Change to "hide" icon
-                } else {
-                    passwordInput.type = "password";
-                    passwordIcon.src = "img/view.png"; // Change back to "view" icon
-                }
-            }
-
-            function submitLogin() {
-                // Example login logic (replace with actual login code)
-                const username = document.getElementById("username").value;
-                const password = document.getElementById("password").value;
-
-                // Check for valid credentials
-                if (username && password) {
-                    sessionStorage.setItem("isLoggedIn", "true");
-                    // Redirect to home page and update history to prevent back navigation
-                    window.location.href = "/index.html";
-                    window.history.pushState(null, null, window.location.href);
-                } else {
-                    showPopup(
-                        "Error",
-                        "Please enter a valid username and password."
-                    );
-                }
-            }
-
-            // Prevent going back to the login page if logged in
-            window.addEventListener("popstate", function () {
-                const isLoggedIn = sessionStorage.getItem("isLoggedIn");
-                if (isLoggedIn) {
-                    window.location.href = "/index.html";
-                }
-            });
-
-            function showPopup(title, message) {
-                document.getElementById("popup").style.display = "block";
-                document.getElementById(
-                    "popup-message"
-                ).innerHTML = `<h2>${title}</h2><p>${message}</p>`;
-            }
-
-            function closePopup() {
-                document.getElementById("popup").style.display = "none";
-            }
-        </script>
     </head>
     <body>
         <div class="overlay"></div>
@@ -105,10 +46,7 @@
                             placeholder="enter your password"
                             required
                         />
-                        <span
-                            class="toggle-password"
-                            onclick="togglePassword()"
-                        >
+                        <span class="toggle-password" id="toggle-password">
                             <img
                                 src="img/view.png"
                                 alt="Toggle Password"
@@ -119,7 +57,7 @@
 
                     <button
                         type="button"
-                        onclick="submitLogin()"
+                        id="login-button"
                         class="login-button"
                     >
                         LOGIN
@@ -135,7 +73,7 @@
         <div id="popup" style="display: none">
             <div id="popup-icon">✖</div>
             <div id="popup-message"></div>
-            <button id="popup-ok" onclick="closePopup()">OK</button>
+            <button id="popup-ok">OK</button>
         </div>
 
         <script src="js/login.js"></script>
