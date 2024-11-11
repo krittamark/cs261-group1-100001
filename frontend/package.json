@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "description": "This repository contains the frontend and backend code for our CS261 project. The system allows students to submit petitions online, track their status, and provides administrators with tools to manage and process these petitions efficiently.",
+  "description": "This repository contains the frontend code for our CS261 project. The system allows students to submit petitions online, track their status, and provides administrators with tools to manage and process these petitions efficiently.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
