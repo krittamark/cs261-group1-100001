@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <title>รายการคำร้อง</title>
+    <link rel="stylesheet" href="../css/list.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="../img/Thammasat_Horz_logo_route1_01 1.png" alt="Thammasat University">
+            </div>
+            <div class="menu">
+                <ul>
+                    <li><a href="#" class="active">รายการคำร้อง</a></li>
+                    <li><a href="#">คำร้องที่อนุมัติ</a></li>
+                    <li><a href="#">คำร้องที่ปฏิเสธ</a></li>
+                </ul>
+            </div>
+            <a class="logout">Log out</a>
+        </aside>
+        <main class="content">
+            <h1>รายการคำร้อง</h1>
+            <p>คำร้องที่รอดำเนินการ</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ยื่นคำร้องเมื่อ</th>
+                        <th>ประเภทคำร้อง</th>
+                        <th>ยื่นคำร้องโดย</th>
+                        <th>รายละเอียดคำร้อง</th>
+                    </tr>
+                </thead>
+                <tbody id="request-list">
+                    <tr>
+                        <td colspan="4">ไม่มีรายการคำร้อง</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
+    <script src="../js/list.js"></script>
+</body>
+</html>
