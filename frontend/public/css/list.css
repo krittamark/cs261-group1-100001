@@ -1,0 +1,144 @@
+* {
+    font-family: "Noto Sans Thai", sans-serif !important;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.sidebar {
+    overflow: hidden;
+    width: 250px;
+    background-color: #f0f0f0;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: fixed;
+    /* ทำให้ sidebar ติดอยู่กับที่ */
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.sidebar img {
+    margin-top: 30px;
+    width: 90%;
+    margin-bottom: 20px;
+    display: block;
+    /* ทำให้เป็นบล็อกเพื่อให้จัดกึ่งกลางได้ */
+    margin-left: auto;
+    /* จัดกึ่งกลางด้านซ้าย */
+    margin-right: auto;
+    /* จัดกึ่งกลางด้านขวา */
+}
+
+.menu {
+    margin-top: 20px;
+    width: 100%;
+    /* ทำให้ hover ครอบคลุมเต็มความกว้าง */
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu li {
+    margin-bottom: 0px;
+}
+
+.menu a {
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 0px;
+    padding: 8px 40px;
+    /* เพิ่มระยะห่างด้านใน */
+    display: block;
+    width: 350px;
+    /* ให้ครอบคลุมเต็มความกว้างของ sidebar */
+    margin-left: -25px;
+    /* เยื้องไปทางซ้ายเพื่อให้ตรงกับ padding ของ sidebar */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.menu a.active,
+.menu a:hover {
+    background-color: #cccccc;
+    /* เปลี่ยนสีพื้นหลังเมื่อวางเมาส์หรือ active */
+    color: #000;
+    font-weight: bold;
+}
+
+.sidebar .logout {
+    font-size: 16px;
+    color: white;
+    background-color: #d32f2f;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    margin-top: auto;
+    margin-bottom: 30px;
+    align-self: center;
+    transition: 0.3s;
+}
+
+.sidebar .logout:hover {
+    background-color: #b71c1c;
+    color: #f0f0f0;
+}
+
+.sidebar .logout:active {
+    background-color: #7C0017;
+    color: #ffffff;
+}
+
+.content {
+    flex: 1;
+    padding: 80px;
+    margin-left: 250px;
+    /* เพิ่ม margin-left เพื่อเว้นที่สำหรับ sidebar */
+    background-color: #fff;
+}
+
+.content h1 {
+    font-size: 35px;
+}
+
+.content p {
+    margin-top: -20px;
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.content table th,
+.content table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.content table thead th {
+    background-color: #f4f4f4;
+}
+
+.content table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
