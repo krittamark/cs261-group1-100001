@@ -70,7 +70,7 @@ public class RequestController {
             if (requestDetails.getCourseSection() != null) request.setCourseSection(requestDetails.getCourseSection());
             if (requestDetails.getAdditionalExplanation() != null) request.setAdditionalExplanation(requestDetails.getAdditionalExplanation());
             if (requestDetails.getFormStatus() != null) request.setFormStatus(requestDetails.getFormStatus());
-            if (requestDetails.getYear() != null) request.setYear(requestDetails.getFormStatus());
+            if (requestDetails.getYear() != null) request.setYear(requestDetails.getYear());
             if (requestDetails.getResignYear() != null) request.setResignYear(requestDetails.getResignYear());
             if (requestDetails.getDebt() != null) request.setDebt(requestDetails.getDebt());
             if (requestDetails.getGradeRequest() != null) request.setGradeRequest(requestDetails.getGradeRequest());
@@ -94,60 +94,4 @@ public class RequestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-    @PostMapping("/{id}/attachments")
-    public ResponseEntity<?> uploadAttachment(
-        @PathVariable Long id,
-        @RequestParam("file") MultipartFile file) {
-    try {
-        // ตรวจสอบ Request ID
-        Optional<Request> optionalRequest = requestService.getRequestById(id);
-        if (!optionalRequest.isPresent()) {
-            return new ResponseEntity<>("Request not found", HttpStatus.NOT_FOUND);
-        }
-
-        // ตรวจสอบและบันทึกไฟล์
-        String fileName = file.getOriginalFilename();
-        String uploadDir = "uploads/";
-        String filePath = uploadDir + fileName;
-        File uploadFile = new File(filePath);
-
-        // สร้างโฟลเดอร์ถ้ายังไม่มี
-        uploadFile.getParentFile().mkdirs();
-
-        // บันทึกไฟล์
-        file.transferTo(uploadFile);
-
-        // อัปเดตข้อมูล Request
-        Request request = optionalRequest.get();
-        request.setFilePath(filePath);
-        requestService.saveRequest(request);
-
-        return new ResponseEntity<>("File uploaded successfully", HttpStatus.CREATED);
-    } catch (Exception e) {
-        return new ResponseEntity<>("Error uploading file: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-}
-    @PostMapping(consumes = "multipart/form-data")
-    public ResponseEntity<?> createRequestWithFile(
-        @RequestPart("form") Request request,
-        @RequestPart("file") MultipartFile file) {
-    try {
-        // Save the request object
-        Request savedRequest = requestService.saveRequest(request);
-
-        // Process and save the file
-        String fileName = file.getOriginalFilename();
-        String uploadDir = "uploads/";
-        String filePath = uploadDir + fileName;
-
-        File uploadFile = new File(filePath);
-        uploadFile.getParentFile().mkdirs();
-        file.transferTo(uploadFile);
-
-        return new ResponseEntity<>("Request and file uploaded successfully", HttpStatus.CREATED);
-    } catch (Exception e) {
-        return new ResponseEntity<>("Error uploading request and file: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-}
 }

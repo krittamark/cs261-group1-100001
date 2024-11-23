@@ -37,7 +37,7 @@ public class Request {
     private String debt;
     private String gradeRequest;
     private LocalDate date;
-    private String filePath;
+
 
     // Constructors
     public Request() {}
@@ -248,11 +248,5 @@ public class Request {
 
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-    public String getFilePath() {
-        return filePath;
-    }
-    public String getFilePath() {
-        return filePath;
     }
 }
