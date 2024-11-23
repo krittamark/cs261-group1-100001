@@ -11,10 +11,12 @@ const fileList = document.getElementById('fileList');
 let uploadedFiles = [];
 
 // เมื่อคลิกปุ่ม "แนบไฟล์"
-attachButton.addEventListener('click', () => {
+attachButton.addEventListener('click', (event) => {
+    event.preventDefault(); // ป้องกันการ refresh ของหน้าเว็บ
     attachButton.style.display = 'none'; // ซ่อนปุ่มแนบไฟล์
     uploadBoxContainer.classList.remove('hidden'); // แสดงกล่องอัปโหลด
 });
+
 
 // เปิดหน้าต่างเลือกไฟล์เมื่อคลิกปุ่ม browse
 browseButton.addEventListener('click', () => {
