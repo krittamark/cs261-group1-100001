@@ -11,6 +11,7 @@
   />
   <title>รายการคำร้อง</title>
   <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/Dashboard.css">
   <link rel="stylesheet" href="/css/template.css">
   </head>
   <body>
@@ -20,8 +21,8 @@
         alt="Thammasat University Logo"
       />
       <div class="menu">
-        <a href="/Employee_Dashboard/Dashboard_Home.html">รายการคำร้อง</a>
-        <a class="active" href="/Employee_Dashboard/Dashboard_Approved.html">คำร้องที่อนุมัติ</a>
+        <a class="active"href="/Employee_Dashboard/Dashboard_Home.html">รายการคำร้อง</a>
+        <a href="/Employee_Dashboard/Dashboard_Approved.html">คำร้องที่อนุมัติ</a>
         <a href="/Employee_Dashboard/Dashboard_Rejected.html">คำร้องที่ปฏิเสธ</a>
       </div>
       <a class="logout" onclick="logout()">Log out</a>
@@ -30,28 +31,25 @@
   <div class="content">
     <div class="header__container">
       <div>
-        <h1>รายการคำร้อง</h1>
+        <h1>   รายการคำร้อง</h1>
         <p>คำร้องที่รอการดำเนินการ </p>
       </div>
     </div>
 
     <!-- Approved Applications Table -->
     <div class="application__container" id="Application_Pending">
-        <div class="application__title">Pending / รออนุมัติ</div>
-        <table class="application-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Date</th>
-              <th>เลขทะเบียน</th>
-              <th>ชื่อ</th>
-              <th>ประเภทคำร้อง</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody id="pendingTableBody"></tbody>
-        </table>
-      </div>
+      <table class="application-table">
+        <thead>
+          <tr>
+            <th>ยื่นคำร้องเมื่อ</th>
+            <th>ประเภทคำร้อง</th>
+            <th>ยื่นคำร้องโดย</th>
+            <th>รายละเอียดคำร้องรอดำเนินการ</th>
+          </tr>
+        </thead>
+        <tbody id="pendingTableBody"></tbody>
+      </table>
+    </div>
   <!-- Link to JavaScript -->
   <script src="/js/Dashboard.js"></script>
 </body>

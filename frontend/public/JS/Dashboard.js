@@ -40,79 +40,59 @@ async function fetchApplications() {
 }
 
 function displayApplications(data) {
-    // Get the table bodies for rejected, approved, and pending requests
-    const rejectTableBody = document.getElementById("rejectTableBody");
-    const approveTableBody = document.getElementById("approveTableBody");
+    const rejectedTableBody = document.getElementById("rejectedTableBody");
+    const approvedTableBody = document.getElementById("approvedTableBody");
     const pendingTableBody = document.getElementById("pendingTableBody");
 
-    // Clear previous content
-    if (rejectTableBody) rejectTableBody.innerHTML = "";
-    if (approveTableBody) approveTableBody.innerHTML = "";
+    // Check for null and clear containers
+    if (rejectedTableBody) rejectedTableBody.innerHTML = "";
+    if (approvedTableBody) approvedTableBody.innerHTML = "";
     if (pendingTableBody) pendingTableBody.innerHTML = "";
 
-    // Filter and display rejected applications
+    // Process applications
     data.forEach((application) => {
-        if (application.formStatus.toLowerCase() === "rejected") {
-            const formattedDate = application.date
-                ? new Date(application.date).toLocaleDateString()
-                : "-";
+        const formattedDate = application.date
+            ? new Date(application.date).toLocaleDateString()
+            : "-";
 
+        // Approved applications
+        if (application.formStatus && application.formStatus.toLowerCase() === "approved") {
             const row = document.createElement("tr");
             row.innerHTML = `
-                <td>${application.id}</td>
                 <td>${formattedDate}</td>
-                <td>${application.registrationNumber || "-"}</td>
-                <td>${application.fullName || "No Name"}</td>
-                <td>${application.formType || "No Type"}</td>
-                <td class="status rejected">${application.formStatus || "Unknown"}</td>
+                <td>${application.formType || "ไม่มีข้อมูล"}</td>
+                <td>${application.fullName || "ไม่ระบุ"}</td>
             `;
-
-            if (rejectTableBody) rejectTableBody.appendChild(row);
+            if (approvedTableBody) approvedTableBody.appendChild(row);
         }
-    });
 
-    // Filter and display approved applications
-    data.forEach((application) => {
-        if (application.formStatus.toLowerCase() === "approved") {
-            const formattedDate = application.date
-                ? new Date(application.date).toLocaleDateString()
-                : "-";
-
+        // Rejected applications
+        if (application.formStatus && application.formStatus.toLowerCase() === "rejected") {
             const row = document.createElement("tr");
             row.innerHTML = `
-                <td>${application.id}</td>
                 <td>${formattedDate}</td>
-                <td>${application.registrationNumber || "-"}</td>
-                <td>${application.fullName || "No Name"}</td>
-                <td>${application.formType || "No Type"}</td>
-                <td class="status approved">${application.formStatus || "Unknown"}</td>
+                <td>${application.formType || "ไม่มีข้อมูล"}</td>
+                <td>${application.fullName || "ไม่ระบุ"}</td>
             `;
-
-            if (approveTableBody) approveTableBody.appendChild(row);
+            if (rejectedTableBody) rejectedTableBody.appendChild(row);
         }
-    });
 
-    // Filter and display pending applications
-    data.forEach((application) => {
-        if (application.formStatus.toLowerCase() === "pending") {
-            const formattedDate = application.date
-                ? new Date(application.date).toLocaleDateString()
-                : "-";
-
+        // Pending applications
+        if (application.formStatus && application.formStatus.toLowerCase() === "pending") {
             const row = document.createElement("tr");
             row.innerHTML = `
-                <td>${application.id}</td>
                 <td>${formattedDate}</td>
-                <td>${application.registrationNumber || "-"}</td>
-                <td>${application.fullName || "No Name"}</td>
-                <td>${application.formType || "No Type"}</td>
-                <td class="status pending">${application.formStatus || "Unknown"}</td>
+                <td>${application.formType || "ไม่มีข้อมูล"}</td>
+                <td>${application.fullName || "ไม่ระบุ"}</td>
+                <td>
+                    <button class="view-details-button">ดูคำร้อง</button>
+                </td>
             `;
-
             if (pendingTableBody) pendingTableBody.appendChild(row);
         }
     });
 }
+
 
 
 

@@ -12,6 +12,7 @@
   <title>รายการคำร้อง</title>
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/template.css">
+  <link rel="stylesheet" href="/css/Dashboard.css">
   </head>
   <body>
     <div class="sidebar">
@@ -35,24 +36,19 @@
       </div>
     </div>
     
-    <!-- Approved Applications Table -->
-    <div class="application__container" id="Application_Reject">
-      <div class="application__title">Rejected / ปฏิเสธ</div>
+    <div class="application__container" id="Application_Approved">
       <table class="application-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Date</th>
-            <th>เลขทะเบียน</th>
-            <th>ชื่อ</th>
+            <th>ยื่นคำร้องเมื่อ</th>
             <th>ประเภทคำร้อง</th>
-            <th>Status</th>
+            <th>ยื่นคำร้องโดย</th>
+            <th>รายละเอียดคำร้องรอดำเนินการ</th>
           </tr>
         </thead>
-        <tbody id="rejectTableBody"></tbody>
+        <tbody id="rejectedTableBody"></tbody>
       </table>
     </div>
-  <!-- Link to JavaScript -->
   <script src="/js/Dashboard.js"></script>
 </body>
 </html>
