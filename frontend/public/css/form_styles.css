@@ -216,3 +216,14 @@ body {
   font-size: 16px;
   font-weight: normal; /* ตั้งค่าฟอนต์ในช่องกรอกข้อมูลของตารางเป็น normal */
 }
+.input-detail {
+  resize: none;
+  width: 100%;
+  padding: 7px 14px;
+  margin-top: 4px;
+  font-size: 16px;
+  border: 1px solid #b4b4b4;
+  border-radius: 10px;
+  box-sizing: border-box;
+  font-weight: normal; 
+}
