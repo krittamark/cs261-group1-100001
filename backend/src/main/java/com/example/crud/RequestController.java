@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/requests", produces = "application/json; charset=UTF-8")
-@CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001"})
+@CrossOrigin(origins = "http://localhost:3000")
 public class RequestController {
 
     private final RequestService requestService;
@@ -63,18 +63,25 @@ public class RequestController {
             if (requestDetails.getMobilePhone() != null) request.setMobilePhone(requestDetails.getMobilePhone());
             if (requestDetails.getRelativeMobilePhone() != null) request.setRelativeMobilePhone(requestDetails.getRelativeMobilePhone());
             if (requestDetails.getAdvisor() != null) request.setAdvisor(requestDetails.getAdvisor());
-            if (requestDetails.getAcademicYear() != null) request.setAcademicYear(requestDetails.getAcademicYear());
+            if (requestDetails.getYear() != null) {
+                request.setYear(requestDetails.getYear());
+            }            
             if (requestDetails.getSemester() != null) request.setSemester(requestDetails.getSemester());
             if (requestDetails.getCourseCode() != null) request.setCourseCode(requestDetails.getCourseCode());
             if (requestDetails.getCourseName() != null) request.setCourseName(requestDetails.getCourseName());
             if (requestDetails.getCourseSection() != null) request.setCourseSection(requestDetails.getCourseSection());
             if (requestDetails.getAdditionalExplanation() != null) request.setAdditionalExplanation(requestDetails.getAdditionalExplanation());
             if (requestDetails.getFormStatus() != null) request.setFormStatus(requestDetails.getFormStatus());
-            if (requestDetails.getYear() != null) request.setYear(requestDetails.getFormStatus());
+            if (requestDetails.getYear() != null) request.setYear(requestDetails.getYear());
             if (requestDetails.getResignYear() != null) request.setResignYear(requestDetails.getResignYear());
             if (requestDetails.getDebt() != null) request.setDebt(requestDetails.getDebt());
             if (requestDetails.getGradeRequest() != null) request.setGradeRequest(requestDetails.getGradeRequest());
             if (request.getDate() == null) {request.setDate(LocalDate.now());
+            if (requestDetails.getApprover() != null) request.setApprover(requestDetails.getApprover());
+            if (requestDetails.getApprovalReason() != null) request.setApprovalReason(requestDetails.getApprovalReason());
+            if (requestDetails.getRejector() != null) request.setRejector(requestDetails.getRejector());
+            if (requestDetails.getRejectionReason() != null) request.setRejectionReason(requestDetails.getRejectionReason());
+
             }
 
             Request updatedRequest = requestService.saveRequest(request);
