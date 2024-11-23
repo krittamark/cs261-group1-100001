@@ -142,3 +142,54 @@
 .content table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
+.request-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.request-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f4f4f4;
+    border-radius: 15px;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+}
+
+.request-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.request-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.request-date {
+    font-size: 14px;
+    color: #666;
+}
+
+.reject-btn {
+    background-color: transparent;
+    color: #d32f2f;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+.empty-list {
+    padding: 20%;
+    text-align: center;
+    align-items: center;
+    font-size: 26px;
+    color: #666;
+}
