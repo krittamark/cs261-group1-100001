@@ -263,50 +263,40 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         );
 
-        function submitForm(form, title, message, formStatus) {
-            const formData = {};
-            const topicElement = document.querySelector("h1.topic");
-            formData["formType"] = topicElement ? topicElement.innerText : "";
-            formData["formStatus"] = formStatus;
-
-            form.querySelectorAll("input, select, textarea").forEach(
-                (input) => {
-                    const fieldName = input.name;
-                    if (input.type === "radio" && input.checked) {
-                        formData[fieldName] = input.value;
-                    } else if (input.type === "checkbox") {
-                        formData[fieldName] = input.checked;
-                    } else if (input.type !== "radio") {
-                        formData[fieldName] = input.value;
-                    }
-                }
-            );
-
-            const method = applicationId ? "PUT" : "POST"; // Use PUT if updating, POST if creating
+        async function submitForm(form, title, message, formStatus) {
+            const formData = new FormData(form);
+        
+            // Add form status to FormData
+            formData.append("formStatus", formStatus);
+        
+            // Ensure all fields are added as part of "form"
+            const formJson = {};
+            form.querySelectorAll("input, select, textarea").forEach((input) => {
+                formJson[input.name] = input.value;
+            });
+        
+            // Append the form data as JSON
+            formData.append("form", new Blob([JSON.stringify(formJson)], { type: "application/json" }));
+        
+            const method = applicationId ? "PUT" : "POST";
             const url = applicationId
                 ? `http://localhost:8080/api/requests/${applicationId}`
-                : "http://localhost:8080/api/requests";
-
-            fetch(url, {
-                method: method,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
-            })
-                .then((response) => {
-                    if (!response.ok)
-                        throw new Error("Network response was not ok");
-                    return response.json();
-                })
-                .then((data) => showPopup(title, message))
-                .catch((error) =>
-                    showPopup(
-                        "การยื่นคำร้องไม่สำเร็จ",
-                        "เกิดข้อผิดพลาดในการส่งคำร้อง",
-                        false
-                    )
-                );
+                : `http://localhost:8080/api/requests`;
+        
+            try {
+                const response = await fetch(url, {
+                    method: method,
+                    body: formData,
+                });
+        
+                if (!response.ok) throw new Error("Network response was not ok");
+        
+                const data = await response.json();
+                showPopup(title, message);
+            } catch (error) {
+                console.error("Error submitting form:", error);
+                showPopup("การยื่นคำร้องไม่สำเร็จ", "เกิดข้อผิดพลาดในการส่งคำร้อง", false);
+            }
         }
     });
 });

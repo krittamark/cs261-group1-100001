@@ -6,6 +6,7 @@ const fileInput = document.getElementById("fileInput");
 const browseButton = document.getElementById("browseButton");
 const fileInfo = document.getElementById("fileInfo");
 const fileList = document.getElementById("fileList");
+const submitFilesButton = document.getElementById("submitFilesButton");
 
 // เก็บไฟล์ทั้งหมดใน Array
 let uploadedFiles = [];
@@ -130,22 +131,25 @@ function removeFile(fileName, listItem, fileURL) {
 }
 
 // ฟังก์ชันยิง API เมื่อคลิกปุ่ม "อัปโหลดไฟล์"
-submitFilesButton.addEventListener("click", async () => {
-    if (uploadedFiles.length === 0) {
-        alert("กรุณาเลือกไฟล์ก่อนอัปโหลด");
-        return;
-    }
+if (submitFilesButton) {
+    submitFilesButton.addEventListener("click", async () => {
+        if (uploadedFiles.length === 0) {
+            alert("กรุณาเลือกไฟล์ก่อนอัปโหลด");
+            return;
+        }
 
-    // แปลงไฟล์เป็น binary array และยิงไป API
-    await uploadFilesToServer(uploadedFiles);
+        // แปลงไฟล์เป็น binary array และยิงไป API
+        await uploadFilesToServer(uploadedFiles);
 
-    // เคลียร์ข้อมูลหลังจากอัปโหลด
-    uploadedFiles = [];
-    fileList.innerHTML = "";
-    submitFilesButton.classList.add("hidden");
-    uploadButton.classList.remove("hidden");
-    dragDropArea.classList.add("hidden");
-});
+        // เคลียร์ข้อมูลหลังจากอัปโหลด
+        uploadedFiles = [];
+        fileList.innerHTML = "";
+        submitFilesButton.classList.add("hidden");
+        attachButton.style.display = "flex"; // แสดงปุ่ม "แนบไฟล์" อีกครั้ง
+    });
+} else {
+    console.error("submitFilesButton is not defined in the DOM.");
+}
 
 // ส่งไฟล์ไปยัง API
 async function uploadFilesToServer(files) {

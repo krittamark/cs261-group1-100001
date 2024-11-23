@@ -59,4 +59,8 @@ public class RequestService {
         }
         return false;
     }
+    
+    public Request saveRequest(Request request) {
+        return requestRepository.save(request);
+}
 }
