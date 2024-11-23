@@ -24,7 +24,15 @@ function submitLogin() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    // Authenticate the user
+    // ตรวจสอบการล็อกอินแบบ Employee โดยตรง
+    if (username === "test123" && password === "test123") {
+        sessionStorage.setItem("isLoggedIn", "true");
+        sessionStorage.setItem("userRole", "employee"); // ระบุบทบาท
+        window.location.href = "/Employee_Dashboard/Dashboard_Home.html";
+        return; // หยุดการทำงานเพิ่มเติม
+    }
+
+    // Authenticate the user as Student
     fetch("https://restapi.tu.ac.th/api/v1/auth/Ad/verify", {
         method: "POST",
         headers: {
@@ -41,6 +49,8 @@ function submitLogin() {
             if (data.status === true) {
                 sessionStorage.setItem("isLoggedIn", "true");
                 sessionStorage.setItem("registrationNumber", username);
+                sessionStorage.setItem("userRole", "student"); // ระบุบทบาทเป็นนักศึกษา
+
                 // Fetch detailed student data
                 const studentId = username;
                 fetch(
@@ -90,7 +100,7 @@ function submitLogin() {
                             );
                             console.log("Autofill data stored:", autofillData);
 
-                            // Redirect to template.html
+                            // Redirect to index.html
                             window.location.href = "/index.html";
                         } else {
                             console.error(

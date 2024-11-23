@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet"
+  />
+  <title>รายการคำร้อง</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/template.css">
+  </head>
+  <body>
+    <div class="sidebar">
+      <img
+        src="/img/Thammasat_Horz_logo_route1_01 1.png"
+        alt="Thammasat University Logo"
+      />
+      <div class="menu">
+        <a href="/Employee_Dashboard/Dashboard_Home.html">รายการคำร้อง</a>
+        <a class="active" href="/Employee_Dashboard/Dashboard_Approved.html">คำร้องที่อนุมัติ</a>
+        <a href="/Employee_Dashboard/Dashboard_Rejected.html">คำร้องที่ปฏิเสธ</a>
+      </div>
+      <a class="logout" onclick="logout()">Log out</a>
+    </div>
+
+  <div class="content">
+    <div class="header__container">
+      <div>
+        <h1>รายการคำร้อง</h1>
+        <p>คำร้องที่รอการดำเนินการ </p>
+      </div>
+    </div>
+    
+    <div class="browser__container">
+      <div class="browser__title">
+        <span>สืบค้นสถานะคำร้อง</span>
+      </div>
+      <div class="filter">
+        <button class="button button__filter" id="ApproveFilterButton">Approved</button>
+        <button class="button button__filter" id="RejectFilterButton">Rejected</button>
+        <button class="button button__filter" id="PendingFilterButton">Pending</button>
+        <button class="button button__filter" id="DraftFilterButton">Draft</button>
+      </div>
+    </div>
+
+    <!-- Approved Applications Table -->
+    <div class="application__container" id="Application_Approve">
+      <div class="application__title">Approved / อนุมัติ</div>
+      <table class="application-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>เลขทะเบียน</th>
+            <th>ชื่อ</th>
+            <th>ประเภทคำร้อง</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="approveTableBody"></tbody>
+      </table>
+    </div>
+    <!-- Rejected Applications Table -->
+    <div class="application__container" id="Application_Reject">
+      <div class="application__title">Rejected / ปฏิเสธ</div>
+      <table class="application-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>เลขทะเบียน</th>
+            <th>ชื่อ</th>
+            <th>ประเภทคำร้อง</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="rejectTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Pending Applications Table -->
+    <div class="application__container" id="Application_Pending">
+      <div class="application__title">Pending / รอดำเนินการ</div>
+      <table class="application-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>เลขทะเบียน</th>
+            <th>ชื่อ</th>
+            <th>ประเภทคำร้อง</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="pendingTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Draft Applications Table -->
+    <div class="application__container" id="Application_Draft">
+      <div class="application__title">Draft / แบบร่าง</div>
+      <table class="application-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>เลขทะเบียน</th>
+            <th>ชื่อ</th>
+            <th>ประเภทคำร้อง</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="draftTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+  <!-- Link to JavaScript -->
+  <script src="/js/Dashboard.js"></script>
+</body>
+</html>
