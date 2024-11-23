@@ -216,3 +216,34 @@ body {
   font-size: 16px;
   font-weight: normal; /* ตั้งค่าฟอนต์ในช่องกรอกข้อมูลของตารางเป็น normal */
 }
+.approve-button {
+  background-color: #28a745; /* Green for approved */
+  color: white;
+  width: 200px;
+  height: 70px;
+  border: none;
+  border-radius: 4px;
+  font-size: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.approve-button:hover {
+  background-color: #218838; /* Darker green for hover */
+}
+
+.reject-button {
+  background-color: #dc3545; /* Red for rejected */
+  color: white;
+  width: 200px;
+  height: 70px;
+  border: none;
+  border-radius: 4px;
+  font-size: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.reject-button:hover {
+  background-color: #c82333; /* Darker red for hover */
+}

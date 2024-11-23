@@ -49,6 +49,14 @@ function displayApplications(data) {
     if (approvedTableBody) approvedTableBody.innerHTML = "";
     if (pendingTableBody) pendingTableBody.innerHTML = "";
 
+    // Map form types to URLs
+    const formTypeToUrl = {
+        "คำร้องจดทะเบียนล่าช้า": "/Employee_Form/delayed_registration.html",
+        "คำร้องขอถอนรายวิชา (Drop W)": "/Employee_Form/withdraw_course.html",
+        "คำร้องขอจดทะเบียนรายวิชาข้ามหลักสูตร": "/Employee_Form/reg_request.html",
+        "คำร้องลาออก": "/Employee_Form/resign.html"
+    };
+
     // Process applications
     data.forEach((application) => {
         const formattedDate = application.date
@@ -85,11 +93,28 @@ function displayApplications(data) {
                 <td>${application.formType || "ไม่มีข้อมูล"}</td>
                 <td>${application.fullName || "ไม่ระบุ"}</td>
                 <td>
-                    <button class="view-details-button">ดูคำร้อง</button>
+                    <button class="view-details-button" data-id="${application.id}" data-type="${application.formType}">ดูคำร้อง</button>
                 </td>
             `;
             if (pendingTableBody) pendingTableBody.appendChild(row);
         }
+    });
+
+    // Add event listeners to "ดูคำร้อง" buttons
+    const viewDetailsButtons = document.querySelectorAll(".view-details-button");
+    viewDetailsButtons.forEach((button) => {
+        button.addEventListener("click", (event) => {
+            const applicationId = event.target.getAttribute("data-id");
+            const formType = event.target.getAttribute("data-type");
+            const targetUrl = formTypeToUrl[formType];
+
+            if (targetUrl) {
+                // Redirect to the form page with the application ID in the URL
+                window.location.href = `${targetUrl}?id=${applicationId}`;
+            } else {
+                alert("หน้าสำหรับคำร้องนี้ยังไม่ได้ตั้งค่า");
+            }
+        });
     });
 }
 
