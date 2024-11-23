@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/requests", produces = "application/json; charset=UTF-8")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
 public class RequestController {
 
     private final RequestService requestService;
