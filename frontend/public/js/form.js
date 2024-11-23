@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             subject: data.formType,
             full_name: data.fullName,
             registration_number: data.registrationNumber,
-            year: data.year, // Explicitly map `year`
+            year: data.year,
             faculty: data.faculty,
             department: data.department,
             mobile_phone: data.mobilePhone,
