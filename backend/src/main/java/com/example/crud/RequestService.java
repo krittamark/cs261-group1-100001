@@ -48,10 +48,16 @@ public class RequestService {
             if (requestDetails.getCourseSection() != null) request.setCourseSection(requestDetails.getCourseSection());
             if (requestDetails.getAdditionalExplanation() != null) request.setAdditionalExplanation(requestDetails.getAdditionalExplanation());
             if (requestDetails.getFormStatus() != null) request.setFormStatus(requestDetails.getFormStatus());
-            if (requestDetails.getYear() != null) {
-                request.setYear(requestDetails.getYear());
-            }
-
+            if (requestDetails.getYear() != null) request.setYear(requestDetails.getYear());
+            if (requestDetails.getResignYear() != null) request.setResignYear(requestDetails.getResignYear());
+            if (requestDetails.getSemester() != null) request.setSemester(requestDetails.getSemester());
+            if (requestDetails.getDebt() != null) request.setDebt(requestDetails.getDebt());
+            if (requestDetails.getGradeRequest() != null) request.setGradeRequest(requestDetails.getGradeRequest());
+            if (requestDetails.getDate() != null) request.setDate(requestDetails.getDate());
+            if (requestDetails.getApprover() != null) request.setApprover(requestDetails.getApprover());
+            if (requestDetails.getApprovalReason() != null) request.setApprovalReason(requestDetails.getApprovalReason());
+            if (requestDetails.getRejector() != null) request.setRejector(requestDetails.getRejector());
+            if (requestDetails.getRejectionReason() != null) request.setRejectionReason(requestDetails.getRejectionReason());
             return requestRepository.save(request);
         });
     }

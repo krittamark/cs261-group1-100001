@@ -11,37 +11,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const applicationId = urlParams.get("id");
 
     if (applicationId) {
-        // Fetch and load application data if editing an existing application
         await loadApplicationData(applicationId);
-    } else {
-        // Autofill form fields if student data exists in sessionStorage for new application
-        const studentData = JSON.parse(
-            sessionStorage.getItem("studentData") || "{}"
-        );
-        if (Object.keys(studentData).length > 0) {
-            autofillForm(studentData);
-        }
-    }
-
-    function autofillForm(data) {
-        const topicElement = document.querySelector("h1.topic");
-        const formType = topicElement ? topicElement.textContent : "";
-
-        const fieldsToFill = {
-            full_name: data.fullName,
-            registration_number: data.registrationNumber,
-            faculty: data.faculty,
-            department: data.department,
-            email: data.email,
-            subject: formType, // Fill subject with formType for new applications
-        };
-
-        for (const [fieldId, value] of Object.entries(fieldsToFill)) {
-            const input = document.getElementById(fieldId);
-            if (input && value) {
-                input.value = value;
-            }
-        }
     }
 
     async function loadApplicationData(applicationId) {
@@ -50,22 +20,14 @@ document.addEventListener("DOMContentLoaded", async function () {
                 `http://localhost:8080/api/requests/${applicationId}`,
                 {
                     method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
+                    headers: { "Content-Type": "application/json" },
                 }
             );
 
-            if (!response.ok) {
-                throw new Error("Failed to fetch application data");
-            }
+            if (!response.ok) throw new Error("Failed to fetch application data");
 
             const applicationData = await response.json();
-
-            // Populate form fields
             populateForm(applicationData);
-
-            // Make all fields read-only after data is populated
             makeFormReadOnly();
         } catch (error) {
             console.error("Error loading application data:", error);
@@ -115,16 +77,362 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.log("Form populated with data:", data);
     }
 
-    function makeFormReadOnly() {
-        // Set all input, textarea, and select fields to read-only or disabled
-        document.querySelectorAll("input, textarea, select").forEach((field) => {
-            field.setAttribute("readonly", true); // For input and textarea fields
-            field.setAttribute("disabled", true); // For select fields and radio buttons
-        });
+    function populateResignForm(data) {
+        // Basic information
+        document.getElementById("date").value = data.date || "";
+        document.getElementById("subject").value = data.formType || "";
+        document.getElementById("full_name").value = data.fullName || "";
+        document.getElementById("registration_number").value =
+            data.registrationNumber || "";
+        document.getElementById("year").value = data.year || "";
+        document.getElementById("faculty").value = data.faculty || "";
+        document.getElementById("department").value = data.department || "";
+        document.getElementById("mobile_phone").value = data.mobilePhone || "";
+        document.getElementById("relative_mobile_phone").value =
+            data.relativeMobilePhone || "";
+        document.getElementById("email").value = data.email || "";
+        document.getElementById("contact_address").value =
+            data.contactAddress || "";
+        document.getElementById("advisor").value = data.advisor || "";
 
-        // Disable buttons related to editing
-        document.querySelectorAll(".draft-button, .submit-button").forEach((button) => {
-            button.setAttribute("disabled", true);
+        // Resign year and semester
+        document.getElementById("resign_year").value = data.resignYear || "";
+        document.getElementById("semester").value = data.semester || "";
+
+        // Debt information
+        document.getElementById("debt").value = data.debt || "";
+
+        // Grade request (radio buttons)
+        if (data.gradeRequest === "want") {
+            document.getElementById("want_grade").checked = true;
+        } else if (data.gradeRequest === "dont-want") {
+            document.getElementById("dont_want_grade").checked = true;
+        }
+    }
+
+    function makeFormReadOnly() {
+        document.querySelectorAll("input, textarea, select").forEach((field) => {
+            field.setAttribute("readonly", true);
+            field.setAttribute("disabled", true);
         });
     }
+
+    const approveButton = document.querySelector(".approve-button");
+
+    // Event listener for the approve button
+    approveButton.addEventListener("click", function () {
+        showConfirmationPopup(
+            "คุณยืนยันที่จะอนุมัติคำร้องหรือไม่?",
+            "หากกดยืนยัน ระบบจะทำการอนุมัติคำร้อง",
+            async () => {
+                try {
+                    const response = await fetch(
+                        `http://localhost:8080/api/requests/${applicationId}/approve`,
+                        {
+                            method: "PUT", // Use PUT to update the status
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ formStatus: "approved" }),
+                        }
+                    );
+
+                    if (!response.ok) throw new Error("Failed to approve the application");
+
+                    // Show success popup after approval
+                    showSuccessPopup("อนุมัติ", "อนุมัติคำร้องสำเร็จ", () => {
+                        window.location.href = "/Employee_Dashboard/Dashboard_Home.html"; // Redirect to dashboard
+                    });
+                } catch (error) {
+                    console.error("Error approving the application:", error);
+                    showErrorPopup("เกิดข้อผิดพลาด", "ไม่สามารถอนุมัติคำร้องได้");
+                }
+            }
+        );
+    });
+
+    function showConfirmationPopup(title, message, onConfirm) {
+        const overlay = document.createElement("div");
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        `;
+
+        const popup = document.createElement("div");
+        popup.style.cssText = `
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            width: 600px;
+        `;
+        popup.innerHTML = `
+            <h2 style="font-size: 24px; margin-bottom: 10px;">${title}</h2>
+            <p style="font-size: 18px; margin-bottom: 20px; font-weight: normal;">${message}</p>
+            <div style="display: flex; justify-content: center; gap: 20px;">
+                <button id="cancel-button" style="padding: 10px 20px; font-size: 16px; background-color: #ccc; border: none; border-radius: 5px; cursor: pointer;">ยกเลิก</button>
+                <button id="confirm-button" style="padding: 10px 20px; font-size: 16px; color: white; background-color: #28a745; border: none; border-radius: 5px; cursor: pointer;">ยืนยัน</button>
+            </div>
+        `;
+
+        overlay.appendChild(popup);
+        document.body.appendChild(overlay);
+
+        document.getElementById("cancel-button").addEventListener("click", () => {
+            document.body.removeChild(overlay);
+        });
+
+        document.getElementById("confirm-button").addEventListener("click", () => {
+            document.body.removeChild(overlay);
+            onConfirm();
+        });
+    }
+
+    function showSuccessPopup(title, message, onOk) {
+        const overlay = document.createElement("div");
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        `;
+
+        const popup = document.createElement("div");
+        popup.style.cssText = `
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            width: 400px;
+        `;
+        popup.innerHTML = `
+            <span style="font-size: 50px; color: #28a745; margin-bottom: 20px;">✔</span>
+            <h2 style="font-size: 24px; margin-bottom: 10px;">${title}</h2>
+            <p style="font-size: 18px; margin-bottom: 20px;">${message}</p>
+            <button id="ok-button" style="padding: 10px 20px; font-size: 16px; color: white; background-color: #28a745; border: none; border-radius: 5px; cursor: pointer;">กลับสู่หน้าหลัก</button>
+        `;
+
+        overlay.appendChild(popup);
+        document.body.appendChild(overlay);
+
+        document.getElementById("ok-button").addEventListener("click", () => {
+            document.body.removeChild(overlay);
+            onOk();
+        });
+    }
+
+    function showErrorPopup(title, message) {
+        const overlay = document.createElement("div");
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        `;
+    
+        const popup = document.createElement("div");
+        popup.style.cssText = `
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            width: 400px;
+        `;
+        popup.innerHTML = `
+            <span style="font-size: 50px; color: #C30E2F; margin-bottom: 20px;">✘</span>
+            <h2 style="font-size: 24px; margin-bottom: 10px;">${title}</h2>
+            <p style="font-size: 18px; margin-bottom: 20px;">${message}</p>
+            <button id="ok-button" style="
+                padding: 10px 20px;
+                font-size: 16px;
+                color: white;
+                background-color: #C30E2F;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;">ตกลง</button>
+        `;
+    
+        overlay.appendChild(popup);
+        document.body.appendChild(overlay);
+    
+        document.getElementById("ok-button").addEventListener("click", () => {
+            document.body.removeChild(overlay);
+        });
+    }
+    
+
+const rejectButton = document.querySelector(".reject-button");
+
+// Event listener for the reject button
+rejectButton.addEventListener("click", function () {
+    showRejectionPopup(
+        "คุณยืนยันที่จะปฏิเสธคำร้องหรือไม่?",
+        "หากกดยืนยัน ระบบจะทำการปฏิเสธคำร้อง",
+        async (rejectionReason) => {
+            try {
+                if (!applicationId) throw new Error("Application ID is not defined");
+
+                const response = await fetch(
+                    `http://localhost:8080/api/requests/${applicationId}/reject`,
+                    {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ rejectionReason: rejectionReason }),
+                    }
+                );
+
+                if (!response.ok) throw new Error("Failed to reject the application");
+
+                // Show red success popup after rejection
+                showRejectionSuccessPopup("ไม่อนุมัติ", "การปฏิเสธคำร้องสำเร็จ", () => {
+                    window.location.href = "/Employee_Dashboard/Dashboard_Home.html"; // Redirect to dashboard
+                });
+            } catch (error) {
+                console.error("Error rejecting the application:", error);
+                showErrorPopup("เกิดข้อผิดพลาด", "ไม่สามารถปฏิเสธคำร้องได้");
+            }
+        }
+    );
+});
+
+
+
+// Show rejection popup
+function showRejectionPopup(title, message, onConfirm) {
+    const overlay = document.createElement("div");
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    `;
+
+    const popup = document.createElement("div");
+    popup.style.cssText = `
+        background-color: white;
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        width: 600px;
+    `;
+    popup.innerHTML = `
+        <h2 style="font-size: 24px; margin-bottom: 10px;">${title}</h2>
+        <p style="font-size: 18px; margin-bottom: 20px; font-weight: normal;">${message}</p>
+        <textarea id="rejection_reason" style="
+            width: 100%;
+            height: 100px;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none; /* Disable resizing */
+        " placeholder="เหตุผลประกอบการไม่อนุมัติ"></textarea>
+        <div style="display: flex; justify-content: center; gap: 20px;">
+            <button id="cancel-button" style="
+                padding: 10px 20px;
+                font-size: 16px;
+                background-color: #ccc;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;">ยกเลิก</button>
+            <button id="confirm-button" style="
+                padding: 10px 20px;
+                font-size: 16px;
+                color: white;
+                background-color: #C30E2F;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;">ยืนยัน</button>
+        </div>
+    `;
+
+    overlay.appendChild(popup);
+    document.body.appendChild(overlay);
+
+    document.getElementById("cancel-button").addEventListener("click", () => {
+        document.body.removeChild(overlay);
+    });
+
+    document.getElementById("confirm-button").addEventListener("click", () => {
+        const reason = document.getElementById("rejection_reason").value.trim();
+        if (!reason) {
+            alert("กรุณากรอกเหตุผลการปฏิเสธ");
+            return;
+        }
+        document.body.removeChild(overlay);
+        onConfirm(reason);
+    });
+}
+function showRejectionSuccessPopup(title, message, onOk) {
+    const overlay = document.createElement("div");
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    `;
+
+    const popup = document.createElement("div");
+    popup.style.cssText = `
+        background-color: #ffffff; /* Light red background */
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        width: 400px;
+        border: 1px solid #f5c6cb; /* Border matching red tone */
+    `;
+
+    popup.innerHTML = `
+        <span style="font-size: 50px; color: #C30E2F; margin-bottom: 20px;">&#10005;</span> <!-- Red X symbol -->
+        <h2 style="font-size: 24px; margin-bottom: 10px; color: #721c24;">${title}</h2>
+        <p style="font-size: 18px; margin-bottom: 20px; color: #721c24;">${message}</p>
+        <button id="ok-button" style="
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #C30E2F;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;">ตกลง</button>
+    `;
+
+    overlay.appendChild(popup);
+    document.body.appendChild(overlay);
+
+    document.getElementById("ok-button").addEventListener("click", () => {
+        document.body.removeChild(overlay);
+        onOk();
+    });
+}
 });

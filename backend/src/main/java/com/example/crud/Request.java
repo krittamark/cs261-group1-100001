@@ -37,7 +37,10 @@ public class Request {
     private String debt;
     private String gradeRequest;
     private LocalDate date;
-
+    private String approver;
+    private String approvalReason;
+    private String rejector;
+    private String rejectionReason;
 
     // Constructors
     public Request() {}
@@ -45,7 +48,8 @@ public class Request {
     public Request(String formType, String fullName, String year, String registrationNumber, String faculty, String department,
                    String email, String contactAddress, String mobilePhone, String relativeMobilePhone,
                    String advisor, String academicYear, String semester, String courseCode, String courseName,
-                   String courseSection, String additionalExplanation, String formStatus) {
+                   String courseSection, String additionalExplanation, String formStatus,
+                   String approver, String approvalReason, String rejector, String rejectionReason) {
         this.formType = formType;
         this.fullName = fullName;
         this.year = year;
@@ -64,6 +68,10 @@ public class Request {
         this.courseSection = courseSection;
         this.additionalExplanation = additionalExplanation;
         this.formStatus = formStatus;
+        this.approver = approver;
+        this.approvalReason = approvalReason;
+        this.rejector = rejector;
+        this.rejectionReason = rejectionReason;
     }
 
     // Getters and Setters
@@ -248,5 +256,36 @@ public class Request {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+    public String getApprover() {
+        return approver;
+    }
+
+    public void setApprover(String approver) {
+        this.approver = approver;
+    }
+
+    public String getApprovalReason() {
+        return approvalReason;
+    }
+
+    public void setApprovalReason(String approvalReason) {
+        this.approvalReason = approvalReason;
+    }
+
+    public String getRejector() {
+        return rejector;
+    }
+
+    public void setRejector(String rejector) {
+        this.rejector = rejector;
+    }
+
+    public String getRejectionReason() {
+        return rejectionReason;
+    }
+
+    public void setRejectionReason(String rejectionReason) {
+        this.rejectionReason = rejectionReason;
     }
 }

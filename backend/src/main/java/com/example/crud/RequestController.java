@@ -8,11 +8,12 @@ import jakarta.validation.Valid;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/requests", produces = "application/json; charset=UTF-8")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
 public class RequestController {
 
     private final RequestService requestService;
@@ -25,6 +26,7 @@ public class RequestController {
     // Create a new request
     @PostMapping
     public ResponseEntity<Request> createRequest(@Valid @RequestBody Request request) {
+        request.setDate(LocalDate.now()); // Ensure date is set during creation
         Request savedRequest = requestService.saveRequest(request);
         return new ResponseEntity<>(savedRequest, HttpStatus.CREATED);
     }
@@ -63,20 +65,24 @@ public class RequestController {
             if (requestDetails.getMobilePhone() != null) request.setMobilePhone(requestDetails.getMobilePhone());
             if (requestDetails.getRelativeMobilePhone() != null) request.setRelativeMobilePhone(requestDetails.getRelativeMobilePhone());
             if (requestDetails.getAdvisor() != null) request.setAdvisor(requestDetails.getAdvisor());
-            if (requestDetails.getYear() != null) {
-                request.setYear(requestDetails.getYear());
-            }            
+            if (requestDetails.getYear() != null) request.setYear(requestDetails.getYear());
             if (requestDetails.getSemester() != null) request.setSemester(requestDetails.getSemester());
             if (requestDetails.getCourseCode() != null) request.setCourseCode(requestDetails.getCourseCode());
             if (requestDetails.getCourseName() != null) request.setCourseName(requestDetails.getCourseName());
             if (requestDetails.getCourseSection() != null) request.setCourseSection(requestDetails.getCourseSection());
             if (requestDetails.getAdditionalExplanation() != null) request.setAdditionalExplanation(requestDetails.getAdditionalExplanation());
             if (requestDetails.getFormStatus() != null) request.setFormStatus(requestDetails.getFormStatus());
-            if (requestDetails.getYear() != null) request.setYear(requestDetails.getYear());
             if (requestDetails.getResignYear() != null) request.setResignYear(requestDetails.getResignYear());
             if (requestDetails.getDebt() != null) request.setDebt(requestDetails.getDebt());
             if (requestDetails.getGradeRequest() != null) request.setGradeRequest(requestDetails.getGradeRequest());
-            if (request.getDate() == null) {request.setDate(LocalDate.now());
+            if (requestDetails.getApprover() != null) request.setApprover(requestDetails.getApprover());
+            if (requestDetails.getApprovalReason() != null) request.setApprovalReason(requestDetails.getApprovalReason());
+            if (requestDetails.getRejector() != null) request.setRejector(requestDetails.getRejector());
+            if (requestDetails.getRejectionReason() != null) request.setRejectionReason(requestDetails.getRejectionReason());
+
+            // Set date if not already set
+            if (request.getDate() == null) {
+                request.setDate(LocalDate.now());
             }
 
             Request updatedRequest = requestService.saveRequest(request);
@@ -90,10 +96,40 @@ public class RequestController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRequest(@PathVariable Long id) {
         boolean isDeleted = requestService.deleteRequest(id);
-        if (isDeleted) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return isDeleted ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    // Approve a request by ID
+    @PutMapping("/{id}/approve")
+    public ResponseEntity<?> approveRequest(@PathVariable Long id) {
+        Optional<Request> requestOptional = requestService.getRequestById(id);
+        if (requestOptional.isPresent()) {
+            Request request = requestOptional.get();
+            request.setFormStatus("approved"); // Update the status to "approved"
+            request.setApprover("Admin"); // Example approver, replace with actual user
+            request.setApprovalReason("Approved after review"); // Example reason
+            requestService.saveRequest(request); // Save the updated request
+            return ResponseEntity.ok("Request approved successfully");
         }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found");
+    }
+
+    // Reject a request by ID
+    @PutMapping("/{id}/reject")
+    public ResponseEntity<?> rejectRequest(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        Optional<Request> requestOptional = requestService.getRequestById(id);
+        if (requestOptional.isPresent()) {
+            Request request = requestOptional.get();
+            request.setFormStatus("rejected"); // Update status to "rejected"
+            request.setRejector("Admin"); // Example rejector, replace with actual user
+            String rejectionReason = body.get("rejectionReason");
+            if (rejectionReason == null || rejectionReason.isEmpty()) {
+                return ResponseEntity.badRequest().body("Rejection reason is required");
+            }
+            request.setRejectionReason(rejectionReason); // Save the rejection reason
+            requestService.saveRequest(request); // Save updated request
+            return ResponseEntity.ok("Request rejected successfully");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found");
     }
 }

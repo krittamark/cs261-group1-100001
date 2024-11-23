@@ -222,7 +222,7 @@ body {
   width: 200px;
   height: 70px;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   font-size: 20px;
   cursor: pointer;
   font-weight: bold;
@@ -238,7 +238,7 @@ body {
   width: 200px;
   height: 70px;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   font-size: 20px;
   cursor: pointer;
   font-weight: bold;
