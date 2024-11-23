@@ -63,7 +63,9 @@ public class RequestController {
             if (requestDetails.getMobilePhone() != null) request.setMobilePhone(requestDetails.getMobilePhone());
             if (requestDetails.getRelativeMobilePhone() != null) request.setRelativeMobilePhone(requestDetails.getRelativeMobilePhone());
             if (requestDetails.getAdvisor() != null) request.setAdvisor(requestDetails.getAdvisor());
-            if (requestDetails.getAcademicYear() != null) request.setAcademicYear(requestDetails.getAcademicYear());
+            if (requestDetails.getYear() != null) {
+                request.setYear(requestDetails.getYear());
+            }            
             if (requestDetails.getSemester() != null) request.setSemester(requestDetails.getSemester());
             if (requestDetails.getCourseCode() != null) request.setCourseCode(requestDetails.getCourseCode());
             if (requestDetails.getCourseName() != null) request.setCourseName(requestDetails.getCourseName());

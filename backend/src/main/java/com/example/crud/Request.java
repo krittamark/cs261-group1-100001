@@ -42,7 +42,7 @@ public class Request {
     // Constructors
     public Request() {}
 
-    public Request(String formType, String fullName, String registrationNumber, String faculty, String department,
+    public Request(String formType, String fullName, String year, String registrationNumber, String faculty, String department,
                    String email, String contactAddress, String mobilePhone, String relativeMobilePhone,
                    String advisor, String academicYear, String semester, String courseCode, String courseName,
                    String courseSection, String additionalExplanation, String formStatus) {

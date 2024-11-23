@@ -48,7 +48,9 @@ public class RequestService {
             if (requestDetails.getCourseSection() != null) request.setCourseSection(requestDetails.getCourseSection());
             if (requestDetails.getAdditionalExplanation() != null) request.setAdditionalExplanation(requestDetails.getAdditionalExplanation());
             if (requestDetails.getFormStatus() != null) request.setFormStatus(requestDetails.getFormStatus());
-            if (requestDetails.getYear() != null) request.setYear(requestDetails.getYear());
+            if (requestDetails.getYear() != null) {
+                request.setYear(requestDetails.getYear());
+            }
 
             return requestRepository.save(request);
         });
