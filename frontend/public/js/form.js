@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             subject: data.formType,
             full_name: data.fullName,
             registration_number: data.registrationNumber,
-            year: data.year,
+            year: data.year, // Explicitly map `year`
             faculty: data.faculty,
             department: data.department,
             mobile_phone: data.mobilePhone,
@@ -271,6 +271,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         async function submitForm(form, title, message, formStatus) {
             const formJson = {};
 
+            // Collect all input, select, and textarea values from the form
             form.querySelectorAll("input, select, textarea").forEach(
                 (input) => {
                     const fieldName = input.name;
@@ -284,6 +285,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 }
             );
 
+            // Add `formType` and `formStatus` explicitly to avoid conflicts
             const topicElement = document.querySelector("h1.topic");
             formJson["formType"] = topicElement
                 ? topicElement.textContent.trim()
