@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             faculty: data.faculty,
             department: data.department,
             email: data.email,
-            subject: formType, // Fill subject with formType for new applications
+            form_type: formType, // Fill subject with formType for new applications
         };
 
         for (const [fieldId, value] of Object.entries(fieldsToFill)) {
@@ -263,40 +263,64 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         );
 
-        async function submitForm(form, title, message, formStatus) {
-            const formData = new FormData(form);
-        
-            // Add form status to FormData
-            formData.append("formStatus", formStatus);
-        
-            // Ensure all fields are added as part of "form"
-            const formJson = {};
-            form.querySelectorAll("input, select, textarea").forEach((input) => {
-                formJson[input.name] = input.value;
-            });
-        
-            // Append the form data as JSON
-            formData.append("form", new Blob([JSON.stringify(formJson)], { type: "application/json" }));
-        
+        function submitForm(form, title, message, formStatus) {
+            const formData = {};
+
+            // Automatically set formType based on the h1.topic element
+            const topicElement = document.querySelector("h1.topic");
+            formData["formType"] = topicElement
+                ? topicElement.innerText.trim()
+                : "";
+
+            // Set formStatus dynamically based on the provided parameter
+            formData["formStatus"] = formStatus;
+
+            // Collect all input, select, and textarea values from the form
+            form.querySelectorAll("input, select, textarea").forEach(
+                (input) => {
+                    const fieldName = input.name; // Use the 'name' attribute as the key
+                    if (input.type === "radio" && input.checked) {
+                        formData[fieldName] = input.value; // Only add checked radio buttons
+                    } else if (input.type === "checkbox") {
+                        formData[fieldName] = input.checked; // Store true/false for checkboxes
+                    } else if (input.type !== "radio") {
+                        formData[fieldName] = input.value; // Add other input types
+                    }
+                }
+            );
+
+            // Determine HTTP method (PUT for updates, POST for new requests)
             const method = applicationId ? "PUT" : "POST";
             const url = applicationId
                 ? `http://localhost:8080/api/requests/${applicationId}`
-                : `http://localhost:8080/api/requests`;
-        
-            try {
-                const response = await fetch(url, {
-                    method: method,
-                    body: formData,
+                : "http://localhost:8080/api/requests";
+
+            // Submit the form data as JSON to the server
+            fetch(url, {
+                method: method,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            })
+                .then((response) => {
+                    if (!response.ok)
+                        throw new Error("Network response was not ok");
+                    return response.json();
+                })
+                .then((data) => {
+                    // Show success popup with the provided title and message
+                    showPopup(title, message);
+                })
+                .catch((error) => {
+                    console.error("Error submitting form:", error);
+                    // Show failure popup
+                    showPopup(
+                        "การยื่นคำร้องไม่สำเร็จ",
+                        "เกิดข้อผิดพลาดในการส่งคำร้อง",
+                        false
+                    );
                 });
-        
-                if (!response.ok) throw new Error("Network response was not ok");
-        
-                const data = await response.json();
-                showPopup(title, message);
-            } catch (error) {
-                console.error("Error submitting form:", error);
-                showPopup("การยื่นคำร้องไม่สำเร็จ", "เกิดข้อผิดพลาดในการส่งคำร้อง", false);
-            }
         }
     });
 });
