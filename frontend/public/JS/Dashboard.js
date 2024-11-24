@@ -98,7 +98,7 @@ function displayApplications(data) {
                 <td>${application.fullName || "ไม่ระบุ"}</td>
                 <td>
                     <button class="view-details-button" data-id="${application.id}" data-type="${application.formType}">
-                        ดูคำร้อง
+                        View / ดูคำร้อง
                     </button>
                 </td>
             `;
