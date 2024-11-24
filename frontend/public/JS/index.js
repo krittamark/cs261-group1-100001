@@ -67,6 +67,14 @@ function displayApplications(data) {
         "คำร้องขอถอนรายวิชา (Drop W)": "/form/withdraw_course.html",
     };
 
+    // Updated ViewformTypeLinks paths
+    const ViewformTypeLinks = {
+        คำร้องจดทะเบียนล่าช้า: "/form_view/delayed_registration.html",
+        คำร้องลาออก: "/form_view/resign.html",
+        คำร้องขอจดทะเบียนรายวิชาข้ามหลักสูตร: "/form_view/reg_request.html",
+        "คำร้องขอถอนรายวิชา (Drop W)": "/form_view/withdraw_course.html",
+    };
+
     // Clear previous content
     approveTableBody.innerHTML = "";
     pendingTableBody.innerHTML = "";
@@ -75,17 +83,29 @@ function displayApplications(data) {
 
     data.forEach((application) => {
         let actionButton = "";
+
+        // Add action buttons based on the form status
         if (application.formStatus.toLowerCase() === "pending") {
             actionButton = `<button class="action-button cancel" data-application-id="${application.id}">Cancel / ยกเลิกคำร้อง</button>`;
         } else if (application.formStatus.toLowerCase() === "draft") {
-            const editLink =
-                formTypeLinks[application.formType] ||
-                "/HTML/default_edit.html";
+            const editLink = formTypeLinks[application.formType] || "/form/default_edit.html";
 
             // Edit and Delete buttons for drafts
             actionButton = `
                 <a href="${editLink}?id=${application.id}" class="action-button edit">Edit / แก้ไข</a>
                 <button class="action-button delete" onclick="showDeleteDraftPopup(${application.id})">Delete / ลบ</button>
+            `;
+        } else if (
+            application.formStatus.toLowerCase() === "approved" ||
+            application.formStatus.toLowerCase() === "rejected"
+        ) {
+            const viewLink = ViewformTypeLinks[application.formType] || "/form_view/default_view.html";
+
+            // Add a "View Request" button
+            actionButton = `
+                <a href="${viewLink}?id=${application.id}" class="action-button view-details-button">
+                    View / ดูคำร้อง
+                </a>
             `;
         }
 
@@ -97,7 +117,7 @@ function displayApplications(data) {
         const row = document.createElement("tr");
         row.innerHTML = `
             <td>${application.id}</td>
-            <td>${formattedDate}</td> <!-- Display the formatted date here -->
+            <td>${formattedDate}</td>
             <td>${application.registrationNumber || "-"}</td>
             <td>${application.fullName || "No Name"}</td>
             <td>${application.formType || "No Type"}</td>
