@@ -96,7 +96,11 @@ function displayApplications(data) {
                 <td>${formattedDate}</td>
                 <td>${application.formType || "ไม่มีข้อมูล"}</td>
                 <td>${application.fullName || "ไม่ระบุ"}</td>
-                <td class="status ${statusClass}">${application.formStatus || "ไม่มีสถานะ"}</td>
+                <td>
+                    <button class="view-details-button" data-id="${application.id}" data-type="${application.formType}">
+                        ดูคำร้อง
+                    </button>
+                </td>
             `;
             if (pendingTableBody) pendingTableBody.appendChild(row);
         }
@@ -105,20 +109,21 @@ function displayApplications(data) {
     // Add event listeners to "ดูคำร้อง" buttons for pending applications
     const viewDetailsButtons = document.querySelectorAll(".view-details-button");
     viewDetailsButtons.forEach((button) => {
-        button.addEventListener("click", (event) => {
-            const applicationId = event.target.getAttribute("data-id");
-            const formType = event.target.getAttribute("data-type");
-            const targetUrl = formTypeToUrl[formType];
+    button.addEventListener("click", (event) => {
+        const applicationId = event.target.getAttribute("data-id");
+        const formType = event.target.getAttribute("data-type");
+        const targetUrl = formTypeToUrl[formType];
 
-            if (targetUrl) {
-                // Redirect to the form page with the application ID in the URL
-                window.location.href = `${targetUrl}?id=${applicationId}`;
-            } else {
-                alert("หน้าสำหรับคำร้องนี้ยังไม่ได้ตั้งค่า");
-            }
-        });
+        if (targetUrl) {
+            // Redirect to the form page with the application ID in the URL
+            window.location.href = `${targetUrl}?id=${applicationId}`;
+        } else {
+            alert("หน้าสำหรับคำร้องนี้ยังไม่ได้ตั้งค่า");
+        }
     });
+});
 }
+
 
 // Helper function to get the CSS class for status
 function getStatusClass(status) {

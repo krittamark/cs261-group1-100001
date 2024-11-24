@@ -61,9 +61,9 @@ function displayApplications(data) {
 
     // Define a mapping between form types and their corresponding HTML pages
     const formTypeLinks = {
-        "คำร้องจดทะเบียนล่าช้า": "/form/delayed_registration.html",
-        "คำร้องลาออก": "/form/resign.html",
-        "คำร้องขอจดทะเบียนรายวิชาข้ามหลักสูตร": "/form/reg_request.html",
+        คำร้องจดทะเบียนล่าช้า: "/form/delayed_registration.html",
+        คำร้องลาออก: "/form/resign.html",
+        คำร้องขอจดทะเบียนรายวิชาข้ามหลักสูตร: "/form/reg_request.html",
         "คำร้องขอถอนรายวิชา (Drop W)": "/form/withdraw_course.html",
     };
 
@@ -75,59 +75,51 @@ function displayApplications(data) {
 
     data.forEach((application) => {
         let actionButton = "";
+        if (application.formStatus.toLowerCase() === "pending") {
+            actionButton = `<button class="action-button cancel" data-application-id="${application.id}">Cancel / ยกเลิกคำร้อง</button>`;
+        } else if (application.formStatus.toLowerCase() === "draft") {
+            const editLink =
+                formTypeLinks[application.formType] ||
+                "/HTML/default_edit.html";
+
+            // Edit and Delete buttons for drafts
+            actionButton = `
+                <a href="${editLink}?id=${application.id}" class="action-button edit">Edit / แก้ไข</a>
+                <button class="action-button delete" onclick="showDeleteDraftPopup(${application.id})">Delete / ลบ</button>
+            `;
+        }
+
+        // Format the date for display
         const formattedDate = application.date
             ? new Date(application.date).toLocaleDateString()
             : "-";
 
-        // Build rows with "View Details" button
         const row = document.createElement("tr");
         row.innerHTML = `
             <td>${application.id}</td>
-            <td>${formattedDate}</td>
+            <td>${formattedDate}</td> <!-- Display the formatted date here -->
             <td>${application.registrationNumber || "-"}</td>
             <td>${application.fullName || "No Name"}</td>
             <td>${application.formType || "No Type"}</td>
-            <td class="status ${getStatusClass(application.formStatus)}">
-                ${application.formStatus || "Unknown"}
-            </td>
-            <td>
-                <button class="view-details-button" data-id="${application.id}" data-type="${application.formType}">
-                    ดูคำร้อง
-                </button>
-            </td>
+            <td class="status ${getStatusClass(application.formStatus)}">${
+            application.formStatus || "Unknown"
+        }</td>
+            <td>${actionButton}</td>
         `;
 
-        // Append rows based on status
         if (application.formStatus.toLowerCase() === "approved") {
             approveTableBody.appendChild(row);
         } else if (application.formStatus.toLowerCase() === "pending") {
             pendingTableBody.appendChild(row);
+            const cancelButton = row.querySelector(".cancel");
+            cancelButton.addEventListener("click", () =>
+                showPopup(application.id)
+            );
         } else if (application.formStatus.toLowerCase() === "rejected") {
             rejectTableBody.appendChild(row);
         } else if (application.formStatus.toLowerCase() === "draft") {
-            actionButton = `
-                <button class="action-button edit" onclick="editDraft(${application.id})">Edit</button>
-                <button class="action-button delete" onclick="showDeleteDraftPopup(${application.id})">Delete</button>
-            `;
-            row.querySelector("td:last-child").innerHTML = actionButton;
             draftTableBody.appendChild(row);
         }
-    });
-
-    // Add event listeners for "View Details" buttons
-    const viewDetailsButtons = document.querySelectorAll(".view-details-button");
-    viewDetailsButtons.forEach((button) => {
-        button.addEventListener("click", (event) => {
-            const applicationId = event.target.getAttribute("data-id");
-            const formType = event.target.getAttribute("data-type");
-            const targetUrl = formTypeLinks[formType];
-
-            if (targetUrl) {
-                window.location.href = `${targetUrl}?id=${applicationId}`;
-            } else {
-                alert("หน้าสำหรับคำร้องนี้ยังไม่ได้ตั้งค่า");
-            }
-        });
     });
 }
 
