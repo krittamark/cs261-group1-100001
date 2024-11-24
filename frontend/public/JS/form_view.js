@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         for (const [fieldId, value] of Object.entries(fields)) {
             const input = document.getElementById(fieldId);
             if (input) {
-                input.value = value || "ไม่มีข้อมูล"; // เพิ่มข้อความในกรณีไม่มีข้อมูล
+                input.value = value || "ไม่มีความเห็นจากอาจารย์ที่ปรึกษา"; // เพิ่มข้อความในกรณีไม่มีข้อมูล
                 console.log(`Field ${fieldId} populated with: ${value}`);
             } else {
                 console.warn(`Field ${fieldId} not found in form`);

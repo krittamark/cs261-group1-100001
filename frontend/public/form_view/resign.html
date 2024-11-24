@@ -15,7 +15,7 @@
       <div class="sidebar">
         <ul>
           <li>
-            <a href="/template/template.html" class="back-link">
+            <a href="/index.html" class="back-link">
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 60 60" fill="none">
                 <path d="M50 27.5001V32.5H20L33.75 46.25L30.2 49.8L10.4 30L30.2 10.2001L33.75 13.7501L20 27.5001H50Z" fill="#515151"/>
                 </svg>
@@ -155,14 +155,18 @@
           <ul id="fileList"></ul>
         </div>
         <div class="form-group">
-          <label for="advisor-reasoning" class="form-label">เหตุผลของอาจารย์ที่ปรึกษา <span class="required">*</span></label>
-          <textarea id="advisor_reasoning" name="advisorReasoning" class="form-input explanation-box"
-            placeholder="กรุณาระบุเหตุผลของอาจารย์ที่ปรึกษา" required></textarea>
+          <label for="rejection_reason" class="form-label">
+            เหตุผลของอาจารย์ที่ปรึกษา
+          </label>
+          <textarea
+            id="rejection_reason"
+            name="rejectionReason"
+            class="form-input explanation-box"
+            readonly
+          ></textarea>
         </div>
-        </form>
-      </div>
       
-    <script src="/js/form.js"></script>
+    <script src="/js/form_view.js"></script>
     <script src="../js/fileattachment.js"></script>
   </body>
 </html>

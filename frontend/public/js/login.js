@@ -25,7 +25,7 @@ function submitLogin() {
     const password = document.getElementById("password").value;
 
     // ตรวจสอบการล็อกอินแบบ Employee โดยตรง
-    if (username === "test123" && password === "test123") {
+    if (username === "Advisor" && password === "Advisor") {
         sessionStorage.setItem("isLoggedIn", "true");
         sessionStorage.setItem("userRole", "employee"); // ระบุบทบาท
         window.location.href = "/Employee_Dashboard/Dashboard_Home.html";
