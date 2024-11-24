@@ -422,3 +422,27 @@
   color: #757575;
   background-color: #e0e0e0;
 }
+/* General styling for View Details button */
+.application-table .view-details-button {
+  background-color: #ffed89; /* Blue background */
+  color: #645500; /* White text */
+  padding: 8px 16px; /* Add some padding for spacing */
+  border: none; /* Remove border */
+  border-radius: 14px; /* Rounded corners */
+  font-size: 14px; /* Font size */
+  font-weight: bold; /* Bold text */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  text-align: center; /* Center text inside the button */
+  display: inline-block; /* Ensure inline display */
+}
+
+/* Hover effect for View Details button */
+.application-table .view-details-button:hover {
+  background-color: #f2f700; /* Darker blue on hover */
+}
+
+/* Add spacing if needed */
+.application-table td .view-details-button {
+  margin: 8px 0; /* Add vertical margin if required */
+}

@@ -81,7 +81,37 @@
     font-weight: bold;
 }
 
-.application-card.rejected .status {
-    color: #dc3545; /* Red for rejected */
-    font-weight: bold;
+/* Approved status */
+.application-table td.status.approved {
+  color: #28a745; /* Green text */
+  font-weight: bold; /* Make it bold */
+  background: none; /* Remove background */
+  border: none; /* Remove border */
+  padding: 0; /* Remove padding */
+}
+
+/* Rejected status */
+.application-table td.status.rejected {
+  color: #dc3545; /* Red text */
+  font-weight: bold; /* Make it bold */
+  background: none; /* Remove background */
+  border: none; /* Remove border */
+  padding: 0; /* Remove padding */
+}
+
+/* Pending status */
+.application-table td.status.pending {
+  color: #856404; /* Dark yellow text */
+  font-weight: bold;
+  background: none; /* Remove background */
+  border: none; /* Remove border */
+  padding: 0; /* Remove padding */
+}
+
+/* General style for all statuses */
+.application-table tr td.status {
+  font-weight: bold; /* Bold text for status column */
+  background: none; /* Ensure no background for all statuses */
+  border: none; /* Remove any borders */
+  padding: 0; /* Remove any padding */
 }

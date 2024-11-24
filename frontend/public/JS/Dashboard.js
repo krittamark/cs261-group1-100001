@@ -44,7 +44,7 @@ function displayApplications(data) {
     const approvedTableBody = document.getElementById("approvedTableBody");
     const pendingTableBody = document.getElementById("pendingTableBody");
 
-    // Check for null and clear containers
+    // Clear containers if they exist
     if (rejectedTableBody) rejectedTableBody.innerHTML = "";
     if (approvedTableBody) approvedTableBody.innerHTML = "";
     if (pendingTableBody) pendingTableBody.innerHTML = "";
@@ -54,7 +54,7 @@ function displayApplications(data) {
         "คำร้องจดทะเบียนล่าช้า": "/Employee_Form/delayed_registration.html",
         "คำร้องขอถอนรายวิชา (Drop W)": "/Employee_Form/withdraw_course.html",
         "คำร้องขอจดทะเบียนรายวิชาข้ามหลักสูตร": "/Employee_Form/reg_request.html",
-        "คำร้องลาออก": "/Employee_Form/resign.html"
+        "คำร้องลาออก": "/Employee_Form/resign.html",
     };
 
     // Process applications
@@ -63,13 +63,16 @@ function displayApplications(data) {
             ? new Date(application.date).toLocaleDateString()
             : "-";
 
+        const statusClass = getStatusClass(application.formStatus); // Get status class
+
         // Approved applications
         if (application.formStatus && application.formStatus.toLowerCase() === "approved") {
             const row = document.createElement("tr");
             row.innerHTML = `
                 <td>${formattedDate}</td>
                 <td>${application.formType || "ไม่มีข้อมูล"}</td>
-                <td>${application.fullName || "ไม่ระบุ"}</td>
+                <td>${application.approver || "ไม่ระบุ"}</td>
+                <td class="status ${statusClass}">${application.formStatus || "ไม่มีสถานะ"}</td>
             `;
             if (approvedTableBody) approvedTableBody.appendChild(row);
         }
@@ -80,7 +83,8 @@ function displayApplications(data) {
             row.innerHTML = `
                 <td>${formattedDate}</td>
                 <td>${application.formType || "ไม่มีข้อมูล"}</td>
-                <td>${application.fullName || "ไม่ระบุ"}</td>
+                <td>${application.rejector || "ไม่ระบุ"}</td>
+                <td class="status ${statusClass}">${application.formStatus || "ไม่มีสถานะ"}</td>
             `;
             if (rejectedTableBody) rejectedTableBody.appendChild(row);
         }
@@ -92,15 +96,13 @@ function displayApplications(data) {
                 <td>${formattedDate}</td>
                 <td>${application.formType || "ไม่มีข้อมูล"}</td>
                 <td>${application.fullName || "ไม่ระบุ"}</td>
-                <td>
-                    <button class="view-details-button" data-id="${application.id}" data-type="${application.formType}">ดูคำร้อง</button>
-                </td>
+                <td class="status ${statusClass}">${application.formStatus || "ไม่มีสถานะ"}</td>
             `;
             if (pendingTableBody) pendingTableBody.appendChild(row);
         }
     });
 
-    // Add event listeners to "ดูคำร้อง" buttons
+    // Add event listeners to "ดูคำร้อง" buttons for pending applications
     const viewDetailsButtons = document.querySelectorAll(".view-details-button");
     viewDetailsButtons.forEach((button) => {
         button.addEventListener("click", (event) => {
@@ -118,20 +120,16 @@ function displayApplications(data) {
     });
 }
 
-
-
-
+// Helper function to get the CSS class for status
 function getStatusClass(status) {
     switch (status?.toLowerCase()) {
         case "approved":
-            return "approved";
+            return "approved"; // Green
         case "rejected":
-            return "rejected";
+            return "rejected"; // Red
         case "pending":
-            return "pending";
-        case "draft":
-            return "draft";
+            return "pending"; // Yellow
         default:
-            return "unknown";
+            return "unknown"; // Default styling
     }
 }
