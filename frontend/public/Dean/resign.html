@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <title>คำร้องลาออก</title>
+    <link rel="stylesheet" href="/css/form_styles.css" />
+    <link rel="stylesheet" href="../css/fileattachment.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="sidebar">
+        <ul>
+          <li>
+            <a href="/Advisor/AdvisorDashboard_Home.html" class="back-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 60 60" fill="none">
+                <path d="M50 27.5001V32.5H20L33.75 46.25L30.2 49.8L10.4 30L30.2 10.2001L33.75 13.7501L20 27.5001H50Z" fill="#515151"/>
+                </svg>
+                <h4>เลือกรายการคำร้อง<br>ที่ต้องการ</h4>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="container">
+        <h1 class="topic">คำร้องลาออก</h1>
+      
+        <div class="divider"></div>
+      
+        <form class="main-form">
+          <!-- Existing fields for Date and Subject -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="date" class="form-label">วันที่ <span class="required">*</span></label>
+              <input type="date" id="date" name="date" class="form-input" placeholder="DD/MM/YYYY" required />
+            </div>
+            <div class="form-group">
+              <label for="subject" class="form-label">เรื่อง <span class="required">*</span></label>
+              <input readonly type="text" id="subject" name="subject" class="form-input" placeholder="เรื่อง" required />
+            </div>
+          </div>
+      
+          <!-- Name and Registration Number -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="full_name" class="form-label">ชื่อ-นามสกุล <span class="required">*</span></label>
+              <input readonly type="text" id="full_name" name="fullName" class="form-input" placeholder="ชื่อ-นามสกุล" required />
+            </div>
+            <div class="form-group">
+              <label for="registration_number" class="form-label">เลขทะเบียน <span class="required">*</span></label>
+              <input readonly type="text" id="registration_number" name="registrationNumber" class="form-input" placeholder="เลขทะเบียน" required />
+            </div>
+          </div>
+      
+          <!-- Year, Faculty, and Department -->
+          <div class="form-row-3">
+            <div class="form-group">
+              <label for="year" class="form-label">ชั้นปี <span class="required">*</span></label>
+              <input type="text" id="year" name="year" class="form-input" placeholder="ชั้นปี" required />
+            </div>
+            <div class="form-group">
+              <label for="faculty" class="form-label">คณะ <span class="required">*</span></label>
+              <input readonly type="text" id="faculty" name="faculty" class="form-input" placeholder="คณะ" required />
+            </div>
+            <div class="form-group">
+              <label for="department" class="form-label">สาขาวิชา <span class="required">*</span></label>
+              <input  type="text" id="department" name="department" class="form-input" placeholder="สาขาวิชา" required />
+            </div>
+          </div>
+      
+          <!-- Contact Information -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="mobile_phone" class="form-label">โทรศัพท์มือถือ <span class="required">*</span></label>
+              <input type="tel" id="mobile_phone" name="mobilePhone" class="form-input" placeholder="โทรศัพท์มือถือ" pattern="\d{10}" maxlength="10" required />
+            </div>
+            <div class="form-group">
+              <label for="relative_mobile_phone" class="form-label">โทรศัพท์มือถือผู้ปกครอง <span class="required">*</span></label>
+              <input type="tel" id="relative_mobile_phone" name="relativeMobilePhone" class="form-input" placeholder="โทรศัพท์มือถือผู้ปกครอง" pattern="\d{10}" maxlength="10" required />
+            </div>
+          </div>
+      
+          <!-- Email and Address -->
+          <div class="form-group">
+            <label for="email" class="form-label">Email <span class="required">*</span></label>
+            <input readonly type="email" id="email" name="email" class="form-input" placeholder="email@example.com" required />
+          </div>
+      
+          <div class="form-group">
+            <label for="contact_address" class="form-label">ที่อยู่ที่สามารถติดต่อได้ <span class="required">*</span></label>
+            <input type="text" id="contact_address" name="contactAddress" class="form-input" placeholder="ที่อยู่" required />
+          </div>
+      
+          <!-- Advisor -->
+          <div class="form-group">
+            <label for="advisor" class="form-label">อาจารย์ที่ปรึกษา <span class="required">*</span></label>
+            <input type="text" id="advisor" name="advisor" class="form-input" placeholder="อาจารย์ที่ปรึกษา" required />
+          </div>
+      
+          <!-- Resign Year and Semester -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="resign_year" class="form-label">ขอลาออกตั้งแต่ปีการศึกษา <span class="required">*</span></label>
+              <input type="text" id="resign_year" name="resignYear" class="form-input" placeholder="ปีการศึกษา" required />
+            </div>
+            <div class="form-group">
+              <label for="semester" class="form-label">ภาคการศึกษา <span class="required">*</span></label>
+              <input type="text" id="semester" name="semester" class="form-input" placeholder="ภาคการศึกษา" required />
+            </div>
+          </div>
+      
+          <!-- Debt and Grade Request -->
+          <div class="form-group">
+            <label for="debt" class="form-label">มีหนี้ค้างหรือไม่ โปรดระบุ</label>
+            <input type="text" id="debt" name="debt" class="form-input" placeholder="รายละเอียดหนี้ (ถ้ามี)" />
+          </div>
+      
+          <div class="form-row radio-group">
+            <label class="form-label">ต้องการเกรดในภาคเรียนที่ยื่นคำร้องลาออกหรือไม่</label>
+            <div>
+              <input type="radio" id="want_grade" name="gradeRequest" value="want" class="radio-input" required />
+              <label for="want_grade" class="radio-label">ต้องการ</label>
+            </div>
+            <div>
+              <input type="radio" id="dont_want_grade" name="gradeRequest" value="dont-want" class="radio-input" required />
+              <label for="dont_want_grade" class="radio-label">ไม่ต้องการ</label>
+            </div>
+          </div>
+
+          <!-- ปุ่มแนบไฟล์ -->
+        <button id="attachButton" class="attach-button">
+          <img src="../img/tdesign_attach.png" alt="Attach Icon">
+          แนบไฟล์
+        </button>
+
+        <!-- กล่องอัปโหลด -->
+        <div id="uploadBox" class="upload-container hidden">
+          <h3>อัปโหลดไฟล์</h3>
+          <div class="upload-box">
+            <div class="icon">
+              <img src="../img/upload.png" alt="upload">
+            </div>
+            <p>Drag or drop your files here</p>
+            <button id="browseButton">browse</button>
+            <input type="file" id="fileInput" multiple hidden>
+          </div>
+        </div>
+
+        <!-- แสดงรายการไฟล์ที่แนบ -->
+        <div id="fileInfo" class="file-info hidden">
+          <p>ไฟล์ที่แนบ:</p>
+          <ul id="fileList"></ul>
+        </div>
+        <div class="button-group">
+          <button type="button" class="approve-button">อนุมัติ</button>
+          <button type="button" class="reject-button">ไม่อนุมัติ</button>
+        </div>
+        </form>
+      </div>
+      <script src="/js/DeanForm.js"></script>
+      <script src="../js/fileattachment.js"></script>
+  </body>
+</html>

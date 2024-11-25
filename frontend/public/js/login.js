@@ -37,7 +37,12 @@ function submitLogin() {
         window.location.href = "/Instructor/InstructorDashboard_Home.html";
         return; // หยุดการทำงานเพิ่มเติม
     }
-
+    if (username === "Dean" && password === "Dean") {
+        sessionStorage.setItem("isLoggedIn", "true");
+        sessionStorage.setItem("userRole", "Instructor"); // ระบุบทบาท
+        window.location.href = "/Dean/DeanDashboard_Home.html";
+        return; // หยุดการทำงานเพิ่มเติม
+    }
     // Authenticate the user as Student
     fetch("https://restapi.tu.ac.th/api/v1/auth/Ad/verify", {
         method: "POST",

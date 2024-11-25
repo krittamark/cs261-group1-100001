@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             relative_mobile_phone: data.relativeMobilePhone,
             email: data.email,
             contact_address: data.contactAddress,
-            Instructor: data.Instructor,
+            dean: data.dean,
             academic_year: data.academicYear,
             semester: data.semester,
             course_code: data.courseCode,
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.getElementById("email").value = data.email || "";
         document.getElementById("contact_address").value =
             data.contactAddress || "";
-        document.getElementById("Instructor").value = data.Instructor || "";
+        document.getElementById("advisor").value = data.advisor || "";
 
         // Resign year and semester
         document.getElementById("resign_year").value = data.resignYear || "";
@@ -119,37 +119,36 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const approveButton = document.querySelector(".approve-button");
 
-    // Event listener for the approve button
-    approveButton.addEventListener("click", function () {
-        showApprovalPopup(
-            "คุณยืนยันที่จะอนุมัติคำร้องหรือไม่?",
-            "กรุณาใส่ความคิดเห็นก่อนการอนุมัติ",
-            async (instructorReason) => {
-                try {
-                    const response = await fetch(
-                        `http://localhost:8080/api/requests/${applicationId}/Instructorapprove`,
-                        {
-                            method: "PUT",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({
-                                formStatus: "Waiting for Dean", // เปลี่ยนสถานะเป็น "Waiting for Dean"
-                                instructorReason: instructorReason, // ส่งเหตุผลที่ได้รับ
-                            }),
-                        }
-                    );
-    
-                    if (!response.ok) throw new Error("Failed to approve the application");
-    
-                    showSuccessPopup("อนุมัติ", "อนุมัติคำร้องสำเร็จ", () => {
-                        window.location.href = "/Instructor/InstructorDashboard_Home.html"; // Redirect to Dashboard
-                    });
-                } catch (error) {
-                    console.error("Error approving the application:", error);
-                    showErrorPopup("เกิดข้อผิดพลาด", "ไม่สามารถอนุมัติคำร้องได้");
-                }
+// Event listener for the approve button
+approveButton.addEventListener("click", function () {
+    showApprovalPopup(
+        "คุณยืนยันที่จะอนุมัติคำร้องหรือไม่?",
+        "กรุณาใส่ความคิดเห็นก่อนการอนุมัติ",
+        async (deanReason) => {
+            try {
+                const response = await fetch(
+                    `http://localhost:8080/api/requests/${applicationId}/Deanapprove`,
+                    {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            deanReason: deanReason, // Send the Dean's reason
+                        }),
+                    }
+                );
+
+                if (!response.ok) throw new Error("Failed to approve the application");
+
+                showSuccessPopup("อนุมัติ", "อนุมัติคำร้องสำเร็จ", () => {
+                    window.location.href = "/Dean/DeanDashboard_Home.html"; // Redirect to Dean's Dashboard
+                });
+            } catch (error) {
+                console.error("Error approving the application:", error);
+                showErrorPopup("เกิดข้อผิดพลาด", "ไม่สามารถอนุมัติคำร้องได้");
             }
-        );
-    });    
+        }
+    );
+    });
 
 
     function showConfirmationPopup(title, message, onConfirm) {
@@ -289,13 +288,13 @@ rejectButton.addEventListener("click", function () {
     showRejectionPopup(
         "คุณยืนยันที่จะปฏิเสธคำร้องหรือไม่?",
         "หากกดยืนยัน ระบบจะทำการปฏิเสธคำร้อง",
-        async (InstructorReason) => { // Reason provided by the user
+        async (DeanReason) => { // Reason provided by the user
             try {
                 if (!applicationId) throw new Error("Application ID is not defined");
 
                 const payload = {
-                    rejector: "Instructor", 
-                    reason: InstructorReason, // The reason provided by the user
+                    rejector: "Dean", 
+                    reason: DeanReason, // The reason provided by the user
                 };
 
                 console.log("Sending rejection payload:", payload);
@@ -317,7 +316,7 @@ rejectButton.addEventListener("click", function () {
 
                 // Show success popup after rejection
                 showRejectionSuccessPopup("ไม่อนุมัติ", "การปฏิเสธคำร้องสำเร็จ", () => {
-                    window.location.href = "/Instructor/InstructorDashboard_Home.html"; // Redirect to dashboard
+                    window.location.href = "/Dean/DeanDashboard_Home.html"; // Redirect to dashboard
                 });
             } catch (error) {
                 console.error("Error rejecting the application:", error);
@@ -356,7 +355,7 @@ function showRejectionPopup(title, message, onConfirm) {
     popup.innerHTML = `
         <h2 style="font-size: 24px; margin-bottom: 10px;">${title}</h2>
         <p style="font-size: 18px; margin-bottom: 20px; font-weight: normal;">${message}</p>
-        <textarea id="Instructor_reason" style="
+        <textarea id="Dean_reason" style="
             width: 100%;
             height: 100px;
             margin-bottom: 20px;
@@ -393,7 +392,7 @@ function showRejectionPopup(title, message, onConfirm) {
     });
 
     document.getElementById("confirm-button").addEventListener("click", () => {
-        const reason = document.getElementById("Instructor_reason").value.trim();
+        const reason = document.getElementById("Dean_reason").value.trim();
         if (!reason) {
             alert("กรุณากรอกความคิดเห็นก่อนดำเนินการ");
             return;
@@ -476,7 +475,7 @@ function showApprovalPopup(title, message, onConfirm) {
     popup.innerHTML = `
         <h2 style="font-size: 24px; margin-bottom: 10px;">${title}</h2>
         <p style="font-size: 18px; margin-bottom: 20px; font-weight: normal;">${message}</p>
-        <textarea id="Instructor_reason" style="
+        <textarea id="Dean_reason" style="
             width: 100%;
             height: 100px;
             margin-bottom: 20px;
@@ -513,7 +512,7 @@ function showApprovalPopup(title, message, onConfirm) {
     });
 
     document.getElementById("confirm-button").addEventListener("click", () => {
-        const reason = document.getElementById("Instructor_reason").value.trim();
+        const reason = document.getElementById("Dean_reason").value.trim();
         if (!reason) {
             alert("กรุณากรอกความคิดเห็นก่อนดำเนินการ");
             return;

@@ -26,9 +26,19 @@ public class RequestController {
     // Create a new request
     @PostMapping
     public ResponseEntity<Request> createRequest(@Valid @RequestBody Request request) {
-        request.setDate(LocalDate.now()); // Ensure date is set during creation
-        Request savedRequest = requestService.saveRequest(request);
-        return new ResponseEntity<>(savedRequest, HttpStatus.CREATED);
+        try {
+            // Check for required fields
+            if (request.getFullName() == null || request.getFullName().isEmpty()) {
+                throw new IllegalArgumentException("Full name is required");
+            }
+            // Save request
+            Request savedRequest = requestService.saveRequest(request);
+            return new ResponseEntity<>(savedRequest, HttpStatus.CREATED);
+        } catch (Exception e) {
+            // Log the error for debugging
+            System.err.println("Error while creating request: " + e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     // Get all requests
@@ -153,7 +163,8 @@ public class RequestController {
         Optional<Request> requestOptional = requestService.getRequestById(id);
         if (requestOptional.isPresent()) {
             Request request = requestOptional.get();
-            request.setFormStatus("approved"); // Update status
+            request.setFormStatus("approved");
+            request.setApprover("Dean");// Update status
             request.setDeanReason(body.get("deanReason")); // Save Dean reason
             requestService.saveRequest(request);
             return ResponseEntity.ok("Request approved by Dean successfully");
@@ -166,16 +177,43 @@ public class RequestController {
         Optional<Request> requestOptional = requestService.getRequestById(id);
         if (requestOptional.isPresent()) {
             Request request = requestOptional.get();
-            request.setFormStatus("rejected"); // Update status
-            request.setRejector("Admin"); // Example rejector
-            String advisorReason = body.get("advisorReason");
-            if (advisorReason == null || advisorReason.isEmpty()) {
-                return ResponseEntity.badRequest().body("Rejection reason (advisorReason) is required");
+            request.setFormStatus("rejected");
+
+            String rejector = body.get("rejector");
+            if (rejector == null || rejector.isEmpty()) {
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body(Map.of("error", "Rejector role (advisor, instructor, dean) is required"));
             }
-            request.setAdvisorReason(advisorReason); // Save advisor reason
+            request.setRejector(rejector);
+
+            String rejectionReason = body.get("reason");
+            if (rejectionReason == null || rejectionReason.isEmpty()) {
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body(Map.of("error", "Rejection reason is required"));
+            }
+
+            switch (rejector.toLowerCase()) {
+                case "advisor":
+                    request.setAdvisorReason(rejectionReason);
+                    break;
+                case "instructor":
+                    request.setInstructorReason(rejectionReason);
+                    break;
+                case "dean":
+                    request.setDeanReason(rejectionReason);
+                    break;
+                default:
+                    return ResponseEntity
+                            .status(HttpStatus.BAD_REQUEST)
+                            .body(Map.of("error", "Invalid rejector role provided"));
+            }
+
             requestService.saveRequest(request);
-            return ResponseEntity.ok("Request rejected successfully");
+            return ResponseEntity.ok(Map.of("message", "Request rejected successfully by " + rejector));
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Map.of("error", "Request not found"));
     }
 }

@@ -289,24 +289,36 @@ rejectButton.addEventListener("click", function () {
     showRejectionPopup(
         "คุณยืนยันที่จะปฏิเสธคำร้องหรือไม่?",
         "หากกดยืนยัน ระบบจะทำการปฏิเสธคำร้อง",
-        async (advisorReason) => { // Rename to match the backend key
+        async (advisorReason) => {
             try {
-                if (!applicationId) throw new Error("Application ID is not defined");
-
                 const response = await fetch(
                     `http://localhost:8080/api/requests/${applicationId}/reject`,
                     {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ advisorReason: advisorReason }), // Update the key to "advisorReason"
+                        body: JSON.stringify({
+                            rejector: "advisor", // Replace dynamically for other roles
+                            reason: advisorReason,
+                        }),
                     }
                 );
-
-                if (!response.ok) throw new Error("Failed to reject the application");
-
-                // Show red success popup after rejection
+            
+                if (!response.ok) {
+                    const contentType = response.headers.get("Content-Type");
+                    if (contentType && contentType.includes("application/json")) {
+                        const error = await response.json();
+                        console.error("Server error:", error);
+                        showErrorPopup("Error", error.error || "Unexpected error occurred");
+                    } else {
+                        const errorText = await response.text();
+                        console.error("Server error (non-JSON):", errorText);
+                        showErrorPopup("Error", errorText);
+                    }
+                    throw new Error("Failed to reject the application");
+                }
+            
                 showRejectionSuccessPopup("ไม่อนุมัติ", "การปฏิเสธคำร้องสำเร็จ", () => {
-                    window.location.href = "/Advisor/AdvisorDashboard_Home.html"; // Redirect to dashboard
+                    window.location.href = "/Advisor/AdvisorDashboard_Home.html";
                 });
             } catch (error) {
                 console.error("Error rejecting the application:", error);

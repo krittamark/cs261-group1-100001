@@ -21,9 +21,9 @@
         alt="Thammasat University Logo"
       />
       <div class="menu">
-        <a href="/Instructor/InstructorDashboard_Home.html">รายการคำร้อง</a>
-        <a href="/Instructor/InstructorDashboard_Approved.html">คำร้องที่อนุมัติ</a>
-        <a class="active" href="/Instructor/InstructorDashboard_Rejected.html">คำร้องที่ปฏิเสธ</a>
+        <a class="active"href="/Dean/DeanDashboard_Home.html">รายการคำร้อง</a>
+        <a href="/Dean/DeanDashboard_Approved.html">คำร้องที่อนุมัติ</a>
+        <a href="/Dean/DeanDashboard_Rejected.html">คำร้องที่ปฏิเสธ</a>
       </div>
       <a class="logout" onclick="logout()">Log out</a>
     </div>
@@ -31,24 +31,26 @@
   <div class="content">
     <div class="header__container">
       <div>
-        <h1>คำร้องที่ปฏิเสธ</h1>
-        <p>คำร้องที่ไม่ได้รับการอนุมัติ </p>
+        <h1>   รายการคำร้อง</h1>
+        <p>คำร้องที่รอการดำเนินการ </p>
       </div>
     </div>
-    
-    <div class="application__container" id="Application_Approved">
+
+    <!-- Approved Applications Table -->
+    <div class="application__container" id="Application_Pending">
       <table class="application-table">
         <thead>
           <tr>
             <th>ยื่นคำร้องเมื่อ</th>
             <th>ประเภทคำร้อง</th>
-            <th>ปฏิเสธคำร้องโดย</th>
-            <th>สถานะ</th>
+            <th>ยื่นคำร้องโดย</th>
+            <th>รายละเอียดคำร้องรอดำเนินการ</th>
           </tr>
         </thead>
-        <tbody id="rejectedTableBody"></tbody>
+        <tbody id="waitingForDeanTableBody"></tbody>
       </table>
     </div>
-  <script src="/js/InstructorDashboard.js"></script>
+  <!-- Link to JavaScript -->
+  <script src="/js/DeanDashboard.js"></script>
 </body>
 </html>
