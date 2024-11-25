@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             relative_mobile_phone: data.relativeMobilePhone,
             email: data.email,
             contact_address: data.contactAddress,
-            advisor: data.advisor,
+            Instructor: data.advisor,
             academic_year: data.academicYear,
             semester: data.semester,
             course_code: data.courseCode,
@@ -124,16 +124,16 @@ document.addEventListener("DOMContentLoaded", async function () {
         showApprovalPopup(
             "คุณยืนยันที่จะอนุมัติคำร้องหรือไม่?",
             "กรุณาใส่ความคิดเห็นก่อนการอนุมัติ",
-            async (advisorReason) => {
+            async (instructorReason) => {
                 try {
                     const response = await fetch(
-                        `http://localhost:8080/api/requests/${applicationId}/approve`,
+                        `http://localhost:8080/api/requests/${applicationId}/Instructorapprove`,
                         {
                             method: "PUT",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({
-                                formStatus: "approved",
-                                advisorReason: advisorReason, // ส่งเหตุผลที่ได้รับ
+                                formStatus: "Waiting for Dean", // เปลี่ยนสถานะเป็น "Waiting for Dean"
+                                instructorReason: instructorReason, // ส่งเหตุผลที่ได้รับ
                             }),
                         }
                     );
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     if (!response.ok) throw new Error("Failed to approve the application");
     
                     showSuccessPopup("อนุมัติ", "อนุมัติคำร้องสำเร็จ", () => {
-                        window.location.href = "/Advisor/AdvisorDashboard_Home.html";
+                        window.location.href = "/Instructor/InstructorDashboard_Home.html"; // Redirect to Dashboard
                     });
                 } catch (error) {
                     console.error("Error approving the application:", error);
@@ -149,8 +149,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                 }
             }
         );
-    });
-    
+    });    
+
 
     function showConfirmationPopup(title, message, onConfirm) {
         const overlay = document.createElement("div");
@@ -289,7 +289,7 @@ rejectButton.addEventListener("click", function () {
     showRejectionPopup(
         "คุณยืนยันที่จะปฏิเสธคำร้องหรือไม่?",
         "หากกดยืนยัน ระบบจะทำการปฏิเสธคำร้อง",
-        async (rejectionReason) => {
+        async (advisorReason) => { // Rename to match the backend key
             try {
                 if (!applicationId) throw new Error("Application ID is not defined");
 
@@ -298,7 +298,7 @@ rejectButton.addEventListener("click", function () {
                     {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ rejectionReason: rejectionReason }),
+                        body: JSON.stringify({ advisorReason: advisorReason }), // Update the key to "advisorReason"
                     }
                 );
 
@@ -345,7 +345,7 @@ function showRejectionPopup(title, message, onConfirm) {
     popup.innerHTML = `
         <h2 style="font-size: 24px; margin-bottom: 10px;">${title}</h2>
         <p style="font-size: 18px; margin-bottom: 20px; font-weight: normal;">${message}</p>
-        <textarea id="advisor_reason" style="
+        <textarea id="Instructor_reason" style="
             width: 100%;
             height: 100px;
             margin-bottom: 20px;
@@ -382,7 +382,7 @@ function showRejectionPopup(title, message, onConfirm) {
     });
 
     document.getElementById("confirm-button").addEventListener("click", () => {
-        const reason = document.getElementById("advisor_reason").value.trim();
+        const reason = document.getElementById("Instructor_reason").value.trim();
         if (!reason) {
             alert("กรุณากรอกความคิดเห็นก่อนดำเนินการ");
             return;
@@ -465,7 +465,7 @@ function showApprovalPopup(title, message, onConfirm) {
     popup.innerHTML = `
         <h2 style="font-size: 24px; margin-bottom: 10px;">${title}</h2>
         <p style="font-size: 18px; margin-bottom: 20px; font-weight: normal;">${message}</p>
-        <textarea id="advisor_reason" style="
+        <textarea id="Instructor_reason" style="
             width: 100%;
             height: 100px;
             margin-bottom: 20px;
@@ -502,7 +502,7 @@ function showApprovalPopup(title, message, onConfirm) {
     });
 
     document.getElementById("confirm-button").addEventListener("click", () => {
-        const reason = document.getElementById("advisor_reason").value.trim();
+        const reason = document.getElementById("Instructor_reason").value.trim();
         if (!reason) {
             alert("กรุณากรอกความคิดเห็นก่อนดำเนินการ");
             return;

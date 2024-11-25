@@ -365,12 +365,23 @@
 /* Specific Styling for Edit Button */
 .application-table .action-button.edit {
   background-color: #1e88e5; /* Blue color for edit button */
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 14px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none; /* Remove underline */
+  transition: background-color 0.3s ease; /* Smooth transition */
 }
 
 /* Hover Effect for Edit Button */
 .application-table .action-button.edit:hover {
   background-color: #1565c0; /* Darker blue on hover */
+  text-decoration: none; /* Ensure underline does not appear on hover */
 }
+
 
 /* Specific Styling for Cancel Button */
 .application-table .action-button.cancel {
@@ -393,6 +404,7 @@
 }
 
 /* Status Cell Styling */
+/* Status Cell Styling */
 .status {
   font-weight: bold;
   padding: 4px 8px;
@@ -400,28 +412,52 @@
   text-align: left; /* Left-align status text */
   display: inline-block;
   font-size: 14px;
-  margin:8px;
+  margin: 8px;
 }
 
+/* Approved Status */
 .status.approved {
   color: #388e3c;
   background-color: #c8e6c9;
 }
 
-.status.pending {
-  color: #f57c00;
-  background-color: #ffe0b2;
-}
-
+/* Rejected Status */
 .status.rejected {
   color: #d32f2f;
   background-color: #ffcdd2;
 }
 
+/* Pending General */
+.status.pending {
+  color: #f57c00;
+  background-color: #ffe0b2;
+}
+
+/* Specific Pending Statuses */
+/* Waiting for Advisor */
+.status.waiting-for-advisor {
+  color: #0d47a1; /* Dark Blue Text */
+  background-color: #bbdefb; /* Light Blue Background */
+}
+
+/* Waiting for Instructor */
+.status.waiting-for-instructor {
+  color: #e65100; /* Dark Orange Text */
+  background-color: #ffe0b2; /* Light Orange Background */
+}
+
+/* Waiting for Dean */
+.status.waiting-for-dean {
+  color: #4a148c; /* Dark Purple Text */
+  background-color: #e1bee7; /* Light Purple Background */
+}
+
+/* Unknown Status */
 .status.unknown {
   color: #757575;
   background-color: #e0e0e0;
 }
+
 /* General styling for View Details button */
 .application-table .view-details-button {
   background-color: #ffed89; /* Yellow background */
@@ -447,3 +483,4 @@
 .application-table td .view-details-button {
   margin: 8px 0; /* Add vertical margin if required */
 }
+

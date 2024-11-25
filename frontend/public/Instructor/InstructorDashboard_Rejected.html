@@ -11,7 +11,7 @@
   />
   <title>รายการคำร้อง</title>
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/Advisor.css">
+  <link rel="stylesheet" href="/css/Instructor.css">
   <link rel="stylesheet" href="/css/template.css">
   </head>
   <body>
@@ -21,9 +21,9 @@
         alt="Thammasat University Logo"
       />
       <div class="menu">
-        <a class="active"href="/Advisor/AdvisorDashboard_Home.html">รายการคำร้อง</a>
-        <a href="/Advisor/AdvisorDashboard_Approved.html">คำร้องที่อนุมัติ</a>
-        <a href="/Advisor/AdvisorDashboard_Rejected.html">คำร้องที่ปฏิเสธ</a>
+        <a href="/Instructor/InstructorDashboard_Home.html">รายการคำร้อง</a>
+        <a href="/Instructor/InstructorDashboard_Approved.html">คำร้องที่อนุมัติ</a>
+        <a class="active" href="/Instructor/InstructorDashboard_Rejected.html">คำร้องที่ปฏิเสธ</a>
       </div>
       <a class="logout" onclick="logout()">Log out</a>
     </div>
@@ -31,26 +31,24 @@
   <div class="content">
     <div class="header__container">
       <div>
-        <h1>   รายการคำร้อง</h1>
-        <p>คำร้องที่รอการดำเนินการ </p>
+        <h1>คำร้องที่ปฏิเสธ</h1>
+        <p>คำร้องที่ไม่ได้รับการอนุมัติ </p>
       </div>
     </div>
-
-    <!-- Approved Applications Table -->
-    <div class="application__container" id="Application_Pending">
+    
+    <div class="application__container" id="Application_Approved">
       <table class="application-table">
         <thead>
           <tr>
             <th>ยื่นคำร้องเมื่อ</th>
             <th>ประเภทคำร้อง</th>
-            <th>ยื่นคำร้องโดย</th>
-            <th>รายละเอียดคำร้องรอดำเนินการ</th>
+            <th>ปฏิเสธคำร้องโดย</th>
+            <th>สถานะ</th>
           </tr>
         </thead>
-        <tbody id="waitingForAdvisorTableBody"></tbody>
+        <tbody id="rejectedTableBody"></tbody>
       </table>
     </div>
-  <!-- Link to JavaScript -->
-  <script src="/js/AdvisorDashboard.js"></script>
+  <script src="/js/InstructorDashboard.js"></script>
 </body>
 </html>

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // Fetch and display all applications
+    // Fetch and display applications
     fetchApplications();
 });
 
@@ -17,8 +17,8 @@ function logout() {
 
 async function fetchApplications() {
     try {
-        // Fetch data from the API
-        const response = await fetch("http://localhost:8080/api/requests", {
+        // Fetch data from the API with a filter for "Waiting for Instructor"
+        const response = await fetch("http://localhost:8080/api/requests?formStatus=Waiting for Instructor", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -40,14 +40,10 @@ async function fetchApplications() {
 }
 
 function displayApplications(data) {
-    const rejectedTableBody = document.getElementById("rejectedTableBody");
-    const approvedTableBody = document.getElementById("approvedTableBody");
-    const waitingForAdvisorTableBody = document.getElementById("waitingForAdvisorTableBody");
+    const waitingForInstructorTableBody = document.getElementById("waitingForInstructorTableBody");
 
-    // Clear containers if they exist
-    if (rejectedTableBody) rejectedTableBody.innerHTML = "";
-    if (approvedTableBody) approvedTableBody.innerHTML = "";
-    if (waitingForAdvisorTableBody) waitingForAdvisorTableBody.innerHTML = "";
+    // Clear the container if it exists
+    if (waitingForInstructorTableBody) waitingForInstructorTableBody.innerHTML = "";
 
     // Map form types to URLs
     const formTypeToUrl = {
@@ -59,38 +55,12 @@ function displayApplications(data) {
 
     // Process applications
     data.forEach((application) => {
-        const formattedDate = application.date
-            ? new Date(application.date).toLocaleDateString()
-            : "-";
+        if (application.formStatus === "Waiting for Instructor") { // Ensure we only process this status
+            const formattedDate = application.date
+                ? new Date(application.date).toLocaleDateString()
+                : "-";
 
-        const statusClass = getStatusClass(application.formStatus); // Get status class
-
-        // Approved applications
-        if (application.formStatus && application.formStatus.toLowerCase() === "approved") {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${formattedDate}</td>
-                <td>${application.formType || "ไม่มีข้อมูล"}</td>
-                <td>${application.approver || "ไม่ระบุ"}</td>
-                <td class="status ${statusClass}">${application.formStatus || "ไม่มีสถานะ"}</td>
-            `;
-            if (approvedTableBody) approvedTableBody.appendChild(row);
-        }
-
-        // Rejected applications
-        if (application.formStatus && application.formStatus.toLowerCase() === "rejected") {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${formattedDate}</td>
-                <td>${application.formType || "ไม่มีข้อมูล"}</td>
-                <td>${application.rejector || "ไม่ระบุ"}</td>
-                <td class="status ${statusClass}">${application.formStatus || "ไม่มีสถานะ"}</td>
-            `;
-            if (rejectedTableBody) rejectedTableBody.appendChild(row);
-        }
-
-        // Waiting for advisor applications
-        if (application.formStatus && application.formStatus.toLowerCase() === "waiting for advisor") {
+            // Create a new table row for each application
             const row = document.createElement("tr");
             row.innerHTML = `
                 <td>${formattedDate}</td>
@@ -102,11 +72,11 @@ function displayApplications(data) {
                     </button>
                 </td>
             `;
-            if (waitingForAdvisorTableBody) waitingForAdvisorTableBody.appendChild(row);
+            waitingForInstructorTableBody.appendChild(row);
         }
     });
 
-    // Add event listeners to "ดูคำร้อง" buttons for waiting for advisor applications
+    // Add event listeners to "View / ดูคำร้อง" buttons
     const viewDetailsButtons = document.querySelectorAll(".view-details-button");
     viewDetailsButtons.forEach((button) => {
         button.addEventListener("click", (event) => {
@@ -124,8 +94,6 @@ function displayApplications(data) {
     });
 }
 
-
-
 // Helper function to get the CSS class for status
 function getStatusClass(status) {
     switch (status?.toLowerCase()) {
@@ -133,7 +101,7 @@ function getStatusClass(status) {
             return "approved"; // Green
         case "rejected":
             return "rejected"; // Red
-        case "pending":
+        case "waiting for instructor":
             return "pending"; // Yellow
         default:
             return "unknown"; // Default styling

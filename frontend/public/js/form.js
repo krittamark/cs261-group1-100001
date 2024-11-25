@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             "click",
             function (event) {
                 event.preventDefault();
-                const formStatus = "Waiting for advisor";
+                const formStatus = "Waiting for Advisor";
                 if (validateForm(form)) {
                     submitForm(
                         form,

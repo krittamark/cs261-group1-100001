@@ -119,6 +119,47 @@ public class RequestController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found");
     }
 
+    @PutMapping("/{id}/Advisorapprove")
+    public ResponseEntity<?> advisorApproveRequest(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        Optional<Request> requestOptional = requestService.getRequestById(id);
+        if (requestOptional.isPresent()) {
+            Request request = requestOptional.get();
+            request.setFormStatus("Waiting for Instructor");
+            String advisorReason = body.get("advisorReason");
+            if (advisorReason == null || advisorReason.isEmpty()) {
+                return ResponseEntity.badRequest().body("Advisor reason is required");
+            }
+            request.setAdvisorReason(advisorReason);
+            requestService.saveRequest(request);
+            return ResponseEntity.ok("Request approved successfully");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found");
+    }
+    // Approve a request by Instructor
+    @PutMapping("/{id}/Instructorapprove")
+    public ResponseEntity<?> InstructorapproveRequest(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        Optional<Request> requestOptional = requestService.getRequestById(id);
+        if (requestOptional.isPresent()) {
+            Request request = requestOptional.get();
+            request.setFormStatus("Waiting for Dean"); // Update status
+            request.setInstructorReason(body.get("instructorReason")); // Save Instructor reason
+            requestService.saveRequest(request);
+            return ResponseEntity.ok("Request approved by Instructor successfully");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found");
+    }
+    @PutMapping("/{id}/Deanapprove")
+    public ResponseEntity<?> DeanapproveRequest(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        Optional<Request> requestOptional = requestService.getRequestById(id);
+        if (requestOptional.isPresent()) {
+            Request request = requestOptional.get();
+            request.setFormStatus("approved"); // Update status
+            request.setDeanReason(body.get("deanReason")); // Save Dean reason
+            requestService.saveRequest(request);
+            return ResponseEntity.ok("Request approved by Dean successfully");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found");
+    }
     // Reject a request by ID
     @PutMapping("/{id}/reject")
     public ResponseEntity<?> rejectRequest(@PathVariable Long id, @RequestBody Map<String, String> body) {

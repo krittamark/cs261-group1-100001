@@ -67,7 +67,6 @@ function displayApplications(data) {
         "คำร้องขอถอนรายวิชา (Drop W)": "/form/withdraw_course.html",
     };
 
-    // Updated ViewformTypeLinks paths
     const ViewformTypeLinks = {
         คำร้องจดทะเบียนล่าช้า: "/form_view/delayed_registration.html",
         คำร้องลาออก: "/form_view/resign.html",
@@ -85,8 +84,13 @@ function displayApplications(data) {
         let actionButton = "";
 
         // Add action buttons based on the form status
-        if (application.formStatus.toLowerCase() === "waiting for advisor") {
-            actionButton = `<button class="action-button cancel" data-application-id="${application.id}">Cancel / ยกเลิกคำร้อง</button>`;
+        if (["waiting for advisor", "waiting for instructor", "waiting for dean"].includes(application.formStatus.toLowerCase())) {
+            // Add a delete button for "waiting" statuses
+            actionButton = `
+                <button class="action-button delete" onclick="deleteApplication(${application.id})">
+                    Delete / ลบคำร้อง
+                </button>
+            `;
         } else if (application.formStatus.toLowerCase() === "draft") {
             const editLink = formTypeLinks[application.formType] || "/form/default_edit.html";
 
@@ -122,21 +126,15 @@ function displayApplications(data) {
             <td>${application.fullName || "No Name"}</td>
             <td>${application.formType || "No Type"}</td>
             <td class="status ${getStatusClass(application.formStatus)}">${
-                application.formStatus === "waiting for advisor"
-                    ? "Waiting for Advisor"
-                    : application.formStatus || "Unknown"
-            }</td>
+            application.formStatus || "Unknown"
+        }</td>
             <td>${actionButton}</td>
         `;
 
         if (application.formStatus.toLowerCase() === "approved") {
             approveTableBody.appendChild(row);
-        } else if (application.formStatus.toLowerCase() === "waiting for advisor") {
+        } else if (["waiting for advisor", "waiting for instructor", "waiting for dean"].includes(application.formStatus.toLowerCase())) {
             pendingTableBody.appendChild(row);
-            const cancelButton = row.querySelector(".cancel");
-            cancelButton.addEventListener("click", () =>
-                showPopup(application.id)
-            );
         } else if (application.formStatus.toLowerCase() === "rejected") {
             rejectTableBody.appendChild(row);
         } else if (application.formStatus.toLowerCase() === "draft") {
@@ -150,12 +148,16 @@ function getStatusClass(status) {
     switch (status?.toLowerCase()) {
         case "approved":
             return "approved";
-        case "waiting for advisor": // Update for "Waiting for Advisor"
-            return "pending";
         case "rejected":
             return "rejected";
-        case "draft":
-            return "draft";
+        case "waiting for advisor":
+            return "waiting-for-advisor";
+        case "waiting for instructor":
+            return "waiting-for-instructor";
+        case "waiting for dean":
+            return "waiting-for-dean";
+        case "pending":
+            return "pending";
         default:
             return "unknown";
     }

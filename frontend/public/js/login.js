@@ -27,8 +27,14 @@ function submitLogin() {
     // ตรวจสอบการล็อกอินแบบ Employee โดยตรง
     if (username === "Advisor" && password === "Advisor") {
         sessionStorage.setItem("isLoggedIn", "true");
-        sessionStorage.setItem("userRole", "employee"); // ระบุบทบาท
+        sessionStorage.setItem("userRole", "Advisor"); // ระบุบทบาท
         window.location.href = "/Advisor/AdvisorDashboard_Home.html";
+        return; // หยุดการทำงานเพิ่มเติม
+    }
+    if (username === "Instructor" && password === "Instructor") {
+        sessionStorage.setItem("isLoggedIn", "true");
+        sessionStorage.setItem("userRole", "Instructor"); // ระบุบทบาท
+        window.location.href = "/Instructor/InstructorDashboard_Home.html";
         return; // หยุดการทำงานเพิ่มเติม
     }
 
