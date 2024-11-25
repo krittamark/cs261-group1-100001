@@ -28,7 +28,7 @@ function submitLogin() {
     if (username === "Advisor" && password === "Advisor") {
         sessionStorage.setItem("isLoggedIn", "true");
         sessionStorage.setItem("userRole", "employee"); // ระบุบทบาท
-        window.location.href = "/Employee_Dashboard/Dashboard_Home.html";
+        window.location.href = "/Advisor/AdvisorDashboard_Home.html";
         return; // หยุดการทำงานเพิ่มเติม
     }
 

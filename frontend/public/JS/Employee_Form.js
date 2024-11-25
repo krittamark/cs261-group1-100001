@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     if (!response.ok) throw new Error("Failed to approve the application");
     
                     showSuccessPopup("อนุมัติ", "อนุมัติคำร้องสำเร็จ", () => {
-                        window.location.href = "/Employee_Dashboard/Dashboard_Home.html";
+                        window.location.href = "/Advisor/AdvisorDashboard_Home.html";
                     });
                 } catch (error) {
                     console.error("Error approving the application:", error);
@@ -306,7 +306,7 @@ rejectButton.addEventListener("click", function () {
 
                 // Show red success popup after rejection
                 showRejectionSuccessPopup("ไม่อนุมัติ", "การปฏิเสธคำร้องสำเร็จ", () => {
-                    window.location.href = "/Employee_Dashboard/Dashboard_Home.html"; // Redirect to dashboard
+                    window.location.href = "/Advisor/AdvisorDashboard_Home.html"; // Redirect to dashboard
                 });
             } catch (error) {
                 console.error("Error rejecting the application:", error);

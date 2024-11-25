@@ -51,10 +51,10 @@ function displayApplications(data) {
 
     // Map form types to URLs
     const formTypeToUrl = {
-        "คำร้องจดทะเบียนล่าช้า": "/Employee_Form/delayed_registration.html",
-        "คำร้องขอถอนรายวิชา (Drop W)": "/Employee_Form/withdraw_course.html",
-        "คำร้องขอจดทะเบียนรายวิชาข้ามหลักสูตร": "/Employee_Form/reg_request.html",
-        "คำร้องลาออก": "/Employee_Form/resign.html",
+        "คำร้องจดทะเบียนล่าช้า": "delayed_registration.html",
+        "คำร้องขอถอนรายวิชา (Drop W)": "withdraw_course.html",
+        "คำร้องขอจดทะเบียนรายวิชาข้ามหลักสูตร": "reg_request.html",
+        "คำร้องลาออก": "resign.html",
     };
 
     // Process applications
