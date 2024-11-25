@@ -70,7 +70,7 @@ function displayApplications(data) {
                     <td>${formattedDate}</td>
                     <td>${application.formType || "ไม่มีข้อมูล"}</td>
                     <td>${application.approver || "ไม่ระบุ"}</td>
-                    <td class="status">${application.formStatus || "ไม่มีสถานะ"}</td>
+                    <td class="status approved">${application.formStatus || "ไม่มีสถานะ"}</td>
                 `;
                 approvedTableBody.appendChild(row);
             }
@@ -83,7 +83,7 @@ function displayApplications(data) {
                     <td>${formattedDate}</td>
                     <td>${application.formType || "ไม่มีข้อมูล"}</td>
                     <td>${application.rejector || "ไม่ระบุ"}</td>
-                    <td class="status">${application.formStatus || "ไม่มีสถานะ"}</td>
+                    <td class="status rejected">${application.formStatus || "ไม่มีสถานะ"}</td>
                 `;
                 rejectedTableBody.appendChild(row);
             }
@@ -97,9 +97,9 @@ function displayApplications(data) {
                     <td>${application.formType || "ไม่มีข้อมูล"}</td>
                     <td>${application.fullName || "ไม่ระบุ"}</td>
                     <td>
-                        <button class="view-details-button" data-id="${application.id}" data-type="${application.formType}">
-                            View / ดูคำร้อง
-                        </button>
+                    <button class="view-details-button" data-id="${application.id}" data-type="${application.formType}">
+                        View / ดูคำร้อง
+                    </button>
                     </td>
                 `;
                 waitingForInstructorTableBody.appendChild(row);

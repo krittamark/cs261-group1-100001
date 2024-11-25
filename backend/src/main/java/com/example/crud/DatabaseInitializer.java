@@ -43,6 +43,7 @@ public class DatabaseInitializer {
                 "ALTER TABLE request ALTER COLUMN advisor_reason NVARCHAR(100);",
                 "ALTER TABLE request ALTER COLUMN instructor_reason NVARCHAR(100);",
                 "ALTER TABLE request ALTER COLUMN dean_reason NVARCHAR(100);",
+                "ALTER TABLE request ALTER COLUMN rejection_reason NVARCHAR(100);",
         };
 
         for (String sql : alterStatements) {

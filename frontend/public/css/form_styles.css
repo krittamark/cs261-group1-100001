@@ -247,3 +247,6 @@ body {
 .reject-button:hover {
   background-color: #c82333; /* Darker red for hover */
 }
+.hidden {
+  display: none;
+}

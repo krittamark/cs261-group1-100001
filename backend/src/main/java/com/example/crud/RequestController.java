@@ -26,17 +26,12 @@ public class RequestController {
     // Create a new request
     @PostMapping
     public ResponseEntity<Request> createRequest(@Valid @RequestBody Request request) {
+        System.out.println("Received request payload: " + request);
         try {
-            // Check for required fields
-            if (request.getFullName() == null || request.getFullName().isEmpty()) {
-                throw new IllegalArgumentException("Full name is required");
-            }
-            // Save request
             Request savedRequest = requestService.saveRequest(request);
             return new ResponseEntity<>(savedRequest, HttpStatus.CREATED);
         } catch (Exception e) {
-            // Log the error for debugging
-            System.err.println("Error while creating request: " + e.getMessage());
+            e.printStackTrace(); // Log ข้อผิดพลาด
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -90,6 +85,7 @@ public class RequestController {
             if (requestDetails.getAdvisorReason() != null) request.setAdvisorReason(requestDetails.getAdvisorReason());
             if (requestDetails.getInstructorReason() != null) request.setInstructorReason(requestDetails.getInstructorReason());
             if (requestDetails.getDeanReason() != null) request.setDeanReason(requestDetails.getDeanReason());
+            if (requestDetails.getRejectionReason() != null) request.setRejectionReason(requestDetails.getRejectionReason());
 
             // Set date if not already set
             if (request.getDate() == null) {
@@ -194,6 +190,8 @@ public class RequestController {
                         .body(Map.of("error", "Rejection reason is required"));
             }
 
+            request.setRejectionReason(rejectionReason);
+
             switch (rejector.toLowerCase()) {
                 case "advisor":
                     request.setAdvisorReason(rejectionReason);
@@ -216,4 +214,5 @@ public class RequestController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Map.of("error", "Request not found"));
     }
+
 }

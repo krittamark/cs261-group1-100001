@@ -45,7 +45,7 @@ function displayWaitingForDeanApplications(data) {
     const waitingForDeanTableBody = document.getElementById("waitingForDeanTableBody");
 
     // Clear the container if it exists
-    if (waitingForDeanTableBody) waitingForDeanTableBody.innerHTML = ""
+    if (waitingForDeanTableBody) waitingForDeanTableBody.innerHTML = "";
     if (rejectedTableBody) rejectedTableBody.innerHTML = "";
     if (approvedTableBody) approvedTableBody.innerHTML = "";
 
@@ -63,6 +63,7 @@ function displayWaitingForDeanApplications(data) {
             ? new Date(application.date).toLocaleDateString()
             : "-";
 
+        // Approved applications
         if (application.formStatus && application.formStatus.toLowerCase() === "approved") {
             if (approvedTableBody) {
                 const row = document.createElement("tr");
@@ -70,12 +71,13 @@ function displayWaitingForDeanApplications(data) {
                     <td>${formattedDate}</td>
                     <td>${application.formType || "ไม่มีข้อมูล"}</td>
                     <td>${application.approver || "ไม่ระบุ"}</td>
-                    <td class="status">${application.formStatus || "ไม่มีสถานะ"}</td>
+                    <td class="status approved">${application.formStatus || "ไม่มีสถานะ"}</td>
                 `;
                 approvedTableBody.appendChild(row);
             }
         }
 
+        // Rejected applications
         if (application.formStatus && application.formStatus.toLowerCase() === "rejected") {
             if (rejectedTableBody) {
                 const row = document.createElement("tr");
@@ -83,18 +85,14 @@ function displayWaitingForDeanApplications(data) {
                     <td>${formattedDate}</td>
                     <td>${application.formType || "ไม่มีข้อมูล"}</td>
                     <td>${application.rejector || "ไม่ระบุ"}</td>
-                    <td class="status">${application.formStatus || "ไม่มีสถานะ"}</td>
+                    <td class="status rejected">${application.formStatus || "ไม่มีสถานะ"}</td>
                 `;
                 rejectedTableBody.appendChild(row);
             }
         }
 
-        if (application.formStatus === "Waiting for Dean") { // Ensure we only process this status
-            const formattedDate = application.date
-                ? new Date(application.date).toLocaleDateString()
-                : "-";
-
-            // Create a new table row for each application
+        // Waiting for Dean applications
+        if (application.formStatus === "Waiting for Dean") {
             const row = document.createElement("tr");
             row.innerHTML = `
                 <td>${formattedDate}</td>

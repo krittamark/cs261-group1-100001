@@ -13,39 +13,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (applicationId) {
         // Fetch and load application data
         await loadApplicationData(applicationId);
-    } else {
-        // Autofill form fields for new applications
-        const studentData = JSON.parse(
-            sessionStorage.getItem("studentData") || "{}"
-        );
-        if (Object.keys(studentData).length > 0) {
-            autofillForm(studentData);
-        }
     }
 
     // Disable all form fields to make them read-only
     disableAllFields();
-
-    function autofillForm(data) {
-        const topicElement = document.querySelector("h1.topic");
-        const formType = topicElement ? topicElement.textContent : "";
-
-        const fieldsToFill = {
-            full_name: data.fullName,
-            registration_number: data.registrationNumber,
-            faculty: data.faculty,
-            department: data.department,
-            email: data.email,
-            subject: formType, // Fill subject with formType for new applications
-        };
-
-        for (const [fieldId, value] of Object.entries(fieldsToFill)) {
-            const input = document.getElementById(fieldId);
-            if (input) {
-                input.value = value || "ไม่มีข้อมูล"; // เพิ่มข้อความในกรณีไม่มีข้อมูล
-            }
-        }
-    }
 
     async function loadApplicationData(applicationId) {
         try {
@@ -66,7 +37,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             const applicationData = await response.json();
             console.log("Fetched application data:", applicationData);
 
-            populateForm(applicationData); // เติมข้อมูลลงในฟอร์ม
+            populateForm(applicationData);
         } catch (error) {
             console.error("Error loading application data:", error);
             showPopup("Error", "ไม่สามารถโหลดข้อมูลคำร้องได้", false);
@@ -93,27 +64,27 @@ document.addEventListener("DOMContentLoaded", async function () {
             course_name: data.courseName,
             course_section: data.courseSection,
             additional_explanation: data.additionalExplanation,
-            advisorReason: data.advisorReason, // เติมค่า rejection_reason
-            resign_year: data.resignYear,
-            debt: data.debt,
+            advisorReason: data.advisorReason,
+            instructorReason: data.instructorReason,
+            deanReason: data.deanReason,
+            rejectionReason: data.rejectionReason,
         };
 
         for (const [fieldId, value] of Object.entries(fields)) {
             const input = document.getElementById(fieldId);
-            if (input) {
-                input.value = value || "ไม่มีความเห็นจากอาจารย์ที่ปรึกษา"; // เพิ่มข้อความในกรณีไม่มีข้อมูล
-                console.log(`Field ${fieldId} populated with: ${value}`);
+            const container = input?.closest(".form-group"); // Get the container of the field
+
+            if (value) {
+                if (input) input.value = value;
+                if (container) container.classList.remove("hidden");
             } else {
-                console.warn(`Field ${fieldId} not found in form`);
+                if (container) container.classList.add("hidden");
             }
         }
     }
 
     function disableAllFields() {
-        // Disable all input, textarea, and select elements
-        const fields = document.querySelectorAll(
-            "input, textarea, select, button"
-        );
+        const fields = document.querySelectorAll("input, textarea, select, button");
         fields.forEach((field) => {
             field.setAttribute("readonly", true); // Make text fields readonly
             field.setAttribute("disabled", true); // Disable other elements like buttons, selects

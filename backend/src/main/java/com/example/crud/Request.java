@@ -42,6 +42,8 @@ public class Request {
     private String advisorReason;
     private String instructorReason;
     private String deanReason;
+    @Column(name = "rejection_reason")
+    private String rejectionReason;
 
     // Constructors
     public Request() {}
@@ -50,7 +52,7 @@ public class Request {
                    String email, String contactAddress, String mobilePhone, String relativeMobilePhone,
                    String advisor, String academicYear, String semester, String courseCode, String courseName,
                    String courseSection, String additionalExplanation, String formStatus,
-                   String approver, String rejector, String advisorReason, String instructorReason, String deanReason) {
+                   String approver, String rejector, String advisorReason, String instructorReason, String deanReason,String rejectionReason) {
         this.formType = formType;
         this.fullName = fullName;
         this.year = year;
@@ -72,6 +74,7 @@ public class Request {
         this.approver = approver;
         this.rejector = rejector;
         this.advisorReason = advisorReason;
+        this.rejectionReason = rejectionReason;
     }
 
     // Getters and Setters
@@ -294,5 +297,12 @@ public class Request {
 
     public void setDeanReason(String deanReason) {
         this.deanReason = deanReason;
+    }
+    public String getRejectionReason() {
+        return rejectionReason;
+    }
+
+    public void setRejectionReason(String rejectionReason) {
+        this.rejectionReason = rejectionReason;
     }
 }
