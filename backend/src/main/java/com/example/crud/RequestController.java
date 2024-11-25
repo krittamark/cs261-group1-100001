@@ -25,14 +25,15 @@ public class RequestController {
 
     // Create a new request
     @PostMapping
-    public ResponseEntity<Request> createRequest(@Valid @RequestBody Request request) {
-        System.out.println("Received request payload: " + request);
+    public ResponseEntity<?> createRequest(@Valid @RequestBody Request request) {
         try {
+            System.out.println("Received payload: " + request);
             Request savedRequest = requestService.saveRequest(request);
-            return new ResponseEntity<>(savedRequest, HttpStatus.CREATED);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedRequest);
         } catch (Exception e) {
-            e.printStackTrace(); // Log ข้อผิดพลาด
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Failed to create the request"));
         }
     }
 
