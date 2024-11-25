@@ -55,9 +55,8 @@ public class RequestService {
             if (requestDetails.getGradeRequest() != null) request.setGradeRequest(requestDetails.getGradeRequest());
             if (requestDetails.getDate() != null) request.setDate(requestDetails.getDate());
             if (requestDetails.getApprover() != null) request.setApprover(requestDetails.getApprover());
-            if (requestDetails.getApprovalReason() != null) request.setApprovalReason(requestDetails.getApprovalReason());
             if (requestDetails.getRejector() != null) request.setRejector(requestDetails.getRejector());
-            if (requestDetails.getRejectionReason() != null) request.setRejectionReason(requestDetails.getRejectionReason());
+            if (requestDetails.getAdvisorReason() != null) request.setAdvisorReason(requestDetails.getAdvisorReason());
             return requestRepository.save(request);
         });
     }

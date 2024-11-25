@@ -38,9 +38,8 @@ public class Request {
     private String gradeRequest;
     private LocalDate date;
     private String approver;
-    private String approvalReason;
     private String rejector;
-    private String rejectionReason;
+    private String advisorReason;
 
     // Constructors
     public Request() {}
@@ -49,7 +48,7 @@ public class Request {
                    String email, String contactAddress, String mobilePhone, String relativeMobilePhone,
                    String advisor, String academicYear, String semester, String courseCode, String courseName,
                    String courseSection, String additionalExplanation, String formStatus,
-                   String approver, String approvalReason, String rejector, String rejectionReason) {
+                   String approver, String rejector, String advisorReason) {
         this.formType = formType;
         this.fullName = fullName;
         this.year = year;
@@ -69,9 +68,8 @@ public class Request {
         this.additionalExplanation = additionalExplanation;
         this.formStatus = formStatus;
         this.approver = approver;
-        this.approvalReason = approvalReason;
         this.rejector = rejector;
-        this.rejectionReason = rejectionReason;
+        this.advisorReason = advisorReason;
     }
 
     // Getters and Setters
@@ -265,14 +263,6 @@ public class Request {
         this.approver = approver;
     }
 
-    public String getApprovalReason() {
-        return approvalReason;
-    }
-
-    public void setApprovalReason(String approvalReason) {
-        this.approvalReason = approvalReason;
-    }
-
     public String getRejector() {
         return rejector;
     }
@@ -281,11 +271,11 @@ public class Request {
         this.rejector = rejector;
     }
 
-    public String getRejectionReason() {
-        return rejectionReason;
+    public String getAdvisorReason() {
+        return advisorReason;
     }
 
-    public void setRejectionReason(String rejectionReason) {
-        this.rejectionReason = rejectionReason;
+    public void setAdvisorReason(String advisorReason) {
+        this.advisorReason = advisorReason;
     }
 }

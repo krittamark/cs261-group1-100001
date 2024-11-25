@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             course_name: data.courseName,
             course_section: data.courseSection,
             additional_explanation: data.additionalExplanation,
-            rejection_reason: data.rejectionReason, // เติมค่า rejection_reason
+            advisorReason: data.advisorReason, // เติมค่า rejection_reason
             resign_year: data.resignYear,
             debt: data.debt,
         };

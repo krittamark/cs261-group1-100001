@@ -76,9 +76,8 @@ public class RequestController {
             if (requestDetails.getDebt() != null) request.setDebt(requestDetails.getDebt());
             if (requestDetails.getGradeRequest() != null) request.setGradeRequest(requestDetails.getGradeRequest());
             if (requestDetails.getApprover() != null) request.setApprover(requestDetails.getApprover());
-            if (requestDetails.getApprovalReason() != null) request.setApprovalReason(requestDetails.getApprovalReason());
             if (requestDetails.getRejector() != null) request.setRejector(requestDetails.getRejector());
-            if (requestDetails.getRejectionReason() != null) request.setRejectionReason(requestDetails.getRejectionReason());
+            if (requestDetails.getAdvisorReason() != null) request.setAdvisorReason(requestDetails.getAdvisorReason());
 
             // Set date if not already set
             if (request.getDate() == null) {
@@ -101,14 +100,18 @@ public class RequestController {
 
     // Approve a request by ID
     @PutMapping("/{id}/approve")
-    public ResponseEntity<?> approveRequest(@PathVariable Long id) {
+    public ResponseEntity<?> approveRequest(@PathVariable Long id, @RequestBody Map<String, String> body) {
         Optional<Request> requestOptional = requestService.getRequestById(id);
         if (requestOptional.isPresent()) {
             Request request = requestOptional.get();
-            request.setFormStatus("approved"); // Update the status to "approved"
-            request.setApprover("Admin"); // Example approver, replace with actual user
-            request.setApprovalReason("Approved after review"); // Example reason
-            requestService.saveRequest(request); // Save the updated request
+            request.setFormStatus("approved"); // Update status
+            request.setApprover("Admin"); // Example approver
+            String advisorReason = body.get("advisorReason");
+            if (advisorReason == null || advisorReason.isEmpty()) {
+                return ResponseEntity.badRequest().body("Approval reason (advisorReason) is required");
+            }
+            request.setAdvisorReason(advisorReason); // Save advisor reason
+            requestService.saveRequest(request);
             return ResponseEntity.ok("Request approved successfully");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found");
@@ -120,14 +123,14 @@ public class RequestController {
         Optional<Request> requestOptional = requestService.getRequestById(id);
         if (requestOptional.isPresent()) {
             Request request = requestOptional.get();
-            request.setFormStatus("rejected"); // Update status to "rejected"
-            request.setRejector("Admin"); // Example rejector, replace with actual user
-            String rejectionReason = body.get("rejectionReason");
-            if (rejectionReason == null || rejectionReason.isEmpty()) {
-                return ResponseEntity.badRequest().body("Rejection reason is required");
+            request.setFormStatus("rejected"); // Update status
+            request.setRejector("Admin"); // Example rejector
+            String advisorReason = body.get("advisorReason");
+            if (advisorReason == null || advisorReason.isEmpty()) {
+                return ResponseEntity.badRequest().body("Rejection reason (advisorReason) is required");
             }
-            request.setRejectionReason(rejectionReason); // Save the rejection reason
-            requestService.saveRequest(request); // Save updated request
+            request.setAdvisorReason(advisorReason); // Save advisor reason
+            requestService.saveRequest(request);
             return ResponseEntity.ok("Request rejected successfully");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found");

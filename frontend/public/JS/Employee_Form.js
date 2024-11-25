@@ -121,25 +121,27 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Event listener for the approve button
     approveButton.addEventListener("click", function () {
-        showConfirmationPopup(
+        showApprovalPopup(
             "คุณยืนยันที่จะอนุมัติคำร้องหรือไม่?",
-            "หากกดยืนยัน ระบบจะทำการอนุมัติคำร้อง",
-            async () => {
+            "กรุณาใส่ความคิดเห็นก่อนการอนุมัติ",
+            async (advisorReason) => {
                 try {
                     const response = await fetch(
                         `http://localhost:8080/api/requests/${applicationId}/approve`,
                         {
-                            method: "PUT", // Use PUT to update the status
+                            method: "PUT",
                             headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ formStatus: "approved" }),
+                            body: JSON.stringify({
+                                formStatus: "approved",
+                                advisorReason: advisorReason, // ส่งเหตุผลที่ได้รับ
+                            }),
                         }
                     );
-
+    
                     if (!response.ok) throw new Error("Failed to approve the application");
-
-                    // Show success popup after approval
+    
                     showSuccessPopup("อนุมัติ", "อนุมัติคำร้องสำเร็จ", () => {
-                        window.location.href = "/Employee_Dashboard/Dashboard_Home.html"; // Redirect to dashboard
+                        window.location.href = "/Employee_Dashboard/Dashboard_Home.html";
                     });
                 } catch (error) {
                     console.error("Error approving the application:", error);
@@ -148,6 +150,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         );
     });
+    
 
     function showConfirmationPopup(title, message, onConfirm) {
         const overlay = document.createElement("div");
@@ -285,25 +288,25 @@ const rejectButton = document.querySelector(".reject-button");
 rejectButton.addEventListener("click", function () {
     showRejectionPopup(
         "คุณยืนยันที่จะปฏิเสธคำร้องหรือไม่?",
-        "หากกดยืนยัน ระบบจะทำการปฏิเสธคำร้อง",
-        async (rejectionReason) => {
+        "กรุณาใส่ความคิดเห็นก่อนการปฏิเสธ",
+        async (advisorReason) => {
             try {
-                if (!applicationId) throw new Error("Application ID is not defined");
-
                 const response = await fetch(
                     `http://localhost:8080/api/requests/${applicationId}/reject`,
                     {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ rejectionReason: rejectionReason }),
+                        body: JSON.stringify({
+                            formStatus: "rejected",
+                            advisorReason: advisorReason, // ส่งเหตุผลที่ได้รับ
+                        }),
                     }
                 );
 
                 if (!response.ok) throw new Error("Failed to reject the application");
 
-                // Show red success popup after rejection
                 showRejectionSuccessPopup("ไม่อนุมัติ", "การปฏิเสธคำร้องสำเร็จ", () => {
-                    window.location.href = "/Employee_Dashboard/Dashboard_Home.html"; // Redirect to dashboard
+                    window.location.href = "/Employee_Dashboard/Dashboard_Home.html";
                 });
             } catch (error) {
                 console.error("Error rejecting the application:", error);
@@ -312,6 +315,7 @@ rejectButton.addEventListener("click", function () {
         }
     );
 });
+
 
 
 
@@ -342,7 +346,7 @@ function showRejectionPopup(title, message, onConfirm) {
     popup.innerHTML = `
         <h2 style="font-size: 24px; margin-bottom: 10px;">${title}</h2>
         <p style="font-size: 18px; margin-bottom: 20px; font-weight: normal;">${message}</p>
-        <textarea id="rejection_reason" style="
+        <textarea id="advisor_reason" style="
             width: 100%;
             height: 100px;
             margin-bottom: 20px;
@@ -350,8 +354,8 @@ function showRejectionPopup(title, message, onConfirm) {
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            resize: none; /* Disable resizing */
-        " placeholder="เหตุผลประกอบการไม่อนุมัติ"></textarea>
+            resize: none;
+        " placeholder="กรุณาใส่เหตุผล (บังคับ)"></textarea>
         <div style="display: flex; justify-content: center; gap: 20px;">
             <button id="cancel-button" style="
                 padding: 10px 20px;
@@ -379,15 +383,16 @@ function showRejectionPopup(title, message, onConfirm) {
     });
 
     document.getElementById("confirm-button").addEventListener("click", () => {
-        const reason = document.getElementById("rejection_reason").value.trim();
+        const reason = document.getElementById("advisor_reason").value.trim();
         if (!reason) {
-            alert("กรุณากรอกเหตุผลการปฏิเสธ");
+            alert("กรุณากรอกความคิดเห็นก่อนดำเนินการ");
             return;
         }
         document.body.removeChild(overlay);
         onConfirm(reason);
     });
 }
+
 function showRejectionSuccessPopup(title, message, onOk) {
     const overlay = document.createElement("div");
     overlay.style.cssText = `
@@ -435,4 +440,77 @@ function showRejectionSuccessPopup(title, message, onOk) {
         onOk();
     });
 }
+function showApprovalPopup(title, message, onConfirm) {
+    const overlay = document.createElement("div");
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    `;
+
+    const popup = document.createElement("div");
+    popup.style.cssText = `
+        background-color: white;
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        width: 600px;
+    `;
+    popup.innerHTML = `
+        <h2 style="font-size: 24px; margin-bottom: 10px;">${title}</h2>
+        <p style="font-size: 18px; margin-bottom: 20px; font-weight: normal;">${message}</p>
+        <textarea id="advisor_reason" style="
+            width: 100%;
+            height: 100px;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        " placeholder="กรุณาใส่เหตุผล (บังคับ)"></textarea>
+        <div style="display: flex; justify-content: center; gap: 20px;">
+            <button id="cancel-button" style="
+                padding: 10px 20px;
+                font-size: 16px;
+                background-color: #ccc;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;">ยกเลิก</button>
+            <button id="confirm-button" style="
+                padding: 10px 20px;
+                font-size: 16px;
+                color: white;
+                background-color: #28a745;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;">ยืนยัน</button>
+        </div>
+    `;
+
+    overlay.appendChild(popup);
+    document.body.appendChild(overlay);
+
+    document.getElementById("cancel-button").addEventListener("click", () => {
+        document.body.removeChild(overlay);
+    });
+
+    document.getElementById("confirm-button").addEventListener("click", () => {
+        const reason = document.getElementById("advisor_reason").value.trim();
+        if (!reason) {
+            alert("กรุณากรอกความคิดเห็นก่อนดำเนินการ");
+            return;
+        }
+        document.body.removeChild(overlay);
+        onConfirm(reason);
+    });
+}
+
 });

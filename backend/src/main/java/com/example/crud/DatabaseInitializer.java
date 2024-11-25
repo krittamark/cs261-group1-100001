@@ -39,9 +39,8 @@ public class DatabaseInitializer {
                 "ALTER TABLE request ALTER COLUMN grade_request NVARCHAR(50);",
                 "ALTER TABLE request ALTER COLUMN date DATE;",
                 "ALTER TABLE request ALTER COLUMN approver NVARCHAR(100);",
-                "ALTER TABLE request ALTER COLUMN approval_reason NVARCHAR(255);",
                 "ALTER TABLE request ALTER COLUMN rejector NVARCHAR(100);",
-                "ALTER TABLE request ALTER COLUMN rejection_reason NVARCHAR(255);"
+                "ALTER TABLE request ALTER COLUMN advisorReason NVARCHAR(100);",
         };
 
         for (String sql : alterStatements) {
