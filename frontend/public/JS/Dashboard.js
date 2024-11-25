@@ -42,12 +42,12 @@ async function fetchApplications() {
 function displayApplications(data) {
     const rejectedTableBody = document.getElementById("rejectedTableBody");
     const approvedTableBody = document.getElementById("approvedTableBody");
-    const pendingTableBody = document.getElementById("pendingTableBody");
+    const waitingForAdvisorTableBody = document.getElementById("waitingForAdvisorTableBody");
 
     // Clear containers if they exist
     if (rejectedTableBody) rejectedTableBody.innerHTML = "";
     if (approvedTableBody) approvedTableBody.innerHTML = "";
-    if (pendingTableBody) pendingTableBody.innerHTML = "";
+    if (waitingForAdvisorTableBody) waitingForAdvisorTableBody.innerHTML = "";
 
     // Map form types to URLs
     const formTypeToUrl = {
@@ -89,40 +89,41 @@ function displayApplications(data) {
             if (rejectedTableBody) rejectedTableBody.appendChild(row);
         }
 
-        // Pending applications
-        if (application.formStatus && application.formStatus.toLowerCase() === "pending") {
+        // Waiting for advisor applications
+        if (application.formStatus && application.formStatus.toLowerCase() === "waiting for advisor") {
             const row = document.createElement("tr");
             row.innerHTML = `
                 <td>${formattedDate}</td>
                 <td>${application.formType || "ไม่มีข้อมูล"}</td>
-                <td>${application.fullName || "ไม่ระบุ"}</td>
+                <td>${application.advisor || "ไม่ระบุ"}</td>
                 <td>
                     <button class="view-details-button" data-id="${application.id}" data-type="${application.formType}">
                         View / ดูคำร้อง
                     </button>
                 </td>
             `;
-            if (pendingTableBody) pendingTableBody.appendChild(row);
+            if (waitingForAdvisorTableBody) waitingForAdvisorTableBody.appendChild(row);
         }
     });
 
-    // Add event listeners to "ดูคำร้อง" buttons for pending applications
+    // Add event listeners to "ดูคำร้อง" buttons for waiting for advisor applications
     const viewDetailsButtons = document.querySelectorAll(".view-details-button");
     viewDetailsButtons.forEach((button) => {
-    button.addEventListener("click", (event) => {
-        const applicationId = event.target.getAttribute("data-id");
-        const formType = event.target.getAttribute("data-type");
-        const targetUrl = formTypeToUrl[formType];
+        button.addEventListener("click", (event) => {
+            const applicationId = event.target.getAttribute("data-id");
+            const formType = event.target.getAttribute("data-type");
+            const targetUrl = formTypeToUrl[formType];
 
-        if (targetUrl) {
-            // Redirect to the form page with the application ID in the URL
-            window.location.href = `${targetUrl}?id=${applicationId}`;
-        } else {
-            alert("หน้าสำหรับคำร้องนี้ยังไม่ได้ตั้งค่า");
-        }
+            if (targetUrl) {
+                // Redirect to the form page with the application ID in the URL
+                window.location.href = `${targetUrl}?id=${applicationId}`;
+            } else {
+                alert("หน้าสำหรับคำร้องนี้ยังไม่ได้ตั้งค่า");
+            }
+        });
     });
-});
 }
+
 
 
 // Helper function to get the CSS class for status

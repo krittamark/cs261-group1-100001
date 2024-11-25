@@ -85,7 +85,7 @@ function displayApplications(data) {
         let actionButton = "";
 
         // Add action buttons based on the form status
-        if (application.formStatus.toLowerCase() === "pending") {
+        if (application.formStatus.toLowerCase() === "waiting for advisor") {
             actionButton = `<button class="action-button cancel" data-application-id="${application.id}">Cancel / ยกเลิกคำร้อง</button>`;
         } else if (application.formStatus.toLowerCase() === "draft") {
             const editLink = formTypeLinks[application.formType] || "/form/default_edit.html";
@@ -122,14 +122,16 @@ function displayApplications(data) {
             <td>${application.fullName || "No Name"}</td>
             <td>${application.formType || "No Type"}</td>
             <td class="status ${getStatusClass(application.formStatus)}">${
-            application.formStatus || "Unknown"
-        }</td>
+                application.formStatus === "waiting for advisor"
+                    ? "Waiting for Advisor"
+                    : application.formStatus || "Unknown"
+            }</td>
             <td>${actionButton}</td>
         `;
 
         if (application.formStatus.toLowerCase() === "approved") {
             approveTableBody.appendChild(row);
-        } else if (application.formStatus.toLowerCase() === "pending") {
+        } else if (application.formStatus.toLowerCase() === "waiting for advisor") {
             pendingTableBody.appendChild(row);
             const cancelButton = row.querySelector(".cancel");
             cancelButton.addEventListener("click", () =>
@@ -143,11 +145,12 @@ function displayApplications(data) {
     });
 }
 
+
 function getStatusClass(status) {
     switch (status?.toLowerCase()) {
         case "approved":
             return "approved";
-        case "pending":
+        case "waiting for advisor": // Update for "Waiting for Advisor"
             return "pending";
         case "rejected":
             return "rejected";

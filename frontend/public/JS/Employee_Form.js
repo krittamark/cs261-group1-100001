@@ -288,25 +288,25 @@ const rejectButton = document.querySelector(".reject-button");
 rejectButton.addEventListener("click", function () {
     showRejectionPopup(
         "คุณยืนยันที่จะปฏิเสธคำร้องหรือไม่?",
-        "กรุณาใส่ความคิดเห็นก่อนการปฏิเสธ",
-        async (advisorReason) => {
+        "หากกดยืนยัน ระบบจะทำการปฏิเสธคำร้อง",
+        async (rejectionReason) => {
             try {
+                if (!applicationId) throw new Error("Application ID is not defined");
+
                 const response = await fetch(
                     `http://localhost:8080/api/requests/${applicationId}/reject`,
                     {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            formStatus: "rejected",
-                            advisorReason: advisorReason, // ส่งเหตุผลที่ได้รับ
-                        }),
+                        body: JSON.stringify({ rejectionReason: rejectionReason }),
                     }
                 );
 
                 if (!response.ok) throw new Error("Failed to reject the application");
 
+                // Show red success popup after rejection
                 showRejectionSuccessPopup("ไม่อนุมัติ", "การปฏิเสธคำร้องสำเร็จ", () => {
-                    window.location.href = "/Employee_Dashboard/Dashboard_Home.html";
+                    window.location.href = "/Employee_Dashboard/Dashboard_Home.html"; // Redirect to dashboard
                 });
             } catch (error) {
                 console.error("Error rejecting the application:", error);
@@ -315,7 +315,6 @@ rejectButton.addEventListener("click", function () {
         }
     );
 });
-
 
 
 

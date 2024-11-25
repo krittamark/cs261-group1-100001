@@ -40,6 +40,8 @@ public class Request {
     private String approver;
     private String rejector;
     private String advisorReason;
+    private String instructorReason;
+    private String deanReason;
 
     // Constructors
     public Request() {}
@@ -48,7 +50,7 @@ public class Request {
                    String email, String contactAddress, String mobilePhone, String relativeMobilePhone,
                    String advisor, String academicYear, String semester, String courseCode, String courseName,
                    String courseSection, String additionalExplanation, String formStatus,
-                   String approver, String rejector, String advisorReason) {
+                   String approver, String rejector, String advisorReason, String instructorReason, String deanReason) {
         this.formType = formType;
         this.fullName = fullName;
         this.year = year;
@@ -277,5 +279,20 @@ public class Request {
 
     public void setAdvisorReason(String advisorReason) {
         this.advisorReason = advisorReason;
+    }
+    public String getInstructorReason() {
+        return instructorReason;
+    }
+
+    public void setInstructorReason(String instructorReason) {
+        this.instructorReason = instructorReason;
+    }
+
+    public String getDeanReason() {
+        return deanReason;
+    }
+
+    public void setDeanReason(String deanReason) {
+        this.deanReason = deanReason;
     }
 }

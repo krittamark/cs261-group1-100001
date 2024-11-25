@@ -57,6 +57,8 @@ public class RequestService {
             if (requestDetails.getApprover() != null) request.setApprover(requestDetails.getApprover());
             if (requestDetails.getRejector() != null) request.setRejector(requestDetails.getRejector());
             if (requestDetails.getAdvisorReason() != null) request.setAdvisorReason(requestDetails.getAdvisorReason());
+            if (requestDetails.getInstructorReason() != null) request.setInstructorReason(requestDetails.getInstructorReason());
+            if (requestDetails.getDeanReason() != null) request.setDeanReason(requestDetails.getDeanReason());
             return requestRepository.save(request);
         });
     }
