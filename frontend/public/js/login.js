@@ -1,21 +1,40 @@
 document.addEventListener("DOMContentLoaded", function () {
     const isLoggedIn = sessionStorage.getItem("isLoggedIn");
-    if (isLoggedIn) {
-        window.location.href = "/index.html";
+    const userType = sessionStorage.getItem("userType");
+
+    console.log("isLoggedIn:", isLoggedIn);
+    console.log("userType:", userType);
+
+    if (!window.location.pathname.endsWith("/login.html")) {
+        if (isLoggedIn) {
+            if (userType === "student") {
+                window.location.href = "/index.html";
+            } else if (userType === "employee") {
+                window.location.href = "/list.html";
+            }
+        } else {
+            console.warn("User not logged in. Redirecting to login...");
+            window.location.href = "/login.html";
+        }
     }
 
+    // Attach event listeners for login page
     document
         .getElementById("toggle-password")
-        .addEventListener("click", togglePassword);
+        ?.addEventListener("click", togglePassword);
     document
         .getElementById("login-button")
-        .addEventListener("click", submitLogin);
-    document.getElementById("popup-ok").addEventListener("click", closePopup);
+        ?.addEventListener("click", submitLogin);
+    document.getElementById("popup-ok")?.addEventListener("click", closePopup);
 
-    // Prevent going back to the login page if logged in
+    // Prevent back navigation from reloading login if logged in
     window.addEventListener("popstate", function () {
         if (sessionStorage.getItem("isLoggedIn")) {
-            window.location.href = "/index.html";
+            if (userType === "student") {
+                window.location.href = "/index.html";
+            } else if (userType === "employee") {
+                window.location.href = "/list.html";
+            }
         }
     });
 });
@@ -24,89 +43,88 @@ function submitLogin() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    // Authenticate the user
-    fetch("https://restapi.tu.ac.th/api/v1/auth/Ad/verify", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Application-key":
-                "TU8006a67d385d98ce2923e80f7cbf742706efbcf969c021c89a58a703c80fd3a2c80f3235cfed29b9f10060a315e80192",
-        },
-        body: JSON.stringify({ UserName: username, PassWord: password }),
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log("Login Response Data:", data);
+    //* Mock login credentials *//
+    const mockEmployeeCredentials = {
+        username: "mock_employee",
+        password: "password123",
+        type: "employee",
+        displayname_th: "Mock Employee",
+        email: "mock@company.com",
+        department: "Mock Department",
+        organization: "Mock Organization",
+        StatusEmp: "Active",
+    };
 
-            if (data.status === true) {
-                sessionStorage.setItem("isLoggedIn", "true");
-                sessionStorage.setItem("registrationNumber", username);
-                // Fetch detailed student data
-                const studentId = username;
-                fetch(
-                    `https://restapi.tu.ac.th/api/v2/profile/std/info/?id=${studentId}`,
-                    {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Application-Key":
-                                "TU8006a67d385d98ce2923e80f7cbf742706efbcf969c021c89a58a703c80fd3a2c80f3235cfed29b9f10060a315e80192",
-                        },
-                    }
-                )
-                    .then((response) => response.json())
-                    .then((detailData) => {
-                        console.log("Detailed Student Data:", detailData);
-
-                        if (detailData.status === true && detailData.data) {
-                            const studentData = detailData.data;
-
-                            // Map English prefixes to Thai titles
-                            const prefixMapping = {
-                                Mr: "นาย",
-                                Ms: "นางสาว",
-                                Mrs: "นาง",
-                            };
-                            const thaiPrefix =
-                                prefixMapping[studentData.prefixname] ||
-                                studentData.prefixname ||
-                                "";
-
-                            // Prepare user data for autofill in forms
-                            const autofillData = {
-                                fullName: `${thaiPrefix} ${
-                                    studentData.displayname_th || ""
-                                }`,
-                                registrationNumber: studentData.userName,
-                                faculty: studentData.faculty,
-                                department: studentData.department,
-                                email: studentData.email,
-                            };
-
-                            // Store user details in sessionStorage for autofill
-                            sessionStorage.setItem(
-                                "studentData",
-                                JSON.stringify(autofillData)
-                            );
-                            console.log("Autofill data stored:", autofillData);
-
-                            // Redirect to template.html
-                            window.location.href = "/index.html";
-                        } else {
-                            console.error(
-                                "Failed to fetch detailed student data:",
-                                detailData.message || "Unknown error"
-                            );
-                        }
-                    })
-                    .catch((error) =>
-                        console.error("Error fetching student data:", error)
-                    );
-            } else {
-                showPopup("Login failed: " + data.message);
-            }
+    // Check for mock login
+    if (
+        username === mockEmployeeCredentials.username &&
+        password === mockEmployeeCredentials.password
+    ) {
+        console.log("Mock login successful");
+        handleLoginSuccess(mockEmployeeCredentials.type, mockEmployeeCredentials);
+    } else {
+        // Proceed with actual API call
+        fetch("https://restapi.tu.ac.th/api/v1/auth/Ad/verify", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Application-key":
+                    "TU8006a67d385d98ce2923e80f7cbf742706efbcf969c021c89a58a703c80fd3a2c80f3235cfed29b9f10060a315e80192",
+            },
+            body: JSON.stringify({ UserName: username, PassWord: password }),
         })
-        .catch((error) => console.error("Error during login:", error));
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Login Response Data:", data);
+
+                if (data.status === true) {
+                    handleLoginSuccess(data.type.toLowerCase(), data);
+                } else {
+                    showPopup("Login failed: " + data.message);
+                }
+            })
+            .catch((error) => {
+                console.error("Error during login:", error);
+                showPopup("An error occurred during login. Please try again.");
+            });
+    }
+}
+
+function handleLoginSuccess(userType, data) {
+    sessionStorage.setItem("isLoggedIn", "true");
+    sessionStorage.setItem("userType", userType);
+    sessionStorage.setItem("username", data.username);
+
+    // Map and store user details for autofill
+    let autofillData = {};
+    if (userType === "student") {
+        autofillData = {
+            fullName: data.displayname_th,
+            registrationNumber: data.username,
+            email: data.email,
+            department: data.department,
+            faculty: data.faculty,
+            status: data.tu_status,
+        };
+    } else if (userType === "employee") {
+        autofillData = {
+            fullName: data.displayname_th,
+            username: data.username,
+            email: data.email,
+            department: data.department,
+            organization: data.organization,
+            status: data.StatusEmp,
+        };
+    }
+    sessionStorage.setItem("userData", JSON.stringify(autofillData));
+    console.log("Autofill data stored:", autofillData);
+
+    // Redirect based on user type
+    if (userType === "student") {
+        window.location.href = "/index.html";
+    } else if (userType === "employee") {
+        window.location.href = "/list.html";
+    }
 }
 
 function togglePassword() {
@@ -115,10 +133,10 @@ function togglePassword() {
 
     if (passwordInput.type === "password") {
         passwordInput.type = "text";
-        passwordIcon.src = "img/hidden.png"; // รูป icon สำหรับซ่อน
+        passwordIcon.src = "img/hidden.png"; // Icon for hiding the password
     } else {
         passwordInput.type = "password";
-        passwordIcon.src = "img/view.png"; // รูป icon สำหรับแสดง
+        passwordIcon.src = "img/view.png"; // Icon for showing the password
     }
 }
 
