@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (userType === "student") {
                 window.location.href = "/index.html";
             } else if (userType === "employee") {
-                window.location.href = "/requestList.html";
+                window.location.href = "/request_list.html";
             }
         } else {
             console.warn("User not logged in. Redirecting to login...");
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (userType === "student") {
                 window.location.href = "/index.html";
             } else if (userType === "employee") {
-                window.location.href = "/requestList.html";
+                window.location.href = "/request_list.html";
             }
         }
     });
@@ -123,7 +123,7 @@ function handleLoginSuccess(userType, data) {
     if (userType === "student") {
         window.location.href = "/index.html";
     } else if (userType === "employee") {
-        window.location.href = "/requestList.html";
+        window.location.href = "/request_list.html";
     }
 }
 
