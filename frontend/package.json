@@ -4,7 +4,8 @@
   "description": "This repository contains the frontend code for our CS261 project. The system allows students to submit petitions online, track their status, and provides administrators with tools to manage and process these petitions efficiently.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",

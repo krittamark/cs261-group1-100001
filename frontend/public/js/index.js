@@ -229,3 +229,23 @@ function addDynamicEventListeners() {
         button.addEventListener("click", () => showPopup(button.dataset.applicationId))
     );
 }
+
+function approveRequest(id) {
+    document.getElementById('approvalPopup').style.display = 'block';
+    document.getElementById('confirmApproval').onclick = function () {
+      console.log(`Approved request ID: ${id}`);
+      // ส่งคำขออนุมัติไปยัง API
+      // fetch(`/api/requests/${id}/approve`, { method: 'POST' })
+      document.getElementById('approvalPopup').style.display = 'none';
+    };
+  }
+  
+  function rejectRequest(id) {
+    document.getElementById('rejectionPopup').style.display = 'block';
+    document.getElementById('confirmRejection').onclick = function () {
+      console.log(`Rejected request ID: ${id}`);
+      // ส่งคำขอไม่อนุมัติไปยัง API
+      // fetch(`/api/requests/${id}/reject`, { method: 'POST' })
+      document.getElementById('rejectionPopup').style.display = 'none';
+    };
+  }

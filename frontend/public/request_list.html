@@ -48,32 +48,45 @@
             <th>Status</th>
           </tr>
         </thead>
-        <tbody id="pendingTableBody"></tbody>
+        <tbody id="pendingTableBody">
+          <tr>
+            <td>001</td>
+            <td>2024-11-25</td>
+            <td>12345678</td>
+            <td>นายสมชาย ใจดี</td>
+            <td>คำร้องขอเอกสาร</td>
+            <td>
+              <button class="button button__approve" onclick="approveRequest(001)">อนุมัติ</button>
+              <button class="button button__reject" onclick="rejectRequest(001)">ไม่อนุมัติ</button>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
 
   <!-- Popup structure for canceling application -->
-  <div id="cancelPopup" class="popup">
+  <div id="approvalPopup" class="popup">
     <div class="popup-content">
-      <h2>ยืนยันการยกเลิกคำร้อง</h2>
-      <p>คุณต้องการยกเลิกคำร้องนี้หรือไม่?</p>
+      <h2>ยืนยันการอนุมัติ</h2>
+      <p>คุณต้องการอนุมัติคำร้องนี้หรือไม่?</p>
       <div class="popup__action">
-        <button id="confirmCancel" class="button button__confirm">ยืนยัน</button>
-        <button id="closePopup" class="button button__cancel">ยกเลิก</button>
+        <button id="confirmApproval" class="button button__confirm">ยืนยัน</button>
+        <button id="closeApprovalPopup" class="button button__cancel">ยกเลิก</button>
       </div>
     </div>
   </div>
-  <div id="deleteDraftPopup" class="popup">
+  <div id="rejectionPopup" class="popup">
     <div class="popup-content">
-        <h2>ยืนยันการลบแบบร่าง</h2>
-        <p>คุณต้องการลบแบบร่างนี้หรือไม่?</p>
-        <div class="popup__action">
-            <button id="confirmDeleteDraft" class="button button__confirm">ยืนยัน</button>
-            <button id="closeDeleteDraftPopup" class="button button__cancel">ยกเลิก</button>
-        </div>
+      <h2>ยืนยันการไม่อนุมัติ</h2>
+      <p>คุณต้องการไม่อนุมัติคำร้องนี้หรือไม่? กรุณาระบุเหตุผล</p>
+      <textarea id="rejectionReason" placeholder="กรุณาใส่เหตุผล..." rows="4"></textarea>
+      <div class="popup__action">
+        <button id="confirmRejection" class="button button__confirm">ยืนยัน</button>
+        <button id="closeRejectionPopup" class="button button__cancel">ยกเลิก</button>
+      </div>
     </div>
-</div>
+  </div>
   <!-- Link to JavaScript -->
   <script src="/js/index.js"></script>
 </body>
