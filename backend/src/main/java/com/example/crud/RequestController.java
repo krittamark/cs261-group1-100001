@@ -8,11 +8,12 @@ import jakarta.validation.Valid;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/requests", produces = "application/json; charset=UTF-8")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
 public class RequestController {
 
     private final RequestService requestService;
@@ -24,9 +25,16 @@ public class RequestController {
 
     // Create a new request
     @PostMapping
-    public ResponseEntity<Request> createRequest(@Valid @RequestBody Request request) {
-        Request savedRequest = requestService.saveRequest(request);
-        return new ResponseEntity<>(savedRequest, HttpStatus.CREATED);
+    public ResponseEntity<?> createRequest(@Valid @RequestBody Request request) {
+        try {
+            System.out.println("Received payload: " + request);
+            Request savedRequest = requestService.saveRequest(request);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Failed to create the request"));
+        }
     }
 
     // Get all requests
@@ -63,18 +71,26 @@ public class RequestController {
             if (requestDetails.getMobilePhone() != null) request.setMobilePhone(requestDetails.getMobilePhone());
             if (requestDetails.getRelativeMobilePhone() != null) request.setRelativeMobilePhone(requestDetails.getRelativeMobilePhone());
             if (requestDetails.getAdvisor() != null) request.setAdvisor(requestDetails.getAdvisor());
-            if (requestDetails.getAcademicYear() != null) request.setAcademicYear(requestDetails.getAcademicYear());
+            if (requestDetails.getYear() != null) request.setYear(requestDetails.getYear());
             if (requestDetails.getSemester() != null) request.setSemester(requestDetails.getSemester());
             if (requestDetails.getCourseCode() != null) request.setCourseCode(requestDetails.getCourseCode());
             if (requestDetails.getCourseName() != null) request.setCourseName(requestDetails.getCourseName());
             if (requestDetails.getCourseSection() != null) request.setCourseSection(requestDetails.getCourseSection());
             if (requestDetails.getAdditionalExplanation() != null) request.setAdditionalExplanation(requestDetails.getAdditionalExplanation());
             if (requestDetails.getFormStatus() != null) request.setFormStatus(requestDetails.getFormStatus());
-            if (requestDetails.getYear() != null) request.setYear(requestDetails.getFormStatus());
             if (requestDetails.getResignYear() != null) request.setResignYear(requestDetails.getResignYear());
             if (requestDetails.getDebt() != null) request.setDebt(requestDetails.getDebt());
             if (requestDetails.getGradeRequest() != null) request.setGradeRequest(requestDetails.getGradeRequest());
-            if (request.getDate() == null) {request.setDate(LocalDate.now());
+            if (requestDetails.getApprover() != null) request.setApprover(requestDetails.getApprover());
+            if (requestDetails.getRejector() != null) request.setRejector(requestDetails.getRejector());
+            if (requestDetails.getAdvisorReason() != null) request.setAdvisorReason(requestDetails.getAdvisorReason());
+            if (requestDetails.getInstructorReason() != null) request.setInstructorReason(requestDetails.getInstructorReason());
+            if (requestDetails.getDeanReason() != null) request.setDeanReason(requestDetails.getDeanReason());
+            if (requestDetails.getRejectionReason() != null) request.setRejectionReason(requestDetails.getRejectionReason());
+
+            // Set date if not already set
+            if (request.getDate() == null) {
+                request.setDate(LocalDate.now());
             }
 
             Request updatedRequest = requestService.saveRequest(request);
@@ -88,10 +104,116 @@ public class RequestController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRequest(@PathVariable Long id) {
         boolean isDeleted = requestService.deleteRequest(id);
-        if (isDeleted) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return isDeleted ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    // Approve a request by ID
+    @PutMapping("/{id}/approve")
+    public ResponseEntity<?> approveRequest(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        Optional<Request> requestOptional = requestService.getRequestById(id);
+        if (requestOptional.isPresent()) {
+            Request request = requestOptional.get();
+            request.setFormStatus("approved"); // Update status
+            request.setApprover("Admin"); // Example approver
+            String advisorReason = body.get("advisorReason");
+            if (advisorReason == null || advisorReason.isEmpty()) {
+                return ResponseEntity.badRequest().body("Approval reason (advisorReason) is required");
+            }
+            request.setAdvisorReason(advisorReason); // Save advisor reason
+            requestService.saveRequest(request);
+            return ResponseEntity.ok("Request approved successfully");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found");
+    }
+
+    @PutMapping("/{id}/Advisorapprove")
+    public ResponseEntity<?> advisorApproveRequest(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        Optional<Request> requestOptional = requestService.getRequestById(id);
+        if (requestOptional.isPresent()) {
+            Request request = requestOptional.get();
+            request.setFormStatus("Waiting for Instructor");
+            String advisorReason = body.get("advisorReason");
+            if (advisorReason == null || advisorReason.isEmpty()) {
+                return ResponseEntity.badRequest().body("Advisor reason is required");
+            }
+            request.setAdvisorReason(advisorReason);
+            requestService.saveRequest(request);
+            return ResponseEntity.ok("Request approved successfully");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found");
+    }
+    // Approve a request by Instructor
+    @PutMapping("/{id}/Instructorapprove")
+    public ResponseEntity<?> InstructorapproveRequest(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        Optional<Request> requestOptional = requestService.getRequestById(id);
+        if (requestOptional.isPresent()) {
+            Request request = requestOptional.get();
+            request.setFormStatus("Waiting for Dean"); // Update status
+            request.setInstructorReason(body.get("instructorReason")); // Save Instructor reason
+            requestService.saveRequest(request);
+            return ResponseEntity.ok("Request approved by Instructor successfully");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found");
+    }
+    @PutMapping("/{id}/Deanapprove")
+    public ResponseEntity<?> DeanapproveRequest(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        Optional<Request> requestOptional = requestService.getRequestById(id);
+        if (requestOptional.isPresent()) {
+            Request request = requestOptional.get();
+            request.setFormStatus("approved");
+            request.setApprover("Dean");// Update status
+            request.setDeanReason(body.get("deanReason")); // Save Dean reason
+            requestService.saveRequest(request);
+            return ResponseEntity.ok("Request approved by Dean successfully");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found");
+    }
+    // Reject a request by ID
+    @PutMapping("/{id}/reject")
+    public ResponseEntity<?> rejectRequest(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        Optional<Request> requestOptional = requestService.getRequestById(id);
+        if (requestOptional.isPresent()) {
+            Request request = requestOptional.get();
+            request.setFormStatus("rejected");
+
+            String rejector = body.get("rejector");
+            if (rejector == null || rejector.isEmpty()) {
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body(Map.of("error", "Rejector role (advisor, instructor, dean) is required"));
+            }
+            request.setRejector(rejector);
+
+            String rejectionReason = body.get("reason");
+            if (rejectionReason == null || rejectionReason.isEmpty()) {
+                return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body(Map.of("error", "Rejection reason is required"));
+            }
+
+            request.setRejectionReason(rejectionReason);
+
+            switch (rejector.toLowerCase()) {
+                case "advisor":
+                    request.setAdvisorReason(rejectionReason);
+                    break;
+                case "instructor":
+                    request.setInstructorReason(rejectionReason);
+                    break;
+                case "dean":
+                    request.setDeanReason(rejectionReason);
+                    break;
+                default:
+                    return ResponseEntity
+                            .status(HttpStatus.BAD_REQUEST)
+                            .body(Map.of("error", "Invalid rejector role provided"));
+            }
+
+            requestService.saveRequest(request);
+            return ResponseEntity.ok(Map.of("message", "Request rejected successfully by " + rejector));
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Map.of("error", "Request not found"));
+    }
+
 }
