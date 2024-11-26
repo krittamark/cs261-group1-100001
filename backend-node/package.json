@@ -1,16 +1,19 @@
 {
   "name": "backend-node",
   "version": "1.0.0",
+  "description": "This repository contains the frontend code for our CS261 project. The system allows students to submit petitions online, track their status, and provides administrators with tools to manage and process these petitions efficiently.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
     "express": "^4.21.1",
+    "express-body-parser-error-handler": "^1.0.7",
     "express-fileupload": "^1.5.1",
-    "multer": "^1.4.5-lts.1"
+    "mssql": "^11.0.1"
   }
 }
