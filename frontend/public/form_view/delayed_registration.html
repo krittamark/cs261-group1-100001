@@ -19,7 +19,7 @@
     <div class="sidebar">
       <ul>
         <li>
-          <a href="/template/template.html" class="back-link">
+          <a href="/index.html" class="back-link">
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 60 60" fill="none">
               <path d="M50 27.5001V32.5H20L33.75 46.25L30.2 49.8L10.4 30L30.2 10.2001L33.75 13.7501L20 27.5001H50Z"
                 fill="#515151" />
@@ -183,13 +183,55 @@
           <!-- ปุ่มอัปโหลดไฟล์ -->
           <button id="submitFilesButton" class="submit-files-button hidden">อัปโหลดไฟล์</button>
 
-        <div class="button-group">
-          <button type="button" class="draft-button">บันทึกแบบร่าง</button>
-          <button type="submit" class="submit-button">ส่งคำร้อง</button>
+          <div class="form-group">
+            <label for="advisorReason" class="form-label">
+              เหตุผลของอาจารย์ที่ปรึกษา
+            </label>
+            <textarea
+              id="advisorReason"
+              name="advisorReason"
+              class="form-input explanation-box"
+              readonly
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="instructorReason" class="form-label">
+                เหตุผลของอาจารย์ผู้สอน
+            </label>
+            <textarea
+                id="instructorReason"
+                name="instructorReason"
+                class="form-input explanation-box"
+                readonly
+            ></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="deanReason" class="form-label">
+                เหตุผลของคณบดี
+            </label>
+            <textarea
+                id="deanReason"
+                name="deanReason"
+                class="form-input explanation-box"
+                readonly
+            ></textarea>
+        </div>
+        <div class="form-group rejection-reason-container hidden">
+          <label for="rejectionReason" class="form-label">
+              เหตุผลการปฏิเสธ
+          </label>
+          <textarea
+              id="rejectionReason"
+              name="rejectionReason"
+              class="form-input explanation-box"
+              readonly
+          ></textarea>
         </div>
       </form>
     </div>
-    <script src="/js/form.js"></script>
+  
+    <script src="/js/form_view.js"></script>
     <script src="../js/fileattachment.js"></script>
 </body>
 

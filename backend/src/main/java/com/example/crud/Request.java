@@ -37,15 +37,22 @@ public class Request {
     private String debt;
     private String gradeRequest;
     private LocalDate date;
-
+    private String approver;
+    private String rejector;
+    private String advisorReason;
+    private String instructorReason;
+    private String deanReason;
+    @Column(name = "rejection_reason")
+    private String rejectionReason;
 
     // Constructors
     public Request() {}
 
-    public Request(String formType, String fullName, String registrationNumber, String faculty, String department,
+    public Request(String formType, String fullName, String year, String registrationNumber, String faculty, String department,
                    String email, String contactAddress, String mobilePhone, String relativeMobilePhone,
                    String advisor, String academicYear, String semester, String courseCode, String courseName,
-                   String courseSection, String additionalExplanation, String formStatus) {
+                   String courseSection, String additionalExplanation, String formStatus,
+                   String approver, String rejector, String advisorReason, String instructorReason, String deanReason,String rejectionReason) {
         this.formType = formType;
         this.fullName = fullName;
         this.year = year;
@@ -64,6 +71,10 @@ public class Request {
         this.courseSection = courseSection;
         this.additionalExplanation = additionalExplanation;
         this.formStatus = formStatus;
+        this.approver = approver;
+        this.rejector = rejector;
+        this.advisorReason = advisorReason;
+        this.rejectionReason = rejectionReason;
     }
 
     // Getters and Setters
@@ -248,5 +259,50 @@ public class Request {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+    public String getApprover() {
+        return approver;
+    }
+
+    public void setApprover(String approver) {
+        this.approver = approver;
+    }
+
+    public String getRejector() {
+        return rejector;
+    }
+
+    public void setRejector(String rejector) {
+        this.rejector = rejector;
+    }
+
+    public String getAdvisorReason() {
+        return advisorReason;
+    }
+
+    public void setAdvisorReason(String advisorReason) {
+        this.advisorReason = advisorReason;
+    }
+    public String getInstructorReason() {
+        return instructorReason;
+    }
+
+    public void setInstructorReason(String instructorReason) {
+        this.instructorReason = instructorReason;
+    }
+
+    public String getDeanReason() {
+        return deanReason;
+    }
+
+    public void setDeanReason(String deanReason) {
+        this.deanReason = deanReason;
+    }
+    public String getRejectionReason() {
+        return rejectionReason;
+    }
+
+    public void setRejectionReason(String rejectionReason) {
+        this.rejectionReason = rejectionReason;
     }
 }

@@ -6,9 +6,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <title>คำร้องจดทะเบียนล่าช้า</title>
     <title>คำร้องขอจดทะเบียนรายวิชาข้ามหลักสูตร</title>
     <link rel="stylesheet" href="/css/form_styles.css" />
+    <link rel="stylesheet" href="../css/fileattachment.css" />
   </head>
   <body>
     <div class="wrapper">
@@ -39,52 +39,35 @@
             <input type="date" id="date" name="date" class="form-input" placeholder="DD/MM/YYYY" required />
           </div>
           <div class="form-group">
-            <label for="subject" class="form-label"
-              >เรื่อง <span class="required">*</span></label
-            >
-            <input
-              type="text"
-              id="subject"
-              class="form-input"
-              placeholder="เรื่อง"
-              required
-            />
+            <label for="subject" class="form-label">เรื่อง <span class="required">*</span></label>
+            <input readonly type="text" id="subject" class="form-input" placeholder="เรื่อง" required />
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label for="full-name" class="form-label"
-              >ชื่อ-นามสกุล (ใส่คำนำหน้า) <span class="required">*</span></label
-            >
-            <input type="text" id="full_name" name="fullName" class="form-input" placeholder="ชื่อ-นามสกุล" required />
+            <label for="full-name" class="form-label">ชื่อ-นามสกุล (ใส่คำนำหน้า) <span class="required">*</span></label>
+            <input readonly type="text" id="full_name" name="fullName" class="form-input" placeholder="ชื่อ-นามสกุล" required />
           </div>
           <div class="form-group">
-            <label for="registration-number" class="form-label"
-              >เลขทะเบียน <span class="required">*</span></label
-            >
-            <input type="text" id="registration_number" name="registrationNumber" class="form-input" placeholder="เลขทะเบียน" required />
+            <label for="registration-number" class="form-label">เลขทะเบียน <span class="required">*</span></label>
+            <input readonly type="text" id="registration_number" name="registrationNumber" class="form-input"
+              placeholder="เลขทะเบียน" required />
           </div>
         </div>
 
         <div class="form-row-3">
           <div class="form-group">
-            <label for="year" class="form-label"
-              >ชั้นปี <span class="required">*</span></label
-            >
+            <label for="year" class="form-label">ชั้นปี <span class="required">*</span></label>
             <input type="text" id="year" name="year" class="form-input" placeholder="ชั้นปี" required />
           </div>
           <div class="form-group">
-            <label for="faculty" class="form-label"
-              >คณะ <span class="required">*</span></label
-            >
-            <input type="text" id="faculty" name="faculty" class="form-input" placeholder="คณะ" required />
+            <label for="faculty" class="form-label">คณะ <span class="required">*</span></label>
+            <input readonly type="text" id="faculty" name="faculty" class="form-input" placeholder="คณะ" required />
           </div>
           <div class="form-group">
-            <label for="department" class="form-label"
-              >สาขาวิชา <span class="required">*</span></label
-            >
-            <input type="text" id="department" name="department" class="form-input" placeholder="สาขาวิชา" required />
+            <label for="department" class="form-label">สาขาวิชา <span class="required">*</span></label>
+            <input readonly type="text" id="department" name="department" class="form-input" placeholder="สาขาวิชา" required />
           </div>
         </div>
 
@@ -108,7 +91,7 @@
           <label for="email" class="form-label"
             >Email <span class="required">*</span></label
           >
-          <input type="email" id="email" name="email" class="form-input" placeholder="email@example.com" required />
+          <input readonly type="email" id="email" name="email" class="form-input" placeholder="email@example.com" required />
         </div>
 
         <div class="form-row">
@@ -196,6 +179,30 @@
           <textarea id="additional_explanation" name="additionalExplanation" class="form-input explanation-box" placeholder="ชี้แจงเหตุผลเพิ่มเติม" required></textarea>
         </div>
 
+        <!-- ปุ่มแนบไฟล์ -->
+        <button id="attachButton" class="attach-button">
+          <img src="../img/tdesign_attach.png" alt="Attach Icon">
+          แนบไฟล์
+        </button>
+
+        <!-- กล่องอัปโหลด -->
+        <div id="uploadBox" class="upload-container hidden">
+          <h3>อัปโหลดไฟล์</h3>
+          <div class="upload-box">
+            <div class="icon">
+              <img src="../img/upload.png" alt="upload">
+            </div>
+            <p>Drag or drop your files here</p>
+            <button id="browseButton">browse</button>
+            <input type="file" id="fileInput" multiple hidden>
+          </div>
+        </div>
+
+        <!-- แสดงรายการไฟล์ที่แนบ -->
+        <div id="fileInfo" class="file-info hidden">
+          <p>ไฟล์ที่แนบ:</p>
+          <ul id="fileList"></ul>
+        </div>
         <div class="button-group">
           <button type="button" class="draft-button">บันทึกแบบร่าง</button>
           <button type="submit" class="submit-button">ส่งคำร้อง</button>
@@ -203,5 +210,6 @@
       </form>
     </div>
     <script src="/js/form.js"></script>
+    <script src="../js/fileattachment.js"></script>
   </body>
 </html>

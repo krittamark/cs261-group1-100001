@@ -15,7 +15,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         await loadApplicationData(applicationId);
     } else {
         // Autofill form fields if student data exists in sessionStorage for new application
-        const studentData = JSON.parse(sessionStorage.getItem("studentData") || "{}");
+        const studentData = JSON.parse(
+            sessionStorage.getItem("studentData") || "{}"
+        );
         if (Object.keys(studentData).length > 0) {
             autofillForm(studentData);
         }
@@ -31,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             faculty: data.faculty,
             department: data.department,
             email: data.email,
-            subject: formType,  // Fill subject with formType for new applications
+            subject: formType, // Fill subject with formType for new applications
         };
 
         for (const [fieldId, value] of Object.entries(fieldsToFill)) {
@@ -44,12 +46,15 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     async function loadApplicationData(applicationId) {
         try {
-            const response = await fetch(`http://localhost:8080/api/requests/${applicationId}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
+            const response = await fetch(
+                `http://localhost:8080/api/requests/${applicationId}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
 
             if (!response.ok) {
                 throw new Error("Failed to fetch application data");
@@ -62,7 +67,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             if (topicElement.includes("คำร้องลาออก")) {
                 populateResignForm(applicationData);
             } else {
-                populateForm(applicationData);  // Call the other populate function for different form types
+                populateForm(applicationData); // Call the other populate function for different form types
             }
         } catch (error) {
             console.error("Error loading application data:", error);
@@ -70,60 +75,72 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     function populateForm(data) {
-        // Basic information
-        document.getElementById("date").value = data.date || "";
-        document.getElementById("subject").value = data.formType || "";
-        document.getElementById("full_name").value = data.fullName || "";
-        document.getElementById("registration_number").value = data.registrationNumber || "";
-        document.getElementById("year").value = data.year || "";
-        document.getElementById("faculty").value = data.faculty || "";
-        document.getElementById("department").value = data.department || "";
-        document.getElementById("mobile_phone").value = data.mobilePhone || "";
-        document.getElementById("relative_mobile_phone").value = data.relativeMobilePhone || "";
-        document.getElementById("email").value = data.email || "";
-        document.getElementById("contact_address").value = data.contactAddress || "";
-        document.getElementById("advisor").value = data.advisor || "";
-        // Academic year and semester
-        document.getElementById("academic_year").value = data.academicYear || "";
-        document.getElementById("semester").value = data.semester || "";
-    
-        // Course information
-        document.getElementById("course_code").value = data.courseCode || "";
-        document.getElementById("course_name").value = data.courseName || "";
-        document.getElementById("course_section").value = data.courseSection || "";
-    
-        // Additional explanation
-        document.getElementById("additional_explanation").value = data.additionalExplanation || "";
-    
-        // Grade request
-        if (data.gradeRequest === "want") {
-            document.getElementById("want_grade").checked = true;
-        } else if (data.gradeRequest === "dont-want") {
-            document.getElementById("dont_want_grade").checked = true;
+        const fields = {
+            date: data.date,
+            subject: data.formType,
+            full_name: data.fullName,
+            registration_number: data.registrationNumber,
+            year: data.year,
+            faculty: data.faculty,
+            department: data.department,
+            mobile_phone: data.mobilePhone,
+            relative_mobile_phone: data.relativeMobilePhone,
+            email: data.email,
+            contact_address: data.contactAddress,
+            advisor: data.advisor,
+            academic_year: data.academicYear,
+            semester: data.semester,
+            course_code: data.courseCode,
+            course_name: data.courseName,
+            course_section: data.courseSection,
+            additional_explanation: data.additionalExplanation,
+            resign_year: data.resignYear,
+            debt: data.debt,
+        };
+
+        for (const [fieldId, value] of Object.entries(fields)) {
+            const input = document.getElementById(fieldId);
+            if (input) {
+                input.value = value || ""; // Populate fields with value or leave blank
+            }
         }
+
+        // Handle radio buttons for grade request
+        if (data.gradeRequest) {
+            const gradeInput = document.getElementById(
+                data.gradeRequest === "want" ? "want_grade" : "dont_want_grade"
+            );
+            if (gradeInput) gradeInput.checked = true;
+        }
+
+        console.log("Form populated with data:", data);
     }
+
     function populateResignForm(data) {
         // Basic information
         document.getElementById("date").value = data.date || "";
         document.getElementById("subject").value = data.formType || "";
         document.getElementById("full_name").value = data.fullName || "";
-        document.getElementById("registration_number").value = data.registrationNumber || "";
+        document.getElementById("registration_number").value =
+            data.registrationNumber || "";
         document.getElementById("year").value = data.year || "";
         document.getElementById("faculty").value = data.faculty || "";
         document.getElementById("department").value = data.department || "";
         document.getElementById("mobile_phone").value = data.mobilePhone || "";
-        document.getElementById("relative_mobile_phone").value = data.relativeMobilePhone || "";
+        document.getElementById("relative_mobile_phone").value =
+            data.relativeMobilePhone || "";
         document.getElementById("email").value = data.email || "";
-        document.getElementById("contact_address").value = data.contactAddress || "";
+        document.getElementById("contact_address").value =
+            data.contactAddress || "";
         document.getElementById("advisor").value = data.advisor || "";
-    
+
         // Resign year and semester
         document.getElementById("resign_year").value = data.resignYear || "";
         document.getElementById("semester").value = data.semester || "";
-    
+
         // Debt information
         document.getElementById("debt").value = data.debt || "";
-    
+
         // Grade request (radio buttons)
         if (data.gradeRequest === "want") {
             document.getElementById("want_grade").checked = true;
@@ -131,10 +148,10 @@ document.addEventListener("DOMContentLoaded", async function () {
             document.getElementById("dont_want_grade").checked = true;
         }
     }
-    
 
     // Show popup function
     function showPopup(title, message, isSuccess = true) {
+        // Create overlay
         const overlay = document.createElement("div");
         overlay.id = "popup-overlay";
         overlay.style.position = "fixed";
@@ -148,6 +165,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         overlay.style.justifyContent = "center";
         overlay.style.zIndex = 1000;
 
+        // Create popup
         const popup = document.createElement("div");
         popup.id = "popup";
         popup.style.backgroundColor = "white";
@@ -155,50 +173,52 @@ document.addEventListener("DOMContentLoaded", async function () {
         popup.style.borderRadius = "10px";
         popup.style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 0.1)";
         popup.style.textAlign = "center";
-        popup.style.width = "690px";
-        popup.style.display = "flex";
-        popup.style.flexDirection = "column";
-        popup.style.alignItems = "center";
-        popup.style.justifyContent = "center";
-        popup.style.gap = "20px";
+        popup.style.width = "400px";
 
+        // Popup content
         popup.innerHTML = `
-          <div style="width: 80px; height: 80px; background-color: ${
-              isSuccess ? "#3BAD3E" : "#d9534f"
-          }; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
-            <span style="font-size: 40px; color: white; font-weight: bold;">${
-                isSuccess ? "&#10004;" : "&#10006;"
-            }</span>
-          </div>
-          <h2 style="font-size: 35px; color: #333; margin: 0 0 10px;">${title}</h2>
-          <p style="font-size: 20px; color: #666; margin: 0 0 20px;">${message}</p>
+            <div style="margin-bottom: 20px;">
+                <span style="font-size: 40px; color: ${
+                    isSuccess ? "#3BAD3E" : "#d9534f"
+                };">
+                    ${isSuccess ? "✔" : "✘"}
+                </span>
+            </div>
+            <h2 style="margin-bottom: 10px;">${title}</h2>
+            <p style="margin-bottom: 20px;">${message}</p>
+            <button id="popup-button" style="
+                padding: 10px 20px;
+                font-size: 16px;
+                color: white;
+                background-color: ${isSuccess ? "#3BAD3E" : "#d9534f"};
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;">ตกลง</button>
         `;
 
-        const button = document.createElement("button");
-        button.innerText = "ตกลง";
-        button.style.padding = "10px 20px";
-        button.style.fontSize = "16px";
-        button.style.color = "white";
-        button.style.backgroundColor = isSuccess ? "#3BAD3E" : "#d9534f";
-        button.style.border = "none";
-        button.style.borderRadius = "5px";
-        button.style.cursor = "pointer";
-        button.style.margin = "0 auto";
-
-        button.onclick = () => {
-            document.body.removeChild(overlay);
-            if (isSuccess) window.location.href = "/index.html";
-        };
-
-        popup.appendChild(button);
+        // Append popup to overlay
         overlay.appendChild(popup);
+
+        // Add overlay to document body
         document.body.appendChild(overlay);
+
+        // Add click event listener to close the popup
+        document
+            .getElementById("popup-button")
+            .addEventListener("click", () => {
+                document.body.removeChild(overlay);
+                if (isSuccess) window.location.href = "/index.html";
+            });
+
+        console.log("Popup displayed:", { title, message, isSuccess });
     }
 
     // Enhanced form validation logic
     function validateForm(form) {
         let isValid = true;
-        form.querySelectorAll("input[required], select[required], textarea[required]").forEach((input) => {
+        form.querySelectorAll(
+            "input[required], select[required], textarea[required]"
+        ).forEach((input) => {
             if (!input.value.trim()) {
                 input.style.borderColor = "red";
                 isValid = false;
@@ -211,61 +231,97 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Form submission
     document.querySelectorAll("form.main-form").forEach((form) => {
-        form.querySelector(".draft-button").addEventListener("click", function (event) {
-            event.preventDefault();
-            const formStatus = "draft";
-            if (validateForm(form)) {
-                submitForm(form, "แบบร่างของคุณถูกบันทึกแล้ว", "แบบร่างของคุณถูกบันทึกสำเร็จ", formStatus);
-            } else {
-                showPopup("การบันทึกไม่สำเร็จ", "กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน", false);
+        form.querySelector(".draft-button").addEventListener(
+            "click",
+            function (event) {
+                event.preventDefault();
+                const formStatus = "draft";
+
+                submitForm(
+                    form,
+                    "แบบร่างของคุณถูกบันทึกแล้ว",
+                    "แบบร่างของคุณถูกบันทึกสำเร็จ",
+                    formStatus
+                );
             }
-        });
+        );
 
-        form.querySelector(".submit-button").addEventListener("click", function (event) {
-            event.preventDefault();
-            const formStatus = "pending";
-            if (validateForm(form)) {
-                submitForm(form, "การยื่นคำร้องสำเร็จ", "คำร้องของคุณกำลังรอการอนุมัติ", formStatus);
-            } else {
-                showPopup("การยื่นคำร้องไม่สำเร็จ", "กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน", false);
-            }
-        });
-
-        function submitForm(form, title, message, formStatus) {
-            const formData = {};
-            const topicElement = document.querySelector("h1.topic");
-            formData["formType"] = topicElement ? topicElement.innerText : "";
-            formData["formStatus"] = formStatus;
-
-            form.querySelectorAll("input, select, textarea").forEach((input) => {
-                const fieldName = input.name;
-                if (input.type === "radio" && input.checked) {
-                    formData[fieldName] = input.value;
-                } else if (input.type === "checkbox") {
-                    formData[fieldName] = input.checked;
-                } else if (input.type !== "radio") {
-                    formData[fieldName] = input.value;
+        form.querySelector(".submit-button").addEventListener(
+            "click",
+            function (event) {
+                event.preventDefault();
+                const formStatus = "Waiting for Advisor";
+                if (validateForm(form)) {
+                    submitForm(
+                        form,
+                        "การยื่นคำร้องสำเร็จ",
+                        "คำร้องของคุณกำลังรอการอนุมัติ",
+                        formStatus
+                    );
+                } else {
+                    showPopup(
+                        "การยื่นคำร้องไม่สำเร็จ",
+                        "กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน",
+                        false
+                    );
                 }
-            });
+            }
+        );
 
-            const method = applicationId ? "PUT" : "POST"; // Use PUT if updating, POST if creating
+        async function submitForm(form, title, message, formStatus) {
+            const formJson = {};
+
+            // Collect all input, select, and textarea values from the form
+            form.querySelectorAll("input, select, textarea").forEach(
+                (input) => {
+                    const fieldName = input.name;
+                    if (input.type === "radio" && input.checked) {
+                        formJson[fieldName] = input.value;
+                    } else if (input.type === "checkbox") {
+                        formJson[fieldName] = input.checked;
+                    } else if (input.type !== "radio") {
+                        formJson[fieldName] = input.value || "";
+                    }
+                }
+            );
+
+            // Add `formType` and `formStatus` explicitly to avoid conflicts
+            const topicElement = document.querySelector("h1.topic");
+            formJson["formType"] = topicElement
+                ? topicElement.textContent.trim()
+                : "";
+            formJson["formStatus"] = formStatus;
+
+            console.log("Submitting form data:", formJson);
+
+            const method = applicationId ? "PUT" : "POST";
             const url = applicationId
                 ? `http://localhost:8080/api/requests/${applicationId}`
-                : "http://localhost:8080/api/requests";
+                : `http://localhost:8080/api/requests`;
 
-            fetch(url, {
-                method: method,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
-            })
-                .then((response) => {
-                    if (!response.ok) throw new Error("Network response was not ok");
-                    return response.json();
-                })
-                .then((data) => showPopup(title, message))
-                .catch((error) => showPopup("การยื่นคำร้องไม่สำเร็จ", "เกิดข้อผิดพลาดในการส่งคำร้อง", false));
+            try {
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(formJson),
+                });
+
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+
+                const data = await response.json();
+                showPopup(title, message);
+            } catch (error) {
+                console.error("Error submitting form:", error);
+                showPopup(
+                    "การยื่นคำร้องไม่สำเร็จ",
+                    "เกิดข้อผิดพลาดในการส่งคำร้อง",
+                    false
+                );
+            }
         }
     });
 });
