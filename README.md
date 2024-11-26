@@ -26,7 +26,7 @@ project-root/
 │   ├── package-lock.json
 │   ├── sever.js
 │   ├── public/
-│   └──
+│   └── ...
 ├── backend/
 │   ├── .metadata/
 │   ├── .mvn/wrapper/
