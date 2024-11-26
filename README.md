@@ -23,8 +23,17 @@ This repository contains the frontend and backend code for our CS261 project. Th
 project-root/
 ├── frontend/
 │   ├── package.json
-│   └── ...
+│   ├── package-lock.json
+│   ├── sever.js
+│   ├── public/
+│   └──
 ├── backend/
+│   ├── .metadata/
+│   ├── .mvn/wrapper/
+│   ├── src/
+│   ├── target
+│   └── ...
+├── init-scripts/
 ├── docker-compose.yml
 └── ...
 ```
