@@ -33,7 +33,7 @@ services:
       ACCEPT_EULA: Y
     volumes:
       - ./init-scripts:/docker-entrypoint-initdb.d
-    command: /opt/mssql/bin/sqlservr & /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "${SA_PASSWORD}" -i /docker-entrypoint-initdb.d/startup.sql -C
+    command: /opt/mssql/bin/sqlservr && /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "${SA_PASSWORD}" -i /docker-entrypoint-initdb.d/startup.sql -C
 
   frontend:
     build: ./frontend
@@ -49,13 +49,23 @@ services:
   backend:
     build: ./backend
     container_name: backend
+    working_dir: /usr/app
     restart: always
-    ports:
-      - "8080:8080"
     depends_on:
       - mssql
     networks:
       - kong-net
+
+  backend-node:
+    build: ./backend-node
+    container_name: backend-node
+    entrypoint: 
+    command: npm start
+    volumes:
+      - ./backend-node:/usr/app
+    networks:
+      - kong-net
+
   kong-database:
     image: postgres:16.2
     environment:
