@@ -20,7 +20,7 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/", requestsRouter);
+app.use("/api/requests", requestsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
