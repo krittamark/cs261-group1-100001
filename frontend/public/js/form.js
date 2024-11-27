@@ -324,7 +324,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         formData.append("files", file);
       });
 
-      fetch(`http://localhost:3001/api/requests/${applicationId}/attachments`, {
+      fetch(`/api/requests/${applicationId}/attachments`, {
         method: "POST",
         body: formData,
       })

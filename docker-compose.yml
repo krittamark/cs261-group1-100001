@@ -1,13 +1,8 @@
-
-x-kong-config:
-  &kong-env
-  KONG_PG_DATABASE: ${KONG_PG_DATABASE:-kong}
-  KONG_PG_HOST: kong-database
-  KONG_PG_USER: ${KONG_PG_USER:-kong}
-  KONG_PG_PASSWORD: ${KONG_PG_PASSWORD:-kong}
+version: "3.9"
 
 volumes:
-  kong_data: {}
+  mssql_data: {} # Persistent volume for MSSQL data
+  kong_data: {} # Persistent volume for Kong database
   kong_prefix_vol:
     driver_opts:
       type: tmpfs
@@ -17,68 +12,39 @@ volumes:
       type: tmpfs
       device: tmpfs
 
-
-x-kong-config:
-  &kong-env
-  KONG_PG_DATABASE: ${KONG_PG_DATABASE:-kong}
-  KONG_PG_HOST: kong-database
-  KONG_PG_USER: ${KONG_PG_USER:-kong}
-  KONG_PG_PASSWORD: ${KONG_PG_PASSWORD:-kong}
-
-volumes:
-  kong_data: {}
-  kong_prefix_vol:
-    driver_opts:
-      type: tmpfs
-      device: tmpfs
-  kong_tmp_vol:
-    driver_opts:
-      type: tmpfs
-      device: tmpfs
+networks:
+  kong-net:
+    external: false
 
 services:
-
   mssql:
     image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: mssql
     ports:
       - "1433:1433"
-    env_file:
-      - .env
+    environment:
+      SA_PASSWORD: cs261myPassword1234
+      ACCEPT_EULA: Y
     networks:
       - kong-net
-    environment:
-      SA_PASSWORD: ${SA_PASSWORD}
-      ACCEPT_EULA: Y
     volumes:
-      - ./init-scripts:/docker-entrypoint-initdb.d
-    command: /opt/mssql/bin/sqlservr & /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "${SA_PASSWORD}" -i /docker-entrypoint-initdb.d/startup.sql -C
-    networks:
-      - webnet
+      - mssql_data:/var/opt/mssql # Persist database data
+      - ./init-scripts:/docker-entrypoint-initdb.d # Mount initialization scripts
 
   frontend:
     build: ./frontend
     container_name: frontend
     ports:
       - "3000:3000"
-    volumes:
-      - ./frontend/public:/usr/app/public
-    command: npm start
     networks:
       - kong-net
 
   backend:
     build: ./backend
     container_name: backend
-    working_dir: /usr/app
-    restart: always
+    ports:
+      - "8080:8080"
     depends_on:
       - mssql
     networks:
-      - webnet
-
-
-# network
-networks:
-  kong-net:
-    external: false
+      - kong-net
