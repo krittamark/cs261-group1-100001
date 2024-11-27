@@ -154,35 +154,24 @@
           <textarea id="additional_explanation" name="additionalExplanation" class="form-input explanation-box"
             placeholder="ชี้แจงเหตุผลเพิ่มเติม" required></textarea>
         </div>
+  <!-- กล่องอัปโหลด -->
+  <div id="uploadBox" class="upload-container">
+    <h3>อัปโหลดไฟล์</h3>
+    <div class="upload-box">
+      <div class="icon">
+        <img src="../img/upload.png" alt="upload">
+      </div>
+      <p>Drag or drop your files here</p>
+      <button id="browseButton">browse</button>
+      <input type="file" id="fileInput" multiple hidden>
+    </div>
+  </div>
 
-        <!-- ปุ่มแนบไฟล์ -->
-          <button id="attachButton" class="attach-button">
-            <img src="../img/tdesign_attach.png" alt="Attach Icon">
-            แนบไฟล์
-          </button>
-
-          <!-- กล่องอัปโหลด -->
-          <div id="uploadBox" class="upload-container hidden">
-            <h3>อัปโหลดไฟล์</h3>
-            <div class="upload-box">
-              <div class="icon">
-                <img src="../img/upload.png" alt="Upload Icon">
-              </div>
-              <p>ลากหรือวางไฟล์ของคุณที่นี่</p>
-              <button id="browseButton" type="button" class="browse-button">เลือกไฟล์</button>
-              <input type="file" id="fileInput" multiple hidden accept=".pdf,.jpeg,.jpg,.png">
-            </div>
-          </div>
-
-          <!-- แสดงรายการไฟล์ที่แนบ -->
-          <div id="fileInfo" class="file-info hidden">
-            <p>ไฟล์ที่แนบ:</p>
-            <ul id="fileList"></ul>
-          </div>
-
-          <!-- ปุ่มอัปโหลดไฟล์ -->
-          <button id="submitFilesButton" class="submit-files-button hidden">อัปโหลดไฟล์</button>
-
+  <!-- แสดงรายการไฟล์ที่แนบ -->
+  <div id="fileInfo" class="file-info">
+    <p>ไฟล์ที่แนบ:</p>
+    <ul id="fileList"></ul>
+  </div>
           <div class="button-group">
             <button type="button" class="approve-button">อนุมัติ</button>
             <button type="button" class="reject-button">ไม่อนุมัติ</button>
