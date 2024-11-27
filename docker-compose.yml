@@ -38,6 +38,8 @@ services:
             - "3000:3000"
         networks:
             - kong-net
+        volumes:
+            - ./frontend:/usr/app
 
     backend:
         build: ./backend

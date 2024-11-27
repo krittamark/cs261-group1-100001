@@ -197,6 +197,19 @@
           <textarea id="additional_explanation" name="additionalExplanation" class="form-input explanation-box" placeholder="ชี้แจงเหตุผลเพิ่มเติม" required></textarea>
         </div>
 
+  <!-- กล่องอัปโหลด -->
+  <div id="uploadBox" class="upload-container hidden">
+    <h3>อัปโหลดไฟล์</h3>
+    <div class="upload-box">
+      <div class="icon">
+        <img src="../img/upload.png" alt="upload">
+      </div>
+      <p>Drag or drop your files here</p>
+      <button id="browseButton">browse</button>
+      <input type="file" id="fileInput" multiple hidden>
+    </div>
+  </div>
+
   <!-- แสดงรายการไฟล์ที่แนบ -->
   <div id="fileInfo" class="file-info">
     <p>ไฟล์ที่แนบ:</p>
