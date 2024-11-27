@@ -109,12 +109,12 @@ function removeFile(fileName, listItem, fileURL) {
     return;
   }
 
-  const response = await fetch(`/api/requests/${applicationID}/attachments`);
+  const response = await fetch(`http://localhost:3001/api/requests/${applicationID}/attachments`);
   const data = await response.json();
 
   if (data.length > 0) {
     data.forEach((file, index) => {
-      fetch(`/api/requests/${applicationID}attachments/${index}`)
+      fetch(`http://localhost:3001/api/requests/${applicationID}attachments/${index}`)
         .then((response) => response.blob())
         .then((blob) => {
           const fileURL = URL.createObjectURL(blob);
