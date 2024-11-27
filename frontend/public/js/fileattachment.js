@@ -114,11 +114,11 @@ function removeFile(fileName, listItem, fileURL) {
 
   if (data.length > 0) {
     data.forEach((file, index) => {
-      fetch(`http://localhost:3001/api/requests/${applicationID}attachments/${index}`)
+      fetch(`http://localhost:3001/api/requests/${applicationID}/attachments/${index}`)
         .then((response) => response.blob())
         .then((blob) => {
           const fileURL = URL.createObjectURL(blob);
-          const fileData = new File([blob], file.name, { type: file.type });
+          const fileData = new File([blob], data[index], { type: file.type });
           uploadedFiles.push(fileData);
           addFileToList(fileData);
         });

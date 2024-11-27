@@ -2,6 +2,7 @@ const express = require("express");
 const fileUpload = require("express-fileupload");
 const app = express();
 const requestsRouter = require("./routes/requests");
+const cors = require("cors");
 
 const PORT = 3001;
 
@@ -18,6 +19,7 @@ app.use(
   })
 );
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/requests", requestsRouter);

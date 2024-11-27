@@ -298,7 +298,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formJson),
       })
         .then((response) => {
           if (!response.ok) throw new Error("Network response was not ok");
